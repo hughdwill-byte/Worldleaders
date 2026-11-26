@@ -66,3 +66,25 @@
 {"turn":1,"type":"refugees","countries":["COD","AGO","BDI","CAF"],"text":"248k refugees flee Democratic Republic of the Congo this month."}
 {"turn":1,"type":"disaster","countries":["TON"],"text":"A wildfire strikes Tonga (Eua).","data":{"region":4483}}
 {"turn":1,"type":"headline","countries":["SOM"],"text":"Somali Insurgency Subsides Amid Unresolved Grievances Over Jobs and Repression | slogan: Jobs and freedom, silence the guns!","data":{"about":"unrest_insurgency"}}
+{"turn":2,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":2,"type":"aid","countries":["DEU","UKR"],"text":"Germany provides $500m in aid to Ukraine."}
+{"turn":2,"type":"trade_deal","countries":["GMB","NGA"],"text":"Gambia and Nigeria sign a trade agreement."}
+{"turn":2,"type":"trade_deal","countries":["GNQ","AGO"],"text":"Equatorial Guinea and Angola sign a trade agreement."}
+{"turn":2,"type":"trade_deal","countries":["NER","BFA"],"text":"Niger and Burkina Faso sign a trade agreement."}
+{"turn":2,"type":"trade_deal","countries":["NPL","KOR"],"text":"Nepal and South Korea sign a trade agreement."}
+{"turn":2,"type":"imf_loan","countries":["PSE"],"text":"The IMF approves a $0.0bn programme for Palestine, with austerity conditions."}
+{"turn":2,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":2,"type":"aid","countries":["USA","UKR"],"text":"United States provides $1000m in aid to Ukraine."}
+{"turn":2,"type":"trade_deal","countries":["VCT","BRA"],"text":"Saint Vincent and the Grenadines and Brazil sign a trade agreement."}
+{"turn":2,"type":"internet_shutdown","countries":["YEM"],"text":"Authorities in Yemen shut down the internet."}
+{"turn":2,"type":"debt_crisis","countries":["SDN"],"text":"Sudan hits its borrowing limit; emergency spending cuts imposed."}
+{"turn":2,"type":"debt_crisis","countries":["PSE"],"text":"Palestine hits its borrowing limit; emergency spending cuts imposed."}
+{"turn":2,"type":"scandal","countries":["BEL"],"text":"A corruption scandal engulfs the government of Belgium."}
+{"turn":2,"type":"election","countries":["GEO"],"text":"Legislative elections in Georgia: government-aligned parties win 67% of seats."}
+{"turn":2,"type":"scandal","countries":["GTM"],"text":"A corruption scandal engulfs the government of Guatemala."}
+{"turn":2,"type":"election","countries":["IDN"],"text":"Legislative elections in Indonesia: government-aligned parties win 70% of seats."}
+{"turn":2,"type":"election","countries":["LBY"],"text":"Legislative elections in Libya: government-aligned parties win 64% of seats."}
+{"turn":2,"type":"election","countries":["MDV"],"text":"Legislative elections in Maldives: government-aligned parties win 51% of seats."}
+{"turn":2,"type":"scandal","countries":["MDA"],"text":"A corruption scandal engulfs the government of Moldova."}
+{"turn":2,"type":"scandal","countries":["MNG"],"text":"A corruption scandal engulfs the government of Mongolia."}
+{"turn":2,"type":"terror_attack","countries":["SYR"],"text":"Terrorist attack in Syria."}
