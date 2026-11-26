@@ -92,6 +92,22 @@ Each night:
 
 The workflow also runs on a schedule at 08:05 UTC, just after the Gemini free quota resets at midnight Pacific time (about 7pm Melbourne). To turn the schedule off, delete the `schedule:` lines in `.github/workflows/simulate.yml`. Two jobs never write at once (`concurrency`). A run in progress is locked in `meta.json`, and a stale lock can be overridden with `force`.
 
+## Run months straight from the website
+
+On the GitHub Pages site, the buttons at the top run the simulation for you:
+- **▶ Next month** runs one month.
+- Type a number in the box next to it and press **Run N months** to run up to 24 months at once.
+
+The page shows progress ("Simulating… → Publishing…") and loads the new months when they're published, usually 3–10 minutes for a single month.
+
+The first time on each device, the page asks for a GitHub token:
+1. Go to **GitHub → Settings → Developer settings → Fine-grained tokens → Generate new token**.
+2. Under **Repository access**, choose **Only select repositories** and pick this repo.
+3. Under **Permissions**, set **Actions** to **Read and write**. Leave everything else off.
+4. Paste the token into the page.
+
+The token is stored only in that browser. Use the ⚙ button to replace or forget it.
+
 ## How to see results in the morning
 
 ```bash

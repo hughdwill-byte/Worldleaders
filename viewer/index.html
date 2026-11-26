@@ -11,8 +11,13 @@
     <h1>World Governance</h1>
     <label>Run <select id="runSel" aria-label="Run"></select></label>
     <div id="month" aria-live="polite">—</div>
-    <span id="ghRunWrap" hidden><a id="ghRun" class="btnlink" target="_blank" rel="noopener">▶ Run next month</a>
-      <span class="muted hint">Opens GitHub: tap <b>Run workflow</b>. This page updates about 5 minutes after it finishes.</span></span>
+    <span id="ghWrap" hidden>
+      <button id="ghNext" class="go">▶ Next month</button>
+      <label class="hint" title="How many months to simulate in one go (max 24). Each month uses about 20 of the ~250 free Gemini requests per day in dev mode.">or <input id="ghN" type="number" min="1" max="24" value="3" aria-label="Months to run" /></label>
+      <button id="ghRunN">Run 3 months</button>
+      <button id="ghTok" title="GitHub token settings" aria-label="GitHub token settings">⚙</button>
+      <span id="ghStatus" class="hint" aria-live="polite"></span>
+    </span>
     <div id="controls" hidden>
       <button id="btnNext" title="Resolve the next month">Next month</button>
       <input id="nTurns" type="number" min="1" value="6" aria-label="Months to run" />
@@ -56,6 +61,20 @@
     <input id="slider" type="range" min="0" max="0" value="0" aria-label="Month" />
     <span id="sliderLabel"></span>
   </footer>
+  <dialog id="tokDlg">
+    <h3 style="margin-top:0">Connect this page to GitHub</h3>
+    <p>To run months from this page, paste a GitHub token that can only start this repo's simulation. It is stored in this browser only (never on the website or in the repo). You do this once per device.</p>
+    <ol>
+      <li>Open <a id="tokLink" target="_blank" rel="noopener" href="https://github.com/settings/personal-access-tokens/new">GitHub → new fine-grained token</a>.</li>
+      <li>Name it e.g. <i>worldleaders runner</i>, pick an expiry.</li>
+      <li><b>Repository access:</b> Only select repositories → <b id="tokRepo">Worldleaders</b>.</li>
+      <li><b>Permissions → Repository permissions → Actions:</b> Read and write. Nothing else.</li>
+      <li>Generate, copy, paste below.</li>
+    </ol>
+    <input id="tokIn" type="password" placeholder="github_pat_…" autocomplete="off" style="width:100%" />
+    <p class="muted" id="tokMsg"></p>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button id="tokForget">Forget token</button><button id="tokCancel">Cancel</button><button id="tokSave" class="go">Save</button></div>
+  </dialog>
   <script type="module" src="./src/main.ts"></script>
 </body>
 </html>

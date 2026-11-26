@@ -419,8 +419,9 @@ async function goTo(t: number) {
 
 async function loadRun(id: string, keepTurn = false) {
   S.run = S.runs.find(r => r.id === id) ?? await getJSON(`./runs/${id}/meta.json`);
-  S.series = await getJSON(`./runs/${id}/series.json`);
-  const txt = await (await fetch(`./runs/${id}/events.jsonl`, { cache: 'no-cache' })).text();
+  const v = `?v=${Date.now()}`; // bust the GitHub Pages CDN cache (these files change as months are added)
+  S.series = await getJSON(`./runs/${id}/series.json${v}`);
+  const txt = await (await fetch(`./runs/${id}/events.jsonl${v}`, { cache: 'no-cache' })).text();
   S.events = txt.split('\n').filter(Boolean).map(l => JSON.parse(l));
   ($('#slider') as HTMLInputElement).max = String(S.run.lastTurn);
   S.prevWorld = null;
@@ -428,7 +429,7 @@ async function loadRun(id: string, keepTurn = false) {
 }
 
 async function refreshRuns(select?: string) {
-  S.runs = S.server ? await getJSON('./api/runs') : await getJSON('./runs/index.json').catch(() => []);
+  S.runs = S.server ? await getJSON('./api/runs') : await getJSON(`./runs/index.json?v=${Date.now()}`).catch(() => []);
   $('#runSel').innerHTML = S.runs.map(r => `<option value="${esc(r.id)}">${esc(r.name)} · ${r.lastTurn} mo${r.parent ? ' · branch' : ''}</option>`).join('');
   // default: newest real run with months simulated (test runs never shown); fall back if one fails to load
   S.runs = S.runs.filter(r => !r.name.startsWith('selfcheck'));
@@ -472,6 +473,82 @@ function wireControls() {
   api('status').then(s => { if (s.running) startPolling(); });
 }
 
+// ---------- run controls on GitHub Pages (static site) ----------
+// The page asks GitHub Actions to run the simulate workflow, using a fine-grained token the user pastes once.
+// The token stays in this browser's localStorage; it only needs Actions read/write on this one repo.
+function wireGithub() {
+  const owner = location.hostname.split('.')[0], repo = location.pathname.split('/').filter(Boolean)[0];
+  const KEY = `wl-gh-token:${owner}/${repo}`;
+  const store = { get: () => { try { return localStorage.getItem(KEY); } catch { return null; } }, set: (v: string) => { try { localStorage.setItem(KEY, v); } catch { /* private mode */ } }, clear: () => { try { localStorage.removeItem(KEY); } catch { /* ignore */ } } };
+  let memToken: string | null = null; // fallback when storage is blocked
+  const token = () => store.get() ?? memToken;
+  const status = (html: string) => { $('#ghStatus').innerHTML = html; };
+  const busy = (on: boolean) => { for (const id of ['#ghNext', '#ghRunN']) ($(id) as HTMLButtonElement).disabled = on; };
+  const api = (path: string, init: RequestInit = {}) => fetch(`https://api.github.com/repos/${owner}/${repo}/${path}`, { ...init, headers: { authorization: `Bearer ${token()}`, accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28', ...(init.body ? { 'content-type': 'application/json' } : {}) } });
+  const dlg = $<HTMLDialogElement>('#tokDlg');
+  $('#tokRepo').textContent = repo;
+  const askToken = (msg = '') => { $('#tokMsg').textContent = msg; ($('#tokIn') as HTMLInputElement).value = ''; dlg.showModal(); };
+  $('#tokCancel').onclick = () => dlg.close();
+  $('#tokForget').onclick = () => { store.clear(); memToken = null; dlg.close(); status('Token forgotten.'); };
+  $('#tokSave').onclick = async () => {
+    const v = ($('#tokIn') as HTMLInputElement).value.trim(); if (!v) return;
+    memToken = v; store.set(v);
+    const r = await api('actions/workflows/simulate.yml').catch(() => null);
+    if (r?.ok) { dlg.close(); status('Connected to GitHub ✓'); }
+    else { $('#tokMsg').textContent = `GitHub rejected that token (${r?.status ?? 'network error'}). Check it has Actions: Read and write on ${repo}.`; store.clear(); memToken = null; }
+  };
+  $('#ghTok').onclick = () => askToken(token() ? 'A token is saved. Paste a new one to replace it, or forget it.' : '');
+  const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+  const fresh = (u: string) => getJSON(`${u}?v=${Date.now()}`); // bust the Pages CDN cache
+
+  async function run(months: number) {
+    if (!token()) return askToken();
+    if (!S.run) return;
+    busy(true);
+    const runId = S.run.id, before = S.run.lastTurn, since = Date.now() - 60_000;
+    try {
+      const r = await api('actions/workflows/simulate.yml/dispatches', { method: 'POST', body: JSON.stringify({ ref: 'main', inputs: { runId, turns: String(months) } }) });
+      if (r.status === 401 || r.status === 403 || r.status === 404) { askToken(`GitHub refused (${r.status}). The token may have expired or lack Actions: Read and write.`); return; }
+      if (!r.ok) { status(`<span class="bad">Could not start: ${r.status}</span>`); return; }
+      status(`Starting ${months} month${months > 1 ? 's' : ''}…`);
+      // 1) wait for the simulate run to finish
+      let ghRun: any = null; const t0 = Date.now();
+      while (Date.now() - t0 < 6 * 3600_000) {
+        await sleep(15_000);
+        const j = await (await api('actions/workflows/simulate.yml/runs?event=workflow_dispatch&per_page=5')).json().catch(() => null);
+        ghRun = j?.workflow_runs?.find((x: any) => Date.parse(x.created_at) >= since) ?? ghRun;
+        const mins = Math.round((Date.now() - t0) / 60000);
+        if (!ghRun) { status(`Queued… (${mins} min)`); continue; }
+        if (ghRun.status !== 'completed') { status(`Simulating ${months} month${months > 1 ? 's' : ''}… (${mins} min) <a href="${ghRun.html_url}" target="_blank" rel="noopener">details</a>`); continue; }
+        break;
+      }
+      if (!ghRun || ghRun.conclusion !== 'success') { status(`<span class="bad">Run ${ghRun?.conclusion ?? 'timed out'}.</span> ${ghRun ? `<a href="${ghRun.html_url}" target="_blank" rel="noopener">See what happened</a>` : ''}`); return; }
+      // 2) wait for the website to republish with the new months
+      for (let i = 0; i < 60; i++) {
+        status(`Publishing to the website… (${i * 10}s)`);
+        await sleep(10_000);
+        const idx = await fresh('./runs/index.json').catch(() => null);
+        const m = idx?.find((x: any) => x.id === runId);
+        if (m && m.lastTurn > before) {
+          S.cache.clear(); await refreshRuns(runId);
+          const added = m.lastTurn - before;
+          status(`<span class="good">✓ ${added} new month${added > 1 ? 's' : ''}: now ${esc(monthLabel(m.startDate, m.lastTurn))}</span>${m.stoppedReason && m.stoppedReason !== 'done' ? ` <span class="warn">(stopped early: ${esc(m.stoppedReason.replace('_', ' '))})</span>` : ''}`);
+          return;
+        }
+        if (m && i > 6 && m.lastTurn === before && m.stoppedReason && m.stoppedReason !== 'done') { status(`<span class="warn">No new month: ${esc(m.stoppedReason.replace('_', ' '))}. Try again later.</span>`); return; }
+      }
+      status('<span class="warn">Simulation finished but the website has not updated yet. Refresh in a few minutes.</span>');
+    } catch (e) { status(`<span class="bad">${esc((e as Error).message)}</span>`); }
+    finally { busy(false); }
+  }
+  $('#ghNext').onclick = () => run(1);
+  const nMonths = () => Math.max(1, Math.min(24, Number(($('#ghN') as HTMLInputElement).value) || 1));
+  $('#ghN').oninput = () => { $('#ghRunN').textContent = `Run ${nMonths()} month${nMonths() > 1 ? 's' : ''}`; };
+  $('#ghRunN').onclick = () => run(nMonths());
+  $('#ghWrap').hidden = false;
+  status(token() ? '' : 'First time: you will be asked for a GitHub token.');
+}
+
 // ---------- boot ----------
 async function boot() {
   $('#layerSel').innerHTML = Object.entries(LAYERS).map(([k, l]) => `<option value="${k}">${l.label}</option>`).join('');
@@ -497,12 +574,7 @@ async function boot() {
   await new Promise<void>(r => map.loaded() ? r() : map.on('load', () => r()));
   setupMap();
   if (S.server) wireControls();
-  else if (location.hostname.endsWith('github.io')) {
-    // static site: running needs the API key, so link to the repo's simulate workflow (one tap = one month)
-    const owner = location.hostname.split('.')[0], repo = location.pathname.split('/').filter(Boolean)[0];
-    $<HTMLAnchorElement>('#ghRun').href = `https://github.com/${owner}/${repo}/actions/workflows/simulate.yml`;
-    $('#ghRunWrap').hidden = false;
-  }
+  else if (location.hostname.endsWith('github.io')) wireGithub();
   await refreshRuns();
   showEstimate();
 }

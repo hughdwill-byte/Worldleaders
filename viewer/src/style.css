@@ -1,5 +1,6 @@
 @import 'maplibre-gl/dist/maplibre-gl.css';
 @import 'uplot/dist/uPlot.min.css';
+[hidden] { display: none !important; }
 :root { --bg: #0e1116; --panel: #161b22; --line: #2a313c; --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --bad: #f85149; --good: #3fb950; --warn: #d29922; color-scheme: dark; }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
@@ -8,6 +9,12 @@ header { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding
 h1 { font-size: 16px; margin: 0 8px 0 0; letter-spacing: .02em; }
 #month { font-size: 18px; font-weight: 600; min-width: 150px; }
 #controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+button.go { background: #238636; border-color: #2ea043; color: #fff; font-weight: 600; } button.go:hover { background: #2ea043; }
+button:disabled { opacity: .5; cursor: progress; }
+#ghN { width: 52px; }
+dialog { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 10px; max-width: 520px; width: calc(100% - 32px); }
+dialog::backdrop { background: #0008; }
+dialog a { color: var(--accent); }
 .btnlink { display: inline-block; background: #238636; color: #fff; text-decoration: none; border-radius: 6px; padding: 5px 12px; font-weight: 600; }
 .btnlink:hover { background: #2ea043; }
 .hint { font-size: 12px; margin-left: 6px; }
