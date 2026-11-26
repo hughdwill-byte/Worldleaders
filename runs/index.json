@@ -35,5 +35,58 @@
   "costUsd": 0,
   "requests": 0,
   "stoppedReason": "done"
+ },
+ {
+  "id": "gemini-dev-202611260645",
+  "name": "gemini dev",
+  "seed": 968165144,
+  "createdAt": "2026-11-26T06:45:47.439Z",
+  "startDate": "2026-11",
+  "provider": "gemini",
+  "model": "gemini-3-flash-preview",
+  "countries": "dev",
+  "parent": null,
+  "preset": null,
+  "lastTurn": 0,
+  "lock": {
+   "by": "vm",
+   "since": "2026-11-26T06:45:47.550Z"
+  },
+  "costUsd": 0,
+  "requests": 2
+ },
+ {
+  "id": "selfcheck-a-202611260647",
+  "name": "selfcheck-a",
+  "seed": 42,
+  "createdAt": "2026-11-26T06:47:22.646Z",
+  "startDate": "2026-11",
+  "provider": "mock",
+  "model": "mock",
+  "countries": "all",
+  "parent": null,
+  "preset": null,
+  "lastTurn": 3,
+  "lock": null,
+  "costUsd": 0,
+  "requests": 0,
+  "stoppedReason": "done"
+ },
+ {
+  "id": "selfcheck-b-202611260647",
+  "name": "selfcheck-b",
+  "seed": 42,
+  "createdAt": "2026-11-26T06:47:22.886Z",
+  "startDate": "2026-11",
+  "provider": "mock",
+  "model": "mock",
+  "countries": "all",
+  "parent": null,
+  "preset": null,
+  "lastTurn": 3,
+  "lock": null,
+  "costUsd": 0,
+  "requests": 0,
+  "stoppedReason": "done"
  }
 ]
