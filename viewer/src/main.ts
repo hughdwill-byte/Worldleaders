@@ -309,19 +309,48 @@ async function renderCountry() {
   el.querySelectorAll<HTMLElement>('.stat').forEach(s => s.onclick = () => { metric = s.dataset.metric!; draw(); });
 }
 
+// event categories: colour + symbol, so kinds of news are recognisable at a glance
+const CATS: Record<string, { label: string; icon: string; col: string; types: RegExp }> = {
+  war: { label: 'War', icon: '⚔', col: '#f85149', types: /^(war_|region_captured|capital_fallen|ally_joins_war|annexation|mobilization|deployment|blockade|chokepoint_closed|nuclear_threat|cession|withdrawal)/ },
+  power: { label: 'Power', icon: '♛', col: '#bc8cff', types: /^(coup|regime_|independence|assassination|constitution|defection|purge|country_extinguished)/ },
+  unrest: { label: 'Unrest', icon: '✊', col: '#f0883e', types: /^(unrest_|civil_war|insurgency|separatism|resistance|discontent_erupts|terror_attack|internet_shutdown)/ },
+  economy: { label: 'Economy', icon: '$', col: '#e3b341', types: /^(financial_crisis|debt_crisis|imf_loan|oil_shock|crop_failure|trade_deal|sanctions|aid|arms_sale)/ },
+  diplomacy: { label: 'Diplomacy', icon: '✉', col: '#58a6ff', types: /^(alliance|un_|org_|recognition|covert_op_exposed)/ },
+  disaster: { label: 'Disaster', icon: '☂', col: '#39c5cf', types: /^(disaster|pandemic|refugees)/ },
+  politics: { label: 'Politics', icon: '⚖', col: '#3fb950', types: /^(election|legislature_blocks|court_strikes|scandal|concessions|reforms|autonomy|amendment_failed|capital_relocated)/ },
+  ai: { label: 'AI', icon: '✦', col: '#e6edf3', types: /^(suspects_simulation|agent_fallback)/ },
+  news: { label: 'Headlines', icon: '❝', col: '#8b949e', types: /^headline/ },
+};
+const catOf = (type: string) => Object.entries(CATS).find(([, c]) => c.types.test(type))?.[0] ?? 'politics';
+
 function renderEvents() {
   const el = $('#tab-events');
-  const types = [...new Set(S.events.map(e => e.type))].sort();
-  const prev = { c: ($('#fC') as HTMLInputElement | null)?.value ?? '', t: ($('#fT') as HTMLSelectElement | null)?.value ?? '', q: ($('#fQ') as HTMLInputElement | null)?.value ?? '', a: ($('#fA') as HTMLInputElement | null)?.value ?? '0', b: ($('#fB') as HTMLInputElement | null)?.value ?? String(S.run?.lastTurn ?? 0), m: ($('#fM') as HTMLInputElement | null)?.checked ?? false };
+  const v = (id: string) => ($('#' + id) as HTMLInputElement | null);
+  const prev = { c: v('fC')?.value ?? '', k: v('fK')?.value ?? '', q: v('fQ')?.value ?? '', a: v('fA')?.value ?? '0', b: v('fB')?.value ?? String(S.run?.lastTurn ?? 0), m: v('fM')?.checked ?? false };
   el.innerHTML = `<div class="filters">
-    <input id="fC" placeholder="Country (ISO3)" value="${esc(prev.c || S.selected || '')}" /><select id="fT"><option value="">all types</option>${types.map(t => `<option ${t === prev.t ? 'selected' : ''}>${t}</option>`).join('')}</select>
+    <input id="fC" placeholder="Country (ISO3)" value="${esc(prev.c || S.selected || '')}" />
+    <select id="fK"><option value="">all kinds</option>${Object.entries(CATS).map(([k, c]) => `<option value="${k}" ${k === prev.k ? 'selected' : ''}>${c.icon} ${c.label}</option>`).join('')}</select>
     <input id="fA" type="number" min="0" value="${esc(prev.a)}" title="from month #" /><input id="fB" type="number" min="0" value="${esc(prev.b)}" title="to month #" />
-    <input id="fQ" placeholder="Search text" value="${esc(prev.q)}" /><label><input id="fM" type="checkbox" ${prev.m ? 'checked' : ''}/> major only</label></div><div id="evList"></div>`;
+    <input id="fQ" placeholder="Search text" value="${esc(prev.q)}" /><label class="majorOnly"><input id="fM" type="checkbox" ${prev.m ? 'checked' : ''}/> ★ major only</label></div>
+    <div class="evLegend">${Object.values(CATS).map(c => `<span style="--c:${c.col}">${c.icon} ${c.label}</span>`).join('')}</div><div id="evList"></div>`;
   const list = () => {
-    const c = ($('#fC') as HTMLInputElement).value.trim().toUpperCase(), t = ($('#fT') as HTMLSelectElement).value, q = ($('#fQ') as HTMLInputElement).value.toLowerCase();
-    const a = Number(($('#fA') as HTMLInputElement).value), b = Number(($('#fB') as HTMLInputElement).value), m = ($('#fM') as HTMLInputElement).checked;
-    const xs = S.events.filter(e => (!c || e.countries.includes(c)) && (!t || e.type === t) && e.turn >= a && e.turn <= b && (!m || e.major) && (!q || e.text.toLowerCase().includes(q))).slice(-400).reverse();
-    $('#evList').innerHTML = xs.map((e, i) => `<div class="ev ${e.major ? 'major' : ''}" data-i="${i}"><div class="t">${esc(monthLabel(S.run.startDate, e.turn))} · ${esc(e.type)}</div>${esc(e.text)}</div>`).join('') || '<p class="muted">No events.</p>';
+    const c = v('fC')!.value.trim().toUpperCase(), k = v('fK')!.value, q = v('fQ')!.value.toLowerCase();
+    const a = Number(v('fA')!.value), b = Number(v('fB')!.value), m = v('fM')!.checked;
+    const xs = S.events.filter(e => (!c || e.countries.includes(c)) && (!k || catOf(e.type) === k) && e.turn >= a && e.turn <= b && (!m || e.major) && (!q || e.text.toLowerCase().includes(q))).slice(-600).reverse();
+    // group by month, major events first within each month
+    const months = [...new Set(xs.map(e => e.turn))];
+    let html = '';
+    for (const t of months) {
+      const ev = xs.filter(e => e.turn === t).sort((p, q2) => Number(!!q2.major) - Number(!!p.major));
+      const nMaj = ev.filter(e => e.major).length;
+      html += `<div class="evMonth"><span>${esc(monthLabel(S.run.startDate, t))}</span><span>${nMaj ? `<b>★ ${nMaj} major</b> · ` : ''}${ev.length - nMaj} other</span></div>`;
+      html += ev.map(e => {
+        const cat = CATS[catOf(e.type)];
+        return `<div class="ev ${e.major ? 'major' : ''}" style="--c:${cat.col}" data-i="${xs.indexOf(e)}" title="${esc(e.type)}">
+          <span class="ico">${cat.icon}</span><div>${e.major ? '<span class="badge">★ MAJOR</span>' : ''}<span class="kind">${esc(e.type.replace(/_/g, ' '))}</span><div class="txt">${esc(e.text)}</div></div></div>`;
+      }).join('');
+    }
+    $('#evList').innerHTML = html || '<p class="muted">No events.</p>';
     $('#evList').querySelectorAll<HTMLElement>('.ev').forEach(d => d.onclick = () => { const e = xs[Number(d.dataset.i)]; if (e.countries[0]) S.selected = e.countries[0]; goTo(Math.min(S.run.lastTurn, e.turn + 1)); });
   };
   el.querySelectorAll('input,select').forEach(x => x.addEventListener('input', list));
@@ -468,6 +497,12 @@ async function boot() {
   await new Promise<void>(r => map.loaded() ? r() : map.on('load', () => r()));
   setupMap();
   if (S.server) wireControls();
+  else if (location.hostname.endsWith('github.io')) {
+    // static site: running needs the API key, so link to the repo's simulate workflow (one tap = one month)
+    const owner = location.hostname.split('.')[0], repo = location.pathname.split('/').filter(Boolean)[0];
+    $<HTMLAnchorElement>('#ghRun').href = `https://github.com/${owner}/${repo}/actions/workflows/simulate.yml`;
+    $('#ghRunWrap').hidden = false;
+  }
   await refreshRuns();
   showEstimate();
 }

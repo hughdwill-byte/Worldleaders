@@ -11,8 +11,8 @@ on:
         description: Or create a new run with this name (leave blank to continue)
         required: false
       turns:
-        description: Months to simulate, or "quota" to keep going until the daily quota is used
-        default: quota
+        description: Months to simulate (1 = one month), or "quota" to keep going until the daily quota is used
+        default: '1'
       provider:
         description: mock | gemini | anthropic | groq | openrouter
         default: gemini
