@@ -70,6 +70,14 @@ npm run sim -- --estimate <runId>
 
 Every prompt and response is saved in `runs/<id>/agents/<month>/<ISO3>.json`. Prompts are plain-text templates in `prompts/`, so you can read and edit them. The same model is used for every country, and it is recorded in `meta.json`. Other providers are `anthropic`, `groq`, `openrouter` and `ollama`, plus any OpenAI-compatible endpoint via `BASE_URL`. For paid providers, set `PRICE_IN_PER_M` / `PRICE_OUT_PER_M` and a `MAX_SPEND_USD` hard stop.
 
+Extras that use the same provider:
+- **Real constitutions, once:** this replaces the template constitutions with AI summaries of each country's actual arrangements. It's cached and resumable, and costs 1 request per country (start with the 20 dev countries):
+  ```bash
+  npm run constitutions -- --only dev
+  ```
+- **Headlines:** one request per month writes newspaper headlines and protest slogans for the month's major events. They appear in the World tab and the event log. Set `FLAVOUR=off` to save quota.
+- **If the model is overloaded** (HTTP 503), the run stops cleanly and saves progress. Run the same command again later, or set `MODEL` to another model, such as `gemini-3-flash-preview` or `gemini-3.5-flash-lite`.
+
 ## How to start an overnight run from your phone
 
 One-time setup on github.com:
@@ -122,6 +130,6 @@ engine/   constants.ts (all tunables) · world.ts (start state) · turn.ts (mont
 agents/   mock.ts (rule-based leaders) · briefing.ts · llm.ts (provider, quota queue) · index.ts (parse/validate/fallback)
 sim/      run.ts (runs on disk, resume, branch) · cli.ts · server.ts
 viewer/   index.html · src/main.ts · src/style.css
-scripts/  build-data.ts       prompts/  system.txt · briefing.txt · constitution.txt
+scripts/  build-data.ts · enrich-constitutions.ts       prompts/  system.txt · briefing.txt · constitution.txt · constitution-summary.txt
 runs/<id>/ meta.json · turns/NNNN.json.gz · events.jsonl · series.json · agents/NNNN/*.json
 ```

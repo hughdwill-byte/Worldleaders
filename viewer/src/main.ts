@@ -89,7 +89,28 @@ function patternImage(color: string, dots = false) {
 const ensurePattern = (id: string, color: string, dots = false) => { if (!map.hasImage(id)) map.addImage(id, patternImage(color, dots)); };
 
 const empty = { type: 'FeatureCollection', features: [] } as any;
+// country name labels as HTML markers (no glyph server needed); fewer when zoomed out
+const labelMarkers = new Map<string, maplibregl.Marker>();
+function labels() {
+  const w = S.world!; const area: Record<string, number> = {};
+  w.regions.forEach((r, i) => { if (r.owner === r.controller) area[r.owner] = (area[r.owner] ?? 0) + S.regions[i].areaKm2; });
+  const ranked = Object.keys(area).filter(i => w.countries[i]?.alive).sort((a, b) => area[b] - area[a]);
+  const z = map.getZoom(), show = new Set(ranked.slice(0, z < 2 ? 25 : z < 3 ? 60 : z < 4 ? 120 : 400));
+  for (const [iso, m] of labelMarkers) if (!show.has(iso)) { m.remove(); labelMarkers.delete(iso); }
+  for (const iso of show) {
+    // anchor at the biggest region the country actually holds
+    let best = -1; w.regions.forEach((r, i) => { if (r.owner === iso && r.controller === iso && (best < 0 || S.regions[i].areaKm2 > S.regions[best].areaKm2)) best = i; });
+    if (best < 0) continue;
+    const ll: [number, number] = [S.regions[best].lon, S.regions[best].lat];
+    const m = labelMarkers.get(iso);
+    if (m) { m.setLngLat(ll); m.getElement().textContent = w.countries[iso].name; continue; }
+    const el = document.createElement('div'); el.className = 'clabel'; el.textContent = w.countries[iso].name;
+    labelMarkers.set(iso, new maplibregl.Marker({ element: el }).setLngLat(ll).addTo(map));
+  }
+}
+
 function setupMap() {
+  map.on('zoomend', () => S.world && labels());
   const fc = topojson.feature(S.topo, S.topo.objects.regions) as any;
   for (const f of fc.features) f.properties = { rid: f.id };
   map.addSource('regions', { type: 'geojson', data: fc, promoteId: 'rid' });
@@ -166,7 +187,7 @@ function paintMap() {
     map.setPaintProperty('changedL', 'line-opacity', 1);
     setTimeout(() => map.setPaintProperty('changedL', 'line-opacity', 0), 900);
   }
-  paintOverlays(); legend();
+  paintOverlays(); legend(); labels();
 }
 
 const capOf = (w: World, iso: string): [number, number] => { const c = w.countries[iso]; const r = S.regions[c?.capital ?? 0]; return [r.lon, r.lat]; };
@@ -317,6 +338,7 @@ function renderWorld() {
     ${card('Democracies / autocracies', `${W.democracies[t]} / ${W.autocracies[t]}`)}${card('Avg welfare (pop-weighted)', fmt(W.welfare[t] ?? 0))}
     ${card('Refugees hosted', `${((W.refugees[t] ?? 0) / 1e6).toFixed(1)}M`)}${card('States', String(W.countries[t] ?? 0))}
     ${card('"Suspects simulation" events', String(W.suspects[t] ?? 0))}${card('Run', `${esc(S.run.provider)}/${esc(S.run.model)}`)}</div>
+    ${(() => { const h = S.events.filter(e => e.type === 'headline' && e.turn === t - 1); return h.length ? `<h3>Headlines (${esc(monthLabel(S.run.startDate, t - 1))})</h3>${h.map(e => `<div class="quote">${esc(e.text)}</div>`).join('')}` : ''; })()}
     <h3>Global GDP</h3><div id="wc1"></div><h3>Wars</h3><div id="wc2"></div>
     <h3>Score by government type</h3><select id="gm">${['welfare', 'approval', 'survival', 'power'].map(k => `<option>${k}</option>`).join('')}</select><div id="wc3"></div>`;
   const labels = sr.months.slice(0, S.run.lastTurn + 1);

@@ -24,7 +24,24 @@ const SOURCES: Record<string, { file: string; urls: string[]; what: string }> = 
   mledoze: { file: 'mledoze.json', urls: [GH + 'mledoze/countries/master/countries.json'], what: 'mledoze/countries (names, capitals, land borders)' },
   vdem: { file: 'v24.csv', urls: [GH + 'centrociir/interculturales/HEAD/clases/clase3/practico/bbdd/vdem2024.csv'], what: 'V-Dem v2x_polyarchy 2024 (country_name,v2x_polyarchy). Official: v-dem.net' },
   cpi: { file: 'cpi.csv', urls: [GH + 'loupeat/ti-cpi/HEAD/docs/ti/CPI2025_GlobalResultsTrends.csv'], what: 'Transparency International CPI 2025 (official: transparency.org/cpi)' },
+  // Gapminder open-numbers mirrors (columns: country,time,value; lowercase ISO3)
+  idea_media: { file: 'idea_mediaint.csv', urls: [GH + 'open-numbers/ddf--gapminder--fasttrack/HEAD/countries_etc_datapoints/ddf--datapoints--mediaint_idea--by--country--time.csv'], what: 'International IDEA Media Integrity index (0-100) -> press freedom' },
+  idea_expr: { file: 'idea_fexpression.csv', urls: [GH + 'open-numbers/ddf--gapminder--fasttrack/HEAD/countries_etc_datapoints/ddf--datapoints--fexpression_idea--by--country--time.csv'], what: 'International IDEA Freedom of Expression index (0-100) -> inverse of censorship' },
+  imf_debt: { file: 'imf_ggxwdg.csv', urls: [GH + 'open-numbers/ddf--imf--weo/HEAD/ddf--datapoints--ggxwdg_ngdp--by--country--year.csv'], what: 'IMF WEO general government gross debt (% of GDP)' },
 };
+/** Latest value <= 2025 from a Gapminder ddf datapoints file. */
+function ddfLatest(key: string): Record<string, number> {
+  const f = `${RAW}/${SOURCES[key].file}`, out: Record<string, number> = {}, yr: Record<string, number> = {};
+  if (!fs.existsSync(f)) return out;
+  for (const l of fs.readFileSync(f, 'utf8').split(/\r?\n/).slice(1)) {
+    const c = l.split(','); if (c.length < 3 || c[2] === '') continue;
+    // files are either country,time,value or time,country,value
+    const [iso, y] = /^\d{4}$/.test(c[0]) ? [c[1], +c[0]] : [c[0], +c[1]];
+    const I = iso.toUpperCase() === 'XKX' || iso === 'kos' ? 'XKX' : iso.toUpperCase();
+    if (y <= 2025 && !(yr[I] >= y)) { yr[I] = y; out[I] = +c[2]; }
+  }
+  return out;
+}
 // World Bank indicators. Tried via the World Bank API first; falls back to a full WDI CSV dump (data/raw/WDICSV.csv).
 const WDI: Record<string, string> = {
   pop: 'SP.POP.TOTL', gdp: 'NY.GDP.MKTP.CD', gdpPc: 'NY.GDP.PCAP.CD', growth: 'NY.GDP.MKTP.KD.ZG', inflation: 'FP.CPI.TOTL.ZG',
@@ -224,6 +241,7 @@ const countries: any[] = [];
 const incomeOf = (pc: number) => pc >= 13935 ? 'high' : pc >= 4495 ? 'upper' : pc >= 1135 ? 'lower' : 'low';
 // medians by income group for gap filling (computed from real values)
 const raw: Record<string, Record<string, number | undefined>> = {};
+const ideaMedia = ddfLatest('idea_media'), ideaExpr = ddfLatest('idea_expr'), imfDebt = ddfLatest('imf_debt');
 for (const { iso3 } of countryList) {
   const m = cur.manual_stats[iso3] ?? {};
   const g = (k: string) => manual[k]?.[iso3] ?? m[k] ?? val(k, iso3)?.[1];
@@ -231,6 +249,9 @@ for (const { iso3 } of countryList) {
   raw[iso3].polyarchy = manual.polyarchy?.[iso3] ?? m.polyarchy ?? vdem[iso3];
   raw[iso3].cpi = manual.cpi?.[iso3] ?? m.cpi ?? cpi[iso3];
   for (const k of ['pressFreedom', 'internetFreedom', 'stateMedia', 'surveillance']) raw[iso3][k] = manual[k]?.[iso3];
+  raw[iso3].pressFreedom ??= ideaMedia[iso3];
+  raw[iso3].internetFreedom ??= ideaExpr[iso3];
+  raw[iso3].debt = manual.debt?.[iso3] ?? m.debt ?? imfDebt[iso3] ?? raw[iso3].debt; // IMF general government debt beats WDI central government debt
   if (raw[iso3].gdpPc == null && raw[iso3].gdp && raw[iso3].pop) raw[iso3].gdpPc = raw[iso3].gdp! / raw[iso3].pop!;
 }
 // fallbacks for pop/gdp from Natural Earth admin-0 (POP_EST, GDP_MD)
@@ -445,7 +466,7 @@ const lines = [`# Data quality report`, ``, `Generated ${new Date().toISOString(
   `- Region population and GDP share: national totals split by city populations (urban share) and habitable area (rural share).`,
   `- Region terrain from Natural Earth physical regions at the region's label point; jungle = within 8° of the equator.`,
   `- Region resources: curated major oil/gas/mineral regions; otherwise national resource rents spread over the 3 largest regions.`,
-  `- Press freedom, internet censorship, state-media dominance, surveillance: derived from V-Dem polyarchy, CPI and income (drop data/manual/pressFreedom.csv etc. to replace).`,
+  `- Press freedom = International IDEA Media Integrity index; censorship = 100 minus IDEA Freedom of Expression (both 2025, 172 countries). State-media dominance and surveillance capacity are derived from V-Dem polyarchy and income. Microstates missing from IDEA are estimated (drop data/manual/<field>.csv to replace).`,
   `- Bilateral trade: gravity model scaled to each country's trade openness. UN voting alignment: proxied at start from blocs, rivalries and regime similarity.`,
   `- Constitutions: templates from system type, not the Constitute Project (not reachable from the build machine).`,
   `- Next legislative election month: spread pseudo-randomly within the real term length.`, ``,

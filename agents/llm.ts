@@ -33,6 +33,8 @@ export const config = {
 
 export class QuotaExhausted extends Error { name = 'QuotaExhausted'; }
 export class SpendLimit extends Error { name = 'SpendLimit'; }
+/** Provider down/overloaded after retries: the run stops cleanly (progress saved) and resumes later. */
+export class ProviderUnavailable extends QuotaExhausted { name = 'ProviderUnavailable'; }
 
 export interface ChatResult { text: string; inTokens: number; outTokens: number; costUsd: number }
 export type Progress = (msg: string, waitMs?: number) => void;
@@ -76,19 +78,20 @@ export async function chat(messages: { role: 'system' | 'user' | 'assistant'; co
         signal: AbortSignal.timeout(120_000),
       });
     } catch (e) {
-      if (attempt >= 3) throw e;
+      if (attempt >= 3) throw new ProviderUnavailable(`Provider unreachable after retries (${(e as Error).message}).`);
       onProgress?.(`network error, retrying (${(e as Error).message})`); await sleep(5000 * 2 ** attempt); continue;
     }
     if (r.status === 429 || r.status === 503 || r.status === 529) {
       const body = await r.text();
       if (/per.?day|daily|PerDay/i.test(body)) { const q2 = readQuota(); q2.used = config.rpd; writeQuota(q2); throw new QuotaExhausted('Provider reports daily quota exhausted.'); }
-      if (attempt >= 5) throw new QuotaExhausted(`Rate limited repeatedly (${r.status}).`);
+      if (attempt >= 5) throw (r.status === 429 ? new QuotaExhausted(`Rate limited repeatedly (${r.status}).`) : new ProviderUnavailable(`Model overloaded (${r.status}); try again later or set MODEL to another model.`));
       const wait = Number(r.headers.get('retry-after')) * 1000 || 10_000 * 2 ** attempt;
       onProgress?.(`rate limited (${r.status}), waiting ${Math.ceil(wait / 1000)}s`, wait);
       await sleep(wait); continue;
     }
     if (!r.ok) throw new Error(`Provider error ${r.status}: ${(await r.text()).slice(0, 300)}`);
-    const j = await r.json() as any;
+    let j: any;
+    try { j = await r.json(); } catch (e) { if (attempt >= 3) throw new ProviderUnavailable(`Provider response failed (${(e as Error).message}).`); continue; }
     const inTokens = j.usage?.prompt_tokens ?? 0, outTokens = j.usage?.completion_tokens ?? 0;
     const costUsd = (inTokens * config.priceIn + outTokens * config.priceOut) / 1e6;
     const q3 = readQuota(); q3.spent += costUsd; writeQuota(q3);

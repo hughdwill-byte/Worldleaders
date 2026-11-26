@@ -97,7 +97,7 @@ function apply(x: Ctx, c: Country, d: Directive) {
       if (Math.abs(extra) > 0.01 && !legislatureBlocks(x, c, d)) { c.spending[key] = v; c.policyNotes.push(`${key} spending ${v.toFixed(1)}% of GDP`); }
       return;
     }
-    case 'monetary_policy': c.policyRate = clamp(c.policyRate + clamp(amt, -5, 5), -5, 15); return;
+    case 'monetary_policy': { const pts = Math.abs(amt) > 10 ? amt / 100 : amt; c.policyRate = clamp(c.policyRate + clamp(pts, -5, 5), -5, 15); return; } // >10 = basis points
     case 'trade_deal_propose': case 'alliance_propose': case 'aid_request': case 'ceasefire_propose': case 'peace_treaty': case 'demand_concessions': {
       const tt = needT();
       w.pendingProposals.push({ from: iso, to: tt.iso3, type: d.type, amount: amt, turn: w.turn, regions: d.regions });

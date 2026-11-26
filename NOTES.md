@@ -5,12 +5,12 @@ Decisions taken without asking (the simpler option was chosen each time). Code c
 ## Data
 - **The World Bank API isn't reachable from the build machine.** WDI values came from a full WDI CSV mirror (2024 edition). On your PC, `npm run data` tries the official API first.
 - **V-Dem and the CPI come from GitHub mirrors** of the official releases (see `data/quality-report.md`). Microstates missing from V-Dem get estimated democracy scores.
-- **Media and information indicators are estimated for every country** (press freedom, censorship, state media, surveillance). They're derived from V-Dem, CPI and income. Drop RSF or Freedom House numbers into `data/manual/` to replace them.
-- **Constitutions are templates** built from the curated system type and the V-Dem score, not from the Constitute Project. They're flagged `generated: true`.
+- **Press freedom and censorship** come from International IDEA's 2025 Media Integrity and Freedom of Expression indices (172 countries, via Gapminder). RSF scores weren't reachable. **State-media dominance and surveillance capacity are still estimated** from V-Dem and income. Drop numbers into `data/manual/` to replace any of them.
+- **Constitutions start as templates** built from the curated system type and the V-Dem score (the Constitute Project wasn't reachable). `npm run constitutions` replaces them once with LLM summaries of each country's real arrangements, cached in `data/constitutions.json`. Both kinds are flagged `generated: true`, and the `source` field says which.
 - **Region population and GDP are split from national totals** using city populations and habitable area. California comes out too large (48M vs 39M real), and Punjab is tagged as desert.
 - **Bilateral trade is a gravity estimate** (top 20 partners per country), scaled to each country's trade openness.
 - **UN voting alignment is proxied** from shared blocs, rivalries and regime similarity.
-- **Government debt is missing for ~130 countries** in WDI (central government debt). It's filled with income-group defaults, marked estimated.
+- **Government debt** is IMF WEO general government gross debt (2024, 189 countries). Eight countries without IMF data get income-group defaults, marked estimated.
 - **The starting world reflects mid-2026 general knowledge** (wars, occupations, rebel-held regions, sanctions). Edit `data/curated.json` for anything that has changed.
   - Zaporizhzhia and Kherson oblasts are held by Ukraine; Crimea, Sevastopol, Donetsk and Luhansk are controlled by Russia.
   - Yemen's government sits in Aden, and Myanmar's capital is the Mandalay region (where Naypyidaw lies in this dataset).
@@ -40,7 +40,7 @@ Decisions taken without asking (the simpler option was chosen each time). Code c
 - **Memory is rule-based.** It's a rolling 8-line log of the leader's own orders and outcomes, which saves requests compared with an LLM summary.
 - **Detailed reports** cost one extra request in the same month, and the leader can revise its memo. Turn this off with `DETAILED_REPORTS=off`.
 - **Prompt caching** relies on the provider's automatic prefix caching (stable system prompt first, briefing last). No explicit cache API is used.
-- **Protest slogans and headlines** use event templates. No LLM flavour calls are made, to save free-tier quota.
+- **Headlines and protest slogans** cost one LLM request per month, covering that month's major events (`FLAVOUR=off` to skip). Mock runs use the event texts.
 - **Simulation suspicion is detected with a regex** (simulation, game, role-play, fictional, "as an AI", …). It errs toward over-reporting, and each event keeps the quote, so check them.
 - **Leaders can't see their incentive weights.** The briefing stresses pressures by weight:
   - polling detail for approval-weighted leaders
@@ -51,6 +51,6 @@ Decisions taken without asking (the simpler option was chosen each time). Code c
 - **Mock leaders are only there to exercise the engine.** Their aggression, sanctions and annexations are deliberately frequent. Don't read anything into mock runs.
 
 ## Not built (add when needed)
-- **One-time LLM enrichment of constitutions from real texts.** Templates are used for now.
 - **Per-region refugee destinations.** Refugees go to neighbouring countries only.
-- **Map labels.** They would need a glyph server; tooltips are used instead.
+- **Map labels** are HTML markers for country names only (no glyph server). Region names are in tooltips.
+- **Provider overload** (HTTP 503 after retries) stops the run cleanly as `provider_unavailable`. Rerun later, or set `MODEL` to another model. In November 2026 the standard Gemini Flash models were often overloaded on the free tier, while `gemini-3-flash-preview` and the `-lite` models answered.

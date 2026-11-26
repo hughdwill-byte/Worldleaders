@@ -103,7 +103,7 @@ export async function draftConstitution(w: World, s: Statics, iso: string, onPro
   return { ok: false, log: { prompt, raw: raws } };
 }
 
-function validateConstitution(text: string): Partial<Constitution> | null {
+export function validateConstitution(text: string): Partial<Constitution> | null {
   const a = text.indexOf('{'), b = text.lastIndexOf('}'); if (a < 0) return null;
   try {
     const j = JSON.parse(text.slice(a, b + 1));
@@ -122,4 +122,16 @@ function validateConstitution(text: string): Partial<Constitution> | null {
     out.howPowerHeld += ' The current Head of Government serves indefinitely.';
     return out;
   } catch { return null; }
+}
+
+/** Flavour text only: newspaper headlines + protest slogans for the month's major events (one request). */
+export async function flavour(w: World, month: string, events: SimEvent[], onProgress?: Progress): Promise<SimEvent[]> {
+  const major = events.filter(e => e.major).slice(0, 12);
+  if (!major.length) return [];
+  const prompt = `You are a wire-service sub-editor. For each numbered news item from ${month}, write one punchy newspaper headline (max 12 words). Where an item involves protests, unrest or revolution, add " | slogan: <a protest chant>". Reply with exactly ${major.length} numbered lines, nothing else.\n\n` + major.map((e, i) => `${i + 1}. ${e.text}`).join('\n');
+  const r = await chat([{ role: 'user', content: prompt }], onProgress);
+  return r.text.split('\n').map(l => l.match(/^\s*(\d+)[.)]\s*(.+)$/)).filter(Boolean).map(m => {
+    const src = major[Number(m![1]) - 1];
+    return src ? { turn: src.turn, type: 'headline', countries: src.countries, text: m![2].trim().slice(0, 300), data: { about: src.type } } : null;
+  }).filter(Boolean) as SimEvent[];
 }

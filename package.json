@@ -8,7 +8,8 @@
     "start": "vite build viewer --emptyOutDir && tsx sim/server.ts",
     "dev:viewer": "vite viewer",
     "test": "tsx test/selfcheck.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "constitutions": "tsx scripts/enrich-constitutions.ts"
   },
   "devDependencies": {
     "@types/node": "^26.6.11",

@@ -11,8 +11,8 @@ import { runTurn } from '../engine/turn.ts';
 import { MAX_AGENTS_PER_TURN, QUARTERLY_REVIEW_EVERY } from '../engine/constants.ts';
 import { isDemocracy } from '../engine/regime.ts';
 import { monthLabel } from '../engine/util.ts';
-import { decide, draftConstitution } from '../agents/index.ts';
-import { QuotaExhausted, SpendLimit, config, quotaLeft } from '../agents/llm.ts';
+import { decide, draftConstitution, flavour } from '../agents/index.ts';
+import { ProviderUnavailable, QuotaExhausted, SpendLimit, config, quotaLeft } from '../agents/llm.ts';
 
 export const ROOT = path.resolve(import.meta.dirname, '..');
 export const RUNS = path.join(ROOT, 'runs');
@@ -173,7 +173,7 @@ export async function step(id: string, o: { turns: number; force?: boolean; shou
             writeAtomic(pendFile, JSON.stringify(pend));
           } else mockLog[iso] = out.resp;
         } catch (e) {
-          if (e instanceof QuotaExhausted || e instanceof SpendLimit) { reason = e instanceof SpendLimit ? 'spend_limit' : 'quota'; stopped = true; writeAtomic(pendFile, JSON.stringify(pend)); prog(`stopped: ${(e as Error).message}`); break; }
+          if (e instanceof QuotaExhausted || e instanceof SpendLimit) { reason = e instanceof SpendLimit ? 'spend_limit' : e instanceof ProviderUnavailable ? 'provider_unavailable' : 'quota'; stopped = true; writeAtomic(pendFile, JSON.stringify(pend)); prog(`stopped: ${(e as Error).message}`); break; }
           throw e;
         }
       }
@@ -189,6 +189,9 @@ export async function step(id: string, o: { turns: number; force?: boolean; shou
         if (config.provider === 'mock') { c.pendingDraft = null; continue; }
         try { const r = await draftConstitution(w, s, c.iso3); fs.writeFileSync(path.join(agentDir, `${c.iso3}.constitution.json`), JSON.stringify(r.log, null, 1)); }
         catch (e) { if (!(e instanceof QuotaExhausted)) throw e; } // keep provisional template; retried next month
+      }
+      if (config.provider !== 'mock' && process.env.FLAVOUR !== 'off') {
+        try { events.push(...await flavour(w, month, events)); } catch (e) { if (!(e instanceof QuotaExhausted)) console.warn('flavour text skipped:', (e as Error).message); }
       }
       saveSnapshot(id, w);
       fs.appendFileSync(path.join(dir(id), 'events.jsonl'), events.map(e => JSON.stringify(e) + '\n').join(''));

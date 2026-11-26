@@ -1,0 +1,18 @@
+Summarise the CURRENT constitutional arrangements of {{country}} as they actually operate today (including de facto practice where it differs from the text, e.g. emergency rule, military government, suspended legislature).
+Its form of government is classified as: {{govType}}.
+
+Answer as ONE JSON object with exactly these fields:
+{
+ "headOfState": "...", "headOfGovernment": "...", "howPowerHeld": "one sentence on how executive power is obtained and held",
+ "legislature": {"type": "bicameral|unicameral|consultative|none", "powers": 0.0-1.0, "elected": true|false, "termYears": 0-7},
+ "courts": {"independence": 0.0-1.0},
+ "liberties": {"press": true|false, "assembly": true|false, "speech": true|false},
+ "emergencyPowers": "limited|broad|unlimited",
+ "militaryRole": "civilian_control|political|ruling",
+ "religionRole": "secular|established|theocratic",
+ "territorial": "unitary|federal|unitary_with_autonomy",
+ "amendment": "supermajority|referendum|legislature|decree",
+ "succession": "...",
+ "preamble": "one or two sentences describing the constitution (name, year adopted)"
+}
+"liberties" means effectively protected in practice. JSON only.
