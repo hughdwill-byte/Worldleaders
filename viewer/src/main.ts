@@ -401,8 +401,16 @@ async function loadRun(id: string, keepTurn = false) {
 async function refreshRuns(select?: string) {
   S.runs = S.server ? await getJSON('./api/runs') : await getJSON('./runs/index.json').catch(() => []);
   $('#runSel').innerHTML = S.runs.map(r => `<option value="${esc(r.id)}">${esc(r.name)} · ${r.lastTurn} mo${r.parent ? ' · branch' : ''}</option>`).join('');
-  const id = select ?? S.run?.id ?? S.runs.at(-1)?.id;
-  if (id) { ($('#runSel') as HTMLSelectElement).value = id; await loadRun(id); }
+  // default: newest real run with months simulated (test runs never shown); fall back if one fails to load
+  S.runs = S.runs.filter(r => !r.name.startsWith('selfcheck'));
+  $('#runSel').innerHTML = S.runs.map(r => `<option value="${esc(r.id)}">${esc(r.name)} · ${r.lastTurn} mo${r.parent ? ' · branch' : ''}</option>`).join('');
+  const best = [...S.runs].reverse().find(r => r.lastTurn > 0) ?? S.runs.at(-1);
+  const order = [select ?? S.run?.id ?? best?.id, ...[...S.runs].reverse().map(r => r.id)].filter(Boolean) as string[];
+  for (const id of [...new Set(order)]) {
+    try { ($('#runSel') as HTMLSelectElement).value = id; await loadRun(id); return; }
+    catch (e) { console.warn('could not load run', id, e); }
+  }
+  if (S.runs.length) $('#month').textContent = 'Could not load any run';
   else $('#month').textContent = 'No runs yet — create one with "New run" or `npm run sim -- --new --name baseline --turns 24`';
 }
 

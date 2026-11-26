@@ -15,7 +15,7 @@ import { decide, draftConstitution, flavour } from '../agents/index.ts';
 import { ProviderUnavailable, QuotaExhausted, SpendLimit, config, quotaLeft } from '../agents/llm.ts';
 
 export const ROOT = path.resolve(import.meta.dirname, '..');
-export const RUNS = path.join(ROOT, 'runs');
+export const RUNS = process.env.RUNS_DIR ? path.resolve(process.env.RUNS_DIR) : path.join(ROOT, 'runs'); // RUNS_DIR: tests use a temp folder
 
 export interface Meta {
   id: string; name: string; seed: number; createdAt: string; startDate: string;
@@ -93,7 +93,8 @@ export function branchRun(parentId: string, from: number, o: { name?: string; pr
 
 export function listRuns(): Meta[] {
   if (!fs.existsSync(RUNS)) return [];
-  return fs.readdirSync(RUNS).filter(d => fs.existsSync(path.join(RUNS, d, 'meta.json'))).map(readMeta).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  // half-written runs (no series.json yet) are skipped
+  return fs.readdirSync(RUNS).filter(d => fs.existsSync(path.join(RUNS, d, 'meta.json')) && fs.existsSync(path.join(RUNS, d, 'series.json'))).map(readMeta).sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 }
 export function updateIndex() { fs.mkdirSync(RUNS, { recursive: true }); fs.writeFileSync(path.join(RUNS, 'index.json'), JSON.stringify(listRuns().map(m => ({ ...m, lock: m.lock ? { ...m.lock } : null })), null, 1)); }
 

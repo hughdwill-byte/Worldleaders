@@ -4,13 +4,16 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
-import { RUNS, createRun, step } from '../sim/run.ts';
 import { initWorld, loadStatics } from '../engine/world.ts';
 import { runTurn } from '../engine/turn.ts';
 import { mockDecide } from '../agents/mock.ts';
 import type { SimEvent, World } from '../engine/types.ts';
 
 process.env.PROVIDER = 'mock';
+// test runs live in a temp folder, never in runs/
+import os from 'node:os';
+process.env.RUNS_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'wl-selfcheck-'));
+const { RUNS, createRun, step } = await import('../sim/run.ts');
 const s = loadStatics();
 const t0 = Date.now();
 
@@ -21,7 +24,7 @@ for (let t = 0; t <= 3; t++) {
   const f = (id: string) => zlib.gunzipSync(fs.readFileSync(path.join(RUNS, id, 'turns', String(t).padStart(4, '0') + '.json.gz'))).toString();
   assert.equal(f(a.id), f(b.id), `snapshot ${t} differs between identical runs`);
 }
-for (const id of [a.id, b.id]) fs.rmSync(path.join(RUNS, id), { recursive: true });
+fs.rmSync(RUNS, { recursive: true, force: true });
 console.log('✓ deterministic snapshots');
 
 // 2. budget identity: with no new orders, debt changes exactly by the monthly deficit

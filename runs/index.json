@@ -52,39 +52,5 @@
   "costUsd": 0,
   "requests": 57,
   "stoppedReason": "done"
- },
- {
-  "id": "selfcheck-a-202611260659",
-  "name": "selfcheck-a",
-  "seed": 42,
-  "createdAt": "2026-11-26T06:59:46.742Z",
-  "startDate": "2026-11",
-  "provider": "mock",
-  "model": "mock",
-  "countries": "all",
-  "parent": null,
-  "preset": null,
-  "lastTurn": 3,
-  "lock": null,
-  "costUsd": 0,
-  "requests": 0,
-  "stoppedReason": "done"
- },
- {
-  "id": "selfcheck-b-202611260659",
-  "name": "selfcheck-b",
-  "seed": 42,
-  "createdAt": "2026-11-26T06:59:46.975Z",
-  "startDate": "2026-11",
-  "provider": "mock",
-  "model": "mock",
-  "countries": "all",
-  "parent": null,
-  "preset": null,
-  "lastTurn": 3,
-  "lock": null,
-  "costUsd": 0,
-  "requests": 0,
-  "stoppedReason": "done"
  }
 ]
