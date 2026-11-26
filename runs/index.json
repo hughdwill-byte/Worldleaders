@@ -47,10 +47,10 @@
   "countries": "dev",
   "parent": null,
   "preset": null,
-  "lastTurn": 2,
+  "lastTurn": 3,
   "lock": null,
   "costUsd": 0,
-  "requests": 57,
+  "requests": 73,
   "stoppedReason": "done"
  }
 ]
