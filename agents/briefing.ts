@@ -115,6 +115,7 @@ export function briefing(w: World, s: Statics, iso: string, annexTopic?: string)
     ...statements.map(o => `- Public statement by the government of ${nm(w, o.iso3)}: "${o.leader.lastStatement!.slice(0, 250)}"`),
   ].join('\n') || 'No new correspondence.';
 
+  annexTopic ??= c.leader.reportTopic;
   const annex = annexTopic ? `\nANNEX: DETAILED REPORT ON ${annexTopic.toUpperCase()}\n${detailedReport(w, s, iso, annexTopic)}\n` : '';
   return fill(tpl('briefing.txt'), {
     country: c.name, month, situation, economy, domestic, intel: intel.join('\n') || 'No significant foreign threats identified.', diplomacy, inbox,

@@ -15,4 +15,4 @@ Answer as ONE JSON object with exactly these fields:
  "succession": "...",
  "preamble": "one or two sentences describing the constitution (name, year adopted)"
 }
-"liberties" means effectively protected in practice. JSON only.
+"liberties" means effectively protected in practice. Use titles of offices only: never name any real person. JSON only.

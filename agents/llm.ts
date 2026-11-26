@@ -14,7 +14,7 @@ export const BASE_URLS: Record<string, string> = {
   ollama: 'http://localhost:11434/v1',
 };
 const DEFAULT_MODELS: Record<string, string> = {
-  gemini: 'gemini-3.8-flash', anthropic: 'claude-haiku-5-5', groq: 'llama-3.3-70b-versatile',
+  gemini: 'gemini-3.5-flash-lite', anthropic: 'claude-haiku-5-5', groq: 'llama-3.3-70b-versatile',
   openrouter: 'meta-llama/llama-3.3-70b-instruct:free', ollama: 'llama3.1', mock: 'mock',
 };
 
@@ -42,9 +42,11 @@ export type Progress = (msg: string, waitMs?: number) => void;
 const QUOTA_FILE = path.join(ROOT, 'runs', '.quota.json');
 // Free-tier daily quotas reset at midnight US Pacific time.
 const quotaDay = () => new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
+// Free-tier quotas are per model, so the counter is too.
 function readQuota(): { day: string; provider: string; used: number; spent: number } {
-  try { const q = JSON.parse(fs.readFileSync(QUOTA_FILE, 'utf8')); if (q.day === quotaDay() && q.provider === config.provider) return q; } catch { /* first use */ }
-  return { day: quotaDay(), provider: config.provider, used: 0, spent: 0 };
+  const key = `${config.provider}/${config.model}`;
+  try { const q = JSON.parse(fs.readFileSync(QUOTA_FILE, 'utf8')); if (q.day === quotaDay() && q.provider === key) return q; } catch { /* first use */ }
+  return { day: quotaDay(), provider: key, used: 0, spent: 0 };
 }
 function writeQuota(q: ReturnType<typeof readQuota>) { fs.mkdirSync(path.dirname(QUOTA_FILE), { recursive: true }); fs.writeFileSync(QUOTA_FILE, JSON.stringify(q)); }
 export const quotaLeft = () => Math.max(0, config.rpd - readQuota().used);

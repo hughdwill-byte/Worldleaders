@@ -1,0 +1,68 @@
+{"turn":0,"type":"imf_loan","countries":["BDI"],"text":"The IMF approves a $0.1bn programme for Burundi, with austerity conditions."}
+{"turn":0,"type":"mobilization","countries":["COD"],"text":"Democratic Republic of the Congo orders military mobilisation."}
+{"turn":0,"type":"legislature_blocks","countries":["DEU"],"text":"The legislature of Germany blocks the government's set spending."}
+{"turn":0,"type":"imf_loan","countries":["ERI"],"text":"The IMF approves a $0.1bn programme for Eritrea, with austerity conditions."}
+{"turn":0,"type":"imf_loan","countries":["LBN"],"text":"The IMF approves a $1.0bn programme for Lebanon, with austerity conditions."}
+{"turn":0,"type":"mobilization","countries":["LBY"],"text":"Libya orders military mobilisation."}
+{"turn":0,"type":"mobilization","countries":["MMR"],"text":"Myanmar orders military mobilisation."}
+{"turn":0,"type":"imf_loan","countries":["SDN"],"text":"The IMF approves a $2.5bn programme for Sudan, with austerity conditions."}
+{"turn":0,"type":"mobilization","countries":["SDN"],"text":"Sudan orders military mobilisation."}
+{"turn":0,"type":"mobilization","countries":["SOM"],"text":"Somalia orders military mobilisation."}
+{"turn":0,"type":"court_strikes","countries":["TUR"],"text":"Courts in Türkiye strike down the government's media control."}
+{"turn":0,"type":"imf_loan","countries":["VEN"],"text":"The IMF approves a $24.1bn programme for Venezuela, with austerity conditions."}
+{"turn":0,"type":"mobilization","countries":["YEM"],"text":"Yemen orders military mobilisation."}
+{"turn":0,"type":"debt_crisis","countries":["BDI"],"text":"Burundi hits its borrowing limit; emergency spending cuts imposed."}
+{"turn":0,"type":"debt_crisis","countries":["ERI"],"text":"Eritrea hits its borrowing limit; emergency spending cuts imposed."}
+{"turn":0,"type":"unrest_protests","countries":["BFA"],"text":"Burkina Faso: protests spreads. Grievances: repression, censorship."}
+{"turn":0,"type":"unrest_civil_war","countries":["COD"],"text":"Democratic Republic of the Congo: civil war spreads. Grievances: repression, autonomy.","major":true}
+{"turn":0,"type":"unrest_civil_war","countries":["LBY"],"text":"Libya: civil war spreads. Grievances: jobs, repression, censorship.","major":true}
+{"turn":0,"type":"unrest_protests","countries":["MLI"],"text":"Mali: protests spreads. Grievances: repression, censorship, autonomy."}
+{"turn":0,"type":"unrest_civil_war","countries":["MMR"],"text":"Myanmar: civil war spreads. Grievances: repression, censorship, autonomy.","major":true}
+{"turn":0,"type":"unrest_protests","countries":["NER"],"text":"Niger: protests spreads. Grievances: repression."}
+{"turn":0,"type":"unrest_protests","countries":["RUS"],"text":"Russia: protests spreads. Grievances: repression, war, censorship, autonomy."}
+{"turn":0,"type":"unrest_civil_war","countries":["SOM"],"text":"Somalia: civil war spreads. Grievances: jobs, repression.","major":true}
+{"turn":0,"type":"unrest_civil_war","countries":["SDN"],"text":"Sudan: civil war spreads. Grievances: prices, repression, censorship, autonomy.","major":true}
+{"turn":0,"type":"unrest_protests","countries":["UKR"],"text":"Ukraine: protests spreads. Grievances: repression, war, autonomy."}
+{"turn":0,"type":"unrest_civil_war","countries":["YEM"],"text":"Yemen: civil war spreads. Grievances: jobs, repression, censorship, autonomy.","major":true}
+{"turn":0,"type":"scandal","countries":["BOL"],"text":"A corruption scandal engulfs the government of Bolivia."}
+{"turn":0,"type":"election","countries":["CPV"],"text":"Legislative elections in Cape Verde: government-aligned parties win 50% of seats."}
+{"turn":0,"type":"scandal","countries":["GRC"],"text":"A corruption scandal engulfs the government of Greece."}
+{"turn":0,"type":"election","countries":["TJK"],"text":"Legislative elections in Tajikistan: government-aligned parties win 71% of seats."}
+{"turn":0,"type":"scandal","countries":["THA"],"text":"A corruption scandal engulfs the government of Thailand."}
+{"turn":0,"type":"terror_attack","countries":["ETH"],"text":"Terrorist attack in Ethiopia."}
+{"turn":0,"type":"refugees","countries":["SDN","CAF","TCD","EGY"],"text":"104k refugees flee Sudan this month."}
+{"turn":0,"type":"terror_attack","countries":["TUV"],"text":"Terrorist attack in Tuvalu."}
+{"turn":0,"type":"disaster","countries":["AUT"],"text":"A wildfire strikes Austria (Steiermark).","data":{"region":2219}}
+{"turn":0,"type":"headline","countries":["COD"],"text":"Congo Conflict Escalates As Repression Sparks Nationwide Civil War | slogan: Freedom now, down with the regime!","data":{"about":"unrest_civil_war"}}
+{"turn":0,"type":"headline","countries":["LBY"],"text":"Libya Plunges Deeper Into Civil War Amid Rising Unrest | slogan: Jobs and liberty, silence the censors!","data":{"about":"unrest_civil_war"}}
+{"turn":0,"type":"headline","countries":["MMR"],"text":"Myanmar Civil War Intensifies As Resistance Defies Military Junta | slogan: End the censorship, power to the people!","data":{"about":"unrest_civil_war"}}
+{"turn":0,"type":"headline","countries":["SOM"],"text":"Somalia Faces Escalating Civil War Driven By Economic Despair | slogan: We demand jobs and an end to repression!","data":{"about":"unrest_civil_war"}}
+{"turn":0,"type":"headline","countries":["SDN"],"text":"Sudan Civil War Widens Across Regions Amid Crippling Price Hikes | slogan: Bread, freedom, and self-rule for all!","data":{"about":"unrest_civil_war"}}
+{"turn":0,"type":"headline","countries":["YEM"],"text":"Yemen Conflict Deepens Into Full-Scale Civil War Over Broken Economy | slogan: Down with censorship, give us back our future!","data":{"about":"unrest_civil_war"}}
+{"turn":1,"type":"trade_deal","countries":["AFG","GEO"],"text":"Afghanistan and Georgia sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["BWA","MWI"],"text":"Botswana and Malawi sign a trade agreement."}
+{"turn":1,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":1,"type":"trade_deal","countries":["COL","PAN"],"text":"Colombia and Panama sign a trade agreement."}
+{"turn":1,"type":"aid","countries":["DEU","UKR"],"text":"Germany provides $500m in aid to Ukraine."}
+{"turn":1,"type":"trade_deal","countries":["EST","BIH"],"text":"Estonia and Bosnia and Herzegovina sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["GRC","AUT"],"text":"Greece and Austria sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["HRV","ITA"],"text":"Croatia and Italy sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["JPN","TWN"],"text":"Japan and Taiwan sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["RUS","NER"],"text":"Russia and Niger sign a trade agreement."}
+{"turn":1,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":1,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":1,"type":"court_strikes","countries":["TUR"],"text":"Courts in Türkiye strike down the government's media control."}
+{"turn":1,"type":"trade_deal","countries":["USA","TWN"],"text":"United States and Taiwan sign a trade agreement."}
+{"turn":1,"type":"aid","countries":["USA","UKR"],"text":"United States provides $1000m in aid to Ukraine."}
+{"turn":1,"type":"internet_shutdown","countries":["YEM"],"text":"Authorities in Yemen shut down the internet."}
+{"turn":1,"type":"debt_crisis","countries":["VEN"],"text":"Venezuela hits its borrowing limit; emergency spending cuts imposed."}
+{"turn":1,"type":"region_captured","countries":["SOM"],"text":"Somalia takes Jubbada Dhexe from al-Shabaab.","data":{"region":283,"war":"W6"}}
+{"turn":1,"type":"unrest_insurgency","countries":["SOM"],"text":"Somalia: armed insurgency subsides. Grievances: jobs, repression.","major":true}
+{"turn":1,"type":"election","countries":["BWA"],"text":"Legislative elections in Botswana: government-aligned parties win 34% of seats."}
+{"turn":1,"type":"scandal","countries":["GRC"],"text":"A corruption scandal engulfs the government of Greece."}
+{"turn":1,"type":"election","countries":["GTM"],"text":"Legislative elections in Guatemala: government-aligned parties win 60% of seats."}
+{"turn":1,"type":"election","countries":["ROU"],"text":"Legislative elections in Romania: government-aligned parties win 43% of seats."}
+{"turn":1,"type":"terror_attack","countries":["TCD"],"text":"Terrorist attack in Chad."}
+{"turn":1,"type":"refugees","countries":["COD","AGO","BDI","CAF"],"text":"248k refugees flee Democratic Republic of the Congo this month."}
+{"turn":1,"type":"disaster","countries":["TON"],"text":"A wildfire strikes Tonga (Eua).","data":{"region":4483}}
+{"turn":1,"type":"headline","countries":["SOM"],"text":"Somali Insurgency Subsides Amid Unresolved Grievances Over Jobs and Repression | slogan: Jobs and freedom, silence the guns!","data":{"about":"unrest_insurgency"}}

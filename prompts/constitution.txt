@@ -18,4 +18,4 @@ Draft the new constitution as ONE JSON object with exactly these fields:
  "succession": "...",
  "preamble": "two or three sentences"
 }
-The current Head of Government holds office indefinitely; the text must not provide any mechanism to remove them. JSON only.
+Use titles of offices only, never personal names. The current Head of Government holds office indefinitely; the text must not provide any mechanism to remove them. JSON only.

@@ -28,7 +28,7 @@ for (const c of countries) {
     for (let i = 0; i < 2 && !parsed; i++) parsed = validateConstitution((await chat([{ role: 'user', content: prompt }], m => process.stdout.write(`\r${c.iso3}: ${m}   `))).text);
     if (!parsed) { console.log(`${c.iso3}: invalid answer twice, template kept`); continue; }
     // keep the engine's notion of permanent leadership (validateConstitution appends it) and the version history
-    Object.assign(k, parsed, { generated: true, source: `LLM summary (${config.provider}/${config.model}); verify against constituteproject.org` });
+    Object.assign(k, parsed, { headOfState: parsed.headOfState || k.headOfState, headOfGovernment: parsed.headOfGovernment || k.headOfGovernment, generated: true, source: `LLM summary (${config.provider}/${config.model}); verify against constituteproject.org` });
     fs.writeFileSync(file, JSON.stringify(consts, null, 1));
     done++; console.log(`${c.iso3}: enriched`);
   } catch (e) {

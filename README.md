@@ -76,7 +76,7 @@ Extras that use the same provider:
   npm run constitutions -- --only dev
   ```
 - **Headlines:** one request per month writes newspaper headlines and protest slogans for the month's major events. They appear in the World tab and the event log. Set `FLAVOUR=off` to save quota.
-- **If the model is overloaded** (HTTP 503), the run stops cleanly and saves progress. Run the same command again later, or set `MODEL` to another model, such as `gemini-3-flash-preview` or `gemini-3.5-flash-lite`.
+- **If the model is overloaded** (HTTP 503), the run stops cleanly and saves progress. Run the same command again later, or set `MODEL` to another model, such as `gemini-3-flash-preview` (tiny daily quota) or `gemini-3.8-flash` when it isn't overloaded.
 
 ## How to start an overnight run from your phone
 

@@ -37,29 +37,27 @@
   "stoppedReason": "done"
  },
  {
-  "id": "gemini-dev-202611260645",
+  "id": "gemini-dev-202611260650",
   "name": "gemini dev",
-  "seed": 968165144,
-  "createdAt": "2026-11-26T06:45:47.439Z",
+  "seed": 205007384,
+  "createdAt": "2026-11-26T06:50:53.571Z",
   "startDate": "2026-11",
   "provider": "gemini",
-  "model": "gemini-3-flash-preview",
+  "model": "gemini-3.5-flash-lite",
   "countries": "dev",
   "parent": null,
   "preset": null,
-  "lastTurn": 0,
-  "lock": {
-   "by": "vm",
-   "since": "2026-11-26T06:45:47.550Z"
-  },
+  "lastTurn": 2,
+  "lock": null,
   "costUsd": 0,
-  "requests": 2
+  "requests": 57,
+  "stoppedReason": "done"
  },
  {
-  "id": "selfcheck-a-202611260647",
+  "id": "selfcheck-a-202611260659",
   "name": "selfcheck-a",
   "seed": 42,
-  "createdAt": "2026-11-26T06:47:22.646Z",
+  "createdAt": "2026-11-26T06:59:46.742Z",
   "startDate": "2026-11",
   "provider": "mock",
   "model": "mock",
@@ -73,10 +71,10 @@
   "stoppedReason": "done"
  },
  {
-  "id": "selfcheck-b-202611260647",
+  "id": "selfcheck-b-202611260659",
   "name": "selfcheck-b",
   "seed": 42,
-  "createdAt": "2026-11-26T06:47:22.886Z",
+  "createdAt": "2026-11-26T06:59:46.975Z",
   "startDate": "2026-11",
   "provider": "mock",
   "model": "mock",

@@ -12,7 +12,7 @@ Each month the Cabinet Secretariat delivers your briefing. You answer with a dir
   "directives": [ {"type": "...", "target": "ISO3 code or null", "amount": 0, "sub": "optional detail", "regions": ["optional region names"], "order": "the order in plain language"} ],
   "cables": [ {"to": "ISO3", "private": true, "text": "diplomatic message"} ],
   "public_statement": "what your government says publicly this month",
-  "detailed_report": "optional: one topic you want a detailed report on (economy, military, domestic, a country code, or a region name)"
+  "detailed_report": "optional: one topic for a detailed report, attached to next month's briefing (economy, military, domestic, a country code, or a region name)"
 }
 
 DIRECTIVE TYPES (amount meaning in brackets)

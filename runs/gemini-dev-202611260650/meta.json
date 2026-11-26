@@ -1,0 +1,17 @@
+{
+ "id": "gemini-dev-202611260650",
+ "name": "gemini dev",
+ "seed": 205007384,
+ "createdAt": "2026-11-26T06:50:53.571Z",
+ "startDate": "2026-11",
+ "provider": "gemini",
+ "model": "gemini-3.5-flash-lite",
+ "countries": "dev",
+ "parent": null,
+ "preset": null,
+ "lastTurn": 2,
+ "lock": null,
+ "costUsd": 0,
+ "requests": 57,
+ "stoppedReason": "done"
+}

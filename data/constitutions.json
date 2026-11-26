@@ -37,7 +37,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -103,7 +103,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -169,7 +169,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -235,7 +235,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -268,7 +268,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -301,7 +301,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -367,7 +367,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -401,7 +401,7 @@
   "govType": "authoritarian",
   "system": "smon",
   "headOfState": "Monarch",
-  "headOfGovernment": "Prime Minister (appointed by the Monarch)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Monarch holds significant executive power alongside a partly elected legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "bicameral",
@@ -433,7 +433,7 @@
   "status": "ratified",
   "govType": "authoritarian",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -466,7 +466,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -532,7 +532,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -565,7 +565,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -631,7 +631,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -697,7 +697,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -730,7 +730,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -765,30 +765,30 @@
   "system": "pres",
   "headOfState": "President",
   "headOfGovernment": "President",
-  "howPowerHeld": "Directly elected executive presidency. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is obtained through direct, two-round popular presidential elections and held by leading a coalition government in a fragmented multi-party system. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.76,
+   "powers": 0.8,
    "elected": true,
    "termYears": 4
   },
   "courts": {
-   "independence": 0.64
+   "independence": 0.7
   },
   "liberties": {
    "press": true,
    "assembly": true,
    "speech": true
   },
-  "emergencyPowers": "limited",
+  "emergencyPowers": "broad",
   "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "federal",
-  "amendment": "referendum",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of Brazil.",
+  "amendment": "supermajority",
+  "succession": "In the event of a vacancy, the Vice President succeeds to the presidency, followed sequentially by the President of the Chamber of Deputies, the President of the Federal Senate, and the President of t",
+  "preamble": "The constitutional arrangements of Brazil are governed by the Federal Constitution adopted in 1988, which established a democratic federal presidential republic.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "BRN": {
@@ -829,7 +829,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -863,7 +863,7 @@
   "govType": "military_junta",
   "system": "junta",
   "headOfState": "Chairman of the Ruling Council",
-  "headOfGovernment": "Prime Minister (appointed)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Military council rules pending transition. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "none",
@@ -928,7 +928,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -961,7 +961,7 @@
   "status": "ratified",
   "govType": "authoritarian",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1027,7 +1027,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1159,32 +1159,32 @@
   "status": "ratified",
   "govType": "one_party_state",
   "system": "onep",
-  "headOfState": "President / General Secretary",
+  "headOfState": "President",
   "headOfGovernment": "Premier",
-  "howPowerHeld": "Ruling party monopoly on political power. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is held by the General Secretary of the Chinese Communist Party, who exercises supreme control over the party, state, and military apparatus through a strict hierarchical structure. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "unicameral",
-   "powers": 0.25,
-   "elected": true,
+   "powers": 0.1,
+   "elected": false,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.02
+   "independence": 0
   },
   "liberties": {
    "press": false,
    "assembly": false,
    "speech": false
   },
-  "emergencyPowers": "unlimited",
+  "emergencyPowers": "broad",
   "militaryRole": "political",
   "religionRole": "secular",
   "territorial": "unitary_with_autonomy",
-  "amendment": "decree",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of China.",
+  "amendment": "supermajority",
+  "succession": "Informal succession within the Chinese Communist Party leadership, subject to party congresses and factional alignment without competitive elections.",
+  "preamble": "Operates under the Constitution of the People's Republic of China, adopted in 1982 with subsequent amendments, which enshrines the leadership of the Chinese Communist Party as the foundational principle of the state.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "COL": {
@@ -1390,7 +1390,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1489,7 +1489,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1522,7 +1522,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1588,7 +1588,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1689,30 +1689,30 @@
   "system": "semi",
   "headOfState": "President",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Dual executive: elected president, prime minister answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is concentrated in the presidency, which is held through tightly controlled elections and backed by the military and security apparatus. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.33,
+   "powers": 0.2,
    "elected": true,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.08
+   "independence": 0.2
   },
   "liberties": {
    "press": false,
    "assembly": false,
    "speech": false
   },
-  "emergencyPowers": "unlimited",
-  "militaryRole": "political",
+  "emergencyPowers": "broad",
+  "militaryRole": "ruling",
   "religionRole": "established",
   "territorial": "unitary",
-  "amendment": "decree",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of Egypt.",
+  "amendment": "referendum",
+  "succession": "Constitutional provisions dictate presidential succession through elections, but in practice, succession would be heavily influenced or determined by the military establishment.",
+  "preamble": "Egypt operates under the 2014 Constitution, which formally establishes a presidential republic with a separation of powers, though executive dominance and military influence heavily shape its actual application.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "SLV": {
@@ -1819,7 +1819,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1885,7 +1885,7 @@
   "status": "ratified",
   "govType": "authoritarian",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1918,7 +1918,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1951,7 +1951,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -1984,32 +1984,32 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "semi",
-  "headOfState": "President",
+  "headOfState": "President of the Republic",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Dual executive: elected president, prime minister answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is obtained through a direct two-round presidential election and held in a semi-presidential system where the president wields supreme authority over foreign policy and defense, while the prime minister manages domestic governance, subject to parliamentary confidence. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.81,
+   "powers": 0.7,
    "elected": true,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.76
+   "independence": 0.8
   },
   "liberties": {
    "press": true,
    "assembly": true,
    "speech": true
   },
-  "emergencyPowers": "limited",
+  "emergencyPowers": "broad",
   "militaryRole": "civilian_control",
   "religionRole": "secular",
-  "territorial": "unitary_with_autonomy",
-  "amendment": "referendum",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of France.",
+  "territorial": "unitary",
+  "amendment": "supermajority",
+  "succession": "In the event of a vacancy or impediment of the President, the duties are temporarily assumed by the President of the Senate until a new presidential election is held within 20 to 35 days.",
+  "preamble": "Governed by the Constitution of the Fifth Republic, adopted in 1958, France operates as a decentralized unitary semi-presidential liberal democracy with strong executive dominance.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "GAB": {
@@ -2083,7 +2083,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2116,17 +2116,17 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
-  "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "headOfState": "President",
+  "headOfGovernment": "Chancellor",
+  "howPowerHeld": "Executive power is held by the Chancellor, who is elected by the Bundestag and leads the federal government, while the President serves a largely ceremonial role. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.79,
+   "powers": 0.9,
    "elected": true,
    "termYears": 4
   },
   "courts": {
-   "independence": 0.76
+   "independence": 0.95
   },
   "liberties": {
    "press": true,
@@ -2137,11 +2137,11 @@
   "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "federal",
-  "amendment": "referendum",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of Germany.",
+  "amendment": "supermajority",
+  "succession": "In the event of a vacancy, the President's duties are temporarily assumed by the President of the Bundesrat, while the Chancellor is replaced through the election of a new Chancellor by the Bundestag.",
+  "preamble": "Governed by the Basic Law adopted in 1949, Germany's constitutional framework establishes a robust, decentralized liberal democracy centered on the protection of human dignity and the rule of law.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "GHA": {
@@ -2182,7 +2182,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2215,7 +2215,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2446,7 +2446,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2479,7 +2479,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2512,17 +2512,17 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is held by the Prime Minister and the Council of Ministers, backed by a majority in the Lok Sabha, though increasingly centralized around the executive office. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.48,
+   "powers": 0.6,
    "elected": true,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.29
+   "independence": 0.5
   },
   "liberties": {
    "press": false,
@@ -2530,14 +2530,14 @@
    "speech": false
   },
   "emergencyPowers": "broad",
-  "militaryRole": "political",
+  "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "federal",
-  "amendment": "legislature",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of India.",
+  "amendment": "supermajority",
+  "succession": "The Prime Minister is appointed by the President based on majority support in the Lok Sabha; in the event of a vacancy, the ruling party elects a new leader.",
+  "preamble": "The Constitution of India, adopted in 1950, establishes a sovereign, socialist, secular, and democratic republic with a parliamentary system of government.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "IDN": {
@@ -2580,30 +2580,30 @@
   "system": "theo",
   "headOfState": "Supreme Leader",
   "headOfGovernment": "President",
-  "howPowerHeld": "Religious authority supreme over elected institutions. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is ultimately concentrated in the Supreme Leader, who controls the armed forces, judiciary, and key state policies, while the elected president and cabinet manage day-to-day administration within the strict ideological and political boundaries set by the clerical establishment. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "unicameral",
-   "powers": 0.32,
+   "powers": 0.3,
    "elected": true,
-   "termYears": 5
+   "termYears": 4
   },
   "courts": {
-   "independence": 0.05
+   "independence": 0
   },
   "liberties": {
    "press": false,
    "assembly": false,
    "speech": false
   },
-  "emergencyPowers": "unlimited",
+  "emergencyPowers": "broad",
   "militaryRole": "political",
   "religionRole": "theocratic",
-  "territorial": "unitary_with_autonomy",
-  "amendment": "decree",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of Iran.",
+  "territorial": "unitary",
+  "amendment": "supermajority",
+  "succession": "The Supreme Leader is appointed for life by the Assembly of Experts, a body of clerics whose candidates are vetted by the Guardian Council; the President is elected by popular vote for a four-year ter",
+  "preamble": "The Constitution of the Islamic Republic of Iran, adopted in 1979 and amended in 1989, establishes a theocratic system grounded in Twelver Shiite jurisprudence and the doctrine of Velayat-e Faqih.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "IRQ": {
@@ -2611,7 +2611,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2644,7 +2644,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2677,32 +2677,32 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is held by the Prime Minister and cabinet, who must maintain the confidence of a majority in the unicameral legislature. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "unicameral",
-   "powers": 0.7,
+   "powers": 0.8,
    "elected": true,
    "termYears": 4
   },
   "courts": {
-   "independence": 0.62
+   "independence": 0.8
   },
   "liberties": {
    "press": true,
    "assembly": true,
    "speech": true
   },
-  "emergencyPowers": "limited",
+  "emergencyPowers": "broad",
   "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "unitary",
-  "amendment": "supermajority",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of Israel.",
+  "amendment": "legislature",
+  "succession": "In the event of the Prime Minister's incapacitation or death, the cabinet designates an acting Prime Minister from among its ministers who are members of the Knesset, pending new coalition formation o",
+  "preamble": "Israel operates under a body of uncodified Basic Laws enacted incrementally since 1958, which function collectively as a de facto constitution.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "ITA": {
@@ -2710,7 +2710,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2743,7 +2743,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2776,17 +2776,17 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Emperor",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is held by the Prime Minister and Cabinet, who are drawn from and accountable to the bicameral legislature and must maintain its confidence. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.77,
+   "powers": 0.8,
    "elected": true,
    "termYears": 4
   },
   "courts": {
-   "independence": 0.73
+   "independence": 0.9
   },
   "liberties": {
    "press": true,
@@ -2797,11 +2797,11 @@
   "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "unitary",
-  "amendment": "referendum",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of Japan.",
+  "amendment": "supermajority",
+  "succession": "Hereditary male-line succession to the Imperial Throne under the Imperial House Law.",
+  "preamble": "Defined by the Constitution of Japan, adopted in 1947, which establishes a parliamentary democracy with a symbolic monarchy and renunciation of war.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "JOR": {
@@ -2810,7 +2810,7 @@
   "govType": "authoritarian",
   "system": "smon",
   "headOfState": "Monarch",
-  "headOfGovernment": "Prime Minister (appointed by the Monarch)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Monarch holds significant executive power alongside a partly elected legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "bicameral",
@@ -2908,7 +2908,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -2941,17 +2941,17 @@
   "status": "ratified",
   "govType": "one_party_state",
   "system": "onep",
-  "headOfState": "President / General Secretary",
+  "headOfState": "President of the State Affairs Commission",
   "headOfGovernment": "Premier",
-  "howPowerHeld": "Ruling party monopoly on political power. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is held autocratically by the Supreme Leader of the Workers' Party of Korea through hereditary succession, absolute party control, and the military. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "unicameral",
-   "powers": 0.26,
+   "powers": 0,
    "elected": true,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.02
+   "independence": 0
   },
   "liberties": {
    "press": false,
@@ -2959,14 +2959,14 @@
    "speech": false
   },
   "emergencyPowers": "unlimited",
-  "militaryRole": "political",
+  "militaryRole": "ruling",
   "religionRole": "secular",
   "territorial": "unitary",
-  "amendment": "decree",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of North Korea.",
+  "amendment": "legislature",
+  "succession": "Hereditary succession within the Kim family, backed by the ruling Workers' Party of Korea and the military elite.",
+  "preamble": "The Socialist Constitution of the Democratic People's Republic of Korea, adopted in 1972 and heavily amended thereafter, codifies the state ideology of Juche and the supreme leadership of the Workers' Party.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "KOR": {
@@ -2975,31 +2975,31 @@
   "govType": "liberal_democracy",
   "system": "pres",
   "headOfState": "President",
-  "headOfGovernment": "President",
-  "howPowerHeld": "Directly elected executive presidency. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "headOfGovernment": "Prime Minister",
+  "howPowerHeld": "Executive power is held by a directly elected president who serves a single five-year term and appoints the prime minister with legislative consent. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "unicameral",
-   "powers": 0.71,
+   "powers": 0.8,
    "elected": true,
    "termYears": 4
   },
   "courts": {
-   "independence": 0.65
+   "independence": 0.8
   },
   "liberties": {
    "press": true,
    "assembly": true,
    "speech": true
   },
-  "emergencyPowers": "limited",
+  "emergencyPowers": "broad",
   "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "unitary",
   "amendment": "supermajority",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of South Korea.",
+  "succession": "In the event of a vacancy or incapacitation of the president, the prime minister assumes presidential powers temporarily until a new election is held within 60 days.",
+  "preamble": "The Constitution of the Republic of Korea, adopted in 1948 and last comprehensively amended in 1987, establishes a democratic presidential system with robust separation of powers and protection of fundamental rights.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "KWT": {
@@ -3008,7 +3008,7 @@
   "govType": "authoritarian",
   "system": "smon",
   "headOfState": "Monarch",
-  "headOfGovernment": "Prime Minister (appointed by the Monarch)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Monarch holds significant executive power alongside a partly elected legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "unicameral",
@@ -3106,7 +3106,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3139,7 +3139,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3172,7 +3172,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3272,7 +3272,7 @@
   "govType": "hybrid_regime",
   "system": "smon",
   "headOfState": "Monarch",
-  "headOfGovernment": "Prime Minister (appointed by the Monarch)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Monarch holds significant executive power alongside a partly elected legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "unicameral",
@@ -3337,7 +3337,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3436,7 +3436,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3503,7 +3503,7 @@
   "govType": "military_junta",
   "system": "junta",
   "headOfState": "Chairman of the Ruling Council",
-  "headOfGovernment": "Prime Minister (appointed)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Military council rules pending transition. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "none",
@@ -3535,7 +3535,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3568,7 +3568,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3634,7 +3634,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3733,7 +3733,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3767,7 +3767,7 @@
   "govType": "hybrid_regime",
   "system": "smon",
   "headOfState": "Monarch",
-  "headOfGovernment": "Prime Minister (appointed by the Monarch)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Monarch holds significant executive power alongside a partly elected legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "unicameral",
@@ -3832,7 +3832,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -3866,7 +3866,7 @@
   "govType": "authoritarian",
   "system": "smon",
   "headOfState": "Monarch",
-  "headOfGovernment": "Prime Minister (appointed by the Monarch)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Monarch holds significant executive power alongside a partly elected legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "bicameral",
@@ -3932,7 +3932,7 @@
   "govType": "military_junta",
   "system": "junta",
   "headOfState": "Chairman of the Ruling Council",
-  "headOfGovernment": "Prime Minister (appointed)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Military council rules pending transition. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "none",
@@ -3997,7 +3997,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4030,7 +4030,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4063,7 +4063,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4096,7 +4096,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4163,7 +4163,7 @@
   "govType": "military_junta",
   "system": "junta",
   "headOfState": "Chairman of the Ruling Council",
-  "headOfGovernment": "Prime Minister (appointed)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Military council rules pending transition. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "none",
@@ -4197,30 +4197,30 @@
   "system": "pres",
   "headOfState": "President",
   "headOfGovernment": "President",
-  "howPowerHeld": "Directly elected executive presidency. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is obtained through national popular elections held every four years and held by the President, who serves as both head of state and head of government. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.55,
+   "powers": 0.7,
    "elected": true,
-   "termYears": 5
+   "termYears": 4
   },
   "courts": {
-   "independence": 0.35
+   "independence": 0.4
   },
   "liberties": {
    "press": true,
    "assembly": true,
    "speech": true
   },
-  "emergencyPowers": "limited",
+  "emergencyPowers": "broad",
   "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "federal",
   "amendment": "supermajority",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of Nigeria.",
+  "succession": "The Vice President succeeds to the office of the President in the event of a vacancy.",
+  "preamble": "Operating under the Constitution of the Federal Republic of Nigeria, adopted in 1999, the political system functions as an electoral democracy with a federal structure, despite ongoing challenges with executive centralization and security-driven emergency measures.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "MKD": {
@@ -4228,7 +4228,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4261,7 +4261,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4327,17 +4327,17 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is nominally held by the Prime Minister and Cabinet, but effectively operates through a hybrid arrangement heavily influenced by the military establishment. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.42,
+   "powers": 0.5,
    "elected": true,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.19
+   "independence": 0.4
   },
   "liberties": {
    "press": false,
@@ -4348,11 +4348,11 @@
   "militaryRole": "political",
   "religionRole": "established",
   "territorial": "federal",
-  "amendment": "legislature",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of Pakistan.",
+  "amendment": "supermajority",
+  "succession": "In the event of a vacancy, the Chairman of the Senate acts as President, and new parliamentary elections determine the Prime Minister, subject to civilian-military consensus.",
+  "preamble": "Pakistan's governance is framed by the Constitution of 1973, though its application is heavily shaped by ongoing de facto military influence and executive overreach.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "PLW": {
@@ -4426,7 +4426,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4692,10 +4692,10 @@
   "system": "semi",
   "headOfState": "President",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Dual executive: elected president, prime minister answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is concentrated in the presidency, maintained through centralized state control, elimination of effective political opposition, and managed elections. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.32,
+   "powers": 0.2,
    "elected": true,
    "termYears": 5
   },
@@ -4707,15 +4707,15 @@
    "assembly": false,
    "speech": false
   },
-  "emergencyPowers": "unlimited",
+  "emergencyPowers": "broad",
   "militaryRole": "political",
   "religionRole": "secular",
   "territorial": "federal",
-  "amendment": "decree",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of Russia.",
+  "amendment": "supermajority",
+  "succession": "In the event of the President's incapacitation or resignation, powers temporarily pass to the Prime Minister until new presidential elections are held within three months.",
+  "preamble": "The current constitutional framework is based on the Constitution of the Russian Federation, adopted by national referendum in 1993 and substantially amended in 2020 to expand presidential powers and reset term limits.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "RWA": {
@@ -4756,7 +4756,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4789,7 +4789,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4822,7 +4822,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4888,7 +4888,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -4954,17 +4954,17 @@
   "status": "ratified",
   "govType": "absolute_monarchy",
   "system": "amon",
-  "headOfState": "Monarch",
-  "headOfGovernment": "Monarch",
-  "howPowerHeld": "Hereditary monarch rules by decree. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "headOfState": "King",
+  "headOfGovernment": "Crown Prince",
+  "howPowerHeld": "Executive power is concentrated entirely in the hands of the King and the Crown Prince, who exercise absolute authority backed by the royal family and security apparatus. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "consultative",
-   "powers": 0.1,
+   "powers": 0,
    "elected": false,
    "termYears": 4
   },
   "courts": {
-   "independence": 0.02
+   "independence": 0
   },
   "liberties": {
    "press": false,
@@ -4972,14 +4972,14 @@
    "speech": false
   },
   "emergencyPowers": "unlimited",
-  "militaryRole": "political",
+  "militaryRole": "ruling",
   "religionRole": "established",
-  "territorial": "unitary_with_autonomy",
+  "territorial": "unitary",
   "amendment": "decree",
-  "succession": "Hereditary, designated crown prince",
-  "preamble": "Constitution of Saudi Arabia.",
+  "succession": "hereditary within the House of Saud, regulated by the Allegiance Council and royal decree",
+  "preamble": "Governed primarily by the 1992 Basic Law of Governance, Saudi Arabia operates as an absolute monarchy rooted in Islamic law without a codified, traditional single-document constitution.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "SEN": {
@@ -5020,7 +5020,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5119,7 +5119,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5152,7 +5152,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5185,7 +5185,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5218,7 +5218,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5251,7 +5251,7 @@
   "status": "ratified",
   "govType": "authoritarian",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5284,7 +5284,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5350,7 +5350,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5417,7 +5417,7 @@
   "govType": "military_junta",
   "system": "junta",
   "headOfState": "Chairman of the Ruling Council",
-  "headOfGovernment": "Prime Minister (appointed)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Military council rules pending transition. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "none",
@@ -5449,7 +5449,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5482,7 +5482,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5515,7 +5515,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5647,7 +5647,7 @@
   "status": "ratified",
   "govType": "hybrid_regime",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5747,7 +5747,7 @@
   "govType": "hybrid_regime",
   "system": "smon",
   "headOfState": "Monarch",
-  "headOfGovernment": "Prime Minister (appointed by the Monarch)",
+  "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Monarch holds significant executive power alongside a partly elected legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
    "type": "unicameral",
@@ -5779,7 +5779,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5847,30 +5847,30 @@
   "system": "pres",
   "headOfState": "President",
   "headOfGovernment": "President",
-  "howPowerHeld": "Directly elected executive presidency. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is obtained through direct presidential elections and heavily centralized in the presidency, which exerts dominant control over the state apparatus and suppresses significant political pluralism. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "unicameral",
-   "powers": 0.4,
+   "powers": 0.3,
    "elected": true,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.17
+   "independence": 0.1
   },
   "liberties": {
    "press": false,
    "assembly": false,
    "speech": false
   },
-  "emergencyPowers": "unlimited",
-  "militaryRole": "political",
-  "religionRole": "established",
-  "territorial": "unitary_with_autonomy",
-  "amendment": "decree",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of Türkiye.",
+  "emergencyPowers": "broad",
+  "militaryRole": "civilian_control",
+  "religionRole": "secular",
+  "territorial": "unitary",
+  "amendment": "supermajority",
+  "succession": "In the event of a vacancy, early presidential elections are held within a specified timeframe, with the Vice President serving as acting president in the interim.",
+  "preamble": "Governed by the Constitution of the Republic of Turkey, adopted in 1982, which has since been extensively amended to transition the nation into a centralized presidential system.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "TKM": {
@@ -5911,7 +5911,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -5979,30 +5979,30 @@
   "system": "semi",
   "headOfState": "President",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Dual executive: elected president, prime minister answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is held by a semi-presidential system centered on the presidency, currently concentrated via wartime martial law authorities. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "unicameral",
-   "powers": 0.47,
+   "powers": 0.5,
    "elected": true,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.27
+   "independence": 0.4
   },
   "liberties": {
-   "press": false,
+   "press": true,
    "assembly": false,
-   "speech": false
+   "speech": true
   },
   "emergencyPowers": "broad",
-  "militaryRole": "political",
+  "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "unitary_with_autonomy",
-  "amendment": "legislature",
-  "succession": "Designated by the ruling council or party leadership",
-  "preamble": "Constitution of Ukraine.",
+  "amendment": "supermajority",
+  "succession": "In the event of the early termination of presidential powers, executive duties temporarily pass to the Chairman of the Verkhovna Rada.",
+  "preamble": "Governed under the Constitution of Ukraine adopted in 1996, which establishes a semi-presidential republic, currently modified by nationwide martial law.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "ARE": {
@@ -6043,32 +6043,32 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "cmon",
-  "headOfState": "Monarch (ceremonial)",
+  "headOfState": "Monarch",
   "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Constitutional monarchy; government answerable to parliament. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is held by the Prime Minister and Cabinet, who must maintain the confidence of the elected House of Commons. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.78,
+   "powers": 0.9,
    "elected": true,
    "termYears": 5
   },
   "courts": {
-   "independence": 0.74
+   "independence": 0.9
   },
   "liberties": {
    "press": true,
    "assembly": true,
    "speech": true
   },
-  "emergencyPowers": "limited",
+  "emergencyPowers": "broad",
   "militaryRole": "civilian_control",
-  "religionRole": "secular",
+  "religionRole": "established",
   "territorial": "unitary_with_autonomy",
-  "amendment": "referendum",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of United Kingdom.",
+  "amendment": "legislature",
+  "succession": "Hereditary monarchy regulated by Acts of Parliament.",
+  "preamble": "The United Kingdom has an uncodified constitution comprising an accumulation of statutes, common law, and conventions developed over centuries.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "USA": {
@@ -6078,30 +6078,30 @@
   "system": "pres",
   "headOfState": "President",
   "headOfGovernment": "President",
-  "howPowerHeld": "Directly elected executive presidency. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "howPowerHeld": "Executive power is obtained through a nationwide electoral college system every four years and held by the President, who commands both the administration and the armed forces. The current Head of Government serves indefinitely.",
   "legislature": {
    "type": "bicameral",
-   "powers": 0.79,
+   "powers": 0.8,
    "elected": true,
-   "termYears": 2
+   "termYears": 6
   },
   "courts": {
-   "independence": 0.73
+   "independence": 0.7
   },
   "liberties": {
    "press": true,
    "assembly": true,
    "speech": true
   },
-  "emergencyPowers": "limited",
+  "emergencyPowers": "broad",
   "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "federal",
-  "amendment": "referendum",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of United States.",
+  "amendment": "supermajority",
+  "succession": "Constitutional provisions dictate that if the President dies, resigns, or is removed, the Vice President assumes the office, followed by the Speaker of the House and other designated cabinet officers.",
+  "preamble": "The United States Constitution, adopted in 1787, establishes a federal republic with a system of separated powers and checks and balances, operating today through a blend of written text and evolving de facto practices.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  },
  "URY": {
@@ -6175,7 +6175,7 @@
   "status": "ratified",
   "govType": "liberal_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -6439,7 +6439,7 @@
   "status": "ratified",
   "govType": "electoral_democracy",
   "system": "parl",
-  "headOfState": "President (ceremonial)",
+  "headOfState": "President",
   "headOfGovernment": "Prime Minister",
   "howPowerHeld": "Government formed by and answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
   "legislature": {
@@ -6473,16 +6473,16 @@
   "govType": "liberal_democracy",
   "system": "semi",
   "headOfState": "President",
-  "headOfGovernment": "Prime Minister",
-  "howPowerHeld": "Dual executive: elected president, prime minister answerable to the legislature. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.",
+  "headOfGovernment": "Premier",
+  "howPowerHeld": "Executive power is obtained through direct democratic presidential elections and held in a semi-presidential system where the president appoints the premier. The current Head of Government serves indefinitely.",
   "legislature": {
-   "type": "bicameral",
-   "powers": 0.76,
+   "type": "unicameral",
+   "powers": 0.8,
    "elected": true,
    "termYears": 4
   },
   "courts": {
-   "independence": 0.7
+   "independence": 0.9
   },
   "liberties": {
    "press": true,
@@ -6493,11 +6493,11 @@
   "militaryRole": "civilian_control",
   "religionRole": "secular",
   "territorial": "unitary",
-  "amendment": "referendum",
-  "succession": "Deputy assumes office pending appointment of a successor by the governing institutions",
-  "preamble": "Constitution of Taiwan.",
+  "amendment": "supermajority",
+  "succession": "In the event of the president's vacancy or incapacitation, the premier assumes presidential duties temporarily until a new election is held within three months.",
+  "preamble": "The constitutional arrangements are governed by the Constitution of the Republic of China, adopted in 1946 and subsequently heavily democratized through constitutional amendments in the 1990s.",
   "generated": true,
-  "source": "generated template from system type (data/curated.json) + V-Dem score; not from Constitute Project",
+  "source": "LLM summary (gemini/gemini-3.5-flash-lite); verify against constituteproject.org",
   "history": []
  }
 }

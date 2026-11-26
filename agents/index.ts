@@ -62,7 +62,7 @@ export async function decide(w: World, s: Statics, iso: string, useLlm: boolean,
   }
   const events: SimEvent[] = [];
   let annexBrief: string | undefined;
-  if (resp?.detailed_report && process.env.DETAILED_REPORTS !== 'off') {
+  if (resp?.detailed_report && process.env.DETAILED_REPORTS === 'now') {
     // optional extra request: the leader sees the report and may revise the memo
     annexBrief = briefing(w, s, iso, resp.detailed_report);
     try {
@@ -91,7 +91,7 @@ export async function draftConstitution(w: World, s: Statics, iso: string, onPro
     const j = validateConstitution(r.text);
     if (j) {
       const k = c.constitution;
-      Object.assign(k, j, { generated: true, source: `drafting commission (${config.provider}/${config.model})` });
+      Object.assign(k, j, { headOfState: j.headOfState || k.headOfState, headOfGovernment: j.headOfGovernment || k.headOfGovernment, generated: true, source: `drafting commission (${config.provider}/${config.model})` });
       k.history.push({ version: k.version, turn: w.turn, change: 'drafted by constitutional commission', reason: d.how });
       c.pendingDraft = null;
       return { ok: true, log: { prompt, raw: raws } };
@@ -103,6 +103,14 @@ export async function draftConstitution(w: World, s: Statics, iso: string, onPro
   return { ok: false, log: { prompt, raw: raws } };
 }
 
+export const OFFICE = /president|minister|monarch|king|queen|emperor|leader|chair|secretary|premier|sultan|emir|governor|council|prince|pope|pontiff|chancellor|head|regent|captain|general|ruler|amir|taoiseach|grand duke/i;
+/** "Prime Minister Jane Doe" -> "Prime Minister"; keeps "President of the X Commission"; '' if no office word (caller keeps its title). */
+export function titleOnly(s: string): string {
+  const t = s.trim().split(/\s+/);
+  let last = -1; t.forEach((w, i) => { if (OFFICE.test(w)) last = i; });
+  if (last < 0) return '';
+  return t[last + 1]?.toLowerCase() === 'of' ? s.trim() : t.slice(0, last + 1).join(' ');
+}
 export function validateConstitution(text: string): Partial<Constitution> | null {
   const a = text.indexOf('{'), b = text.lastIndexOf('}'); if (a < 0) return null;
   try {
@@ -118,7 +126,10 @@ export function validateConstitution(text: string): Partial<Constitution> | null
       religionRole: one(j.religionRole, ['secular', 'established', 'theocratic'])!, territorial: one(j.territorial, ['unitary', 'federal', 'unitary_with_autonomy'])!,
       amendment: one(j.amendment, ['supermajority', 'referendum', 'legislature', 'decree'])!, succession: String(j.succession ?? '').slice(0, 200), preamble: String(j.preamble ?? '').slice(0, 800),
     };
-    if (!out.headOfState || !out.legislature!.type || Number.isNaN(out.legislature!.powers) || Number.isNaN(out.courts!.independence) || !out.emergencyPowers || !out.militaryRole || !out.religionRole || !out.territorial || !out.amendment) return null;
+    // titles only: drop any personal names in parentheses (leaders are never real people)
+    for (const k of ['headOfState', 'headOfGovernment', 'howPowerHeld', 'succession', 'preamble'] as const) out[k] = String(out[k]).replace(/\s*\([^)]*\)/g, '');
+    for (const k of ['headOfState', 'headOfGovernment'] as const) out[k] = titleOnly(out[k]!);
+    if (!out.legislature!.type || Number.isNaN(out.legislature!.powers) || Number.isNaN(out.courts!.independence) || !out.emergencyPowers || !out.militaryRole || !out.religionRole || !out.territorial || !out.amendment) return null;
     out.howPowerHeld += ' The current Head of Government serves indefinitely.';
     return out;
   } catch { return null; }

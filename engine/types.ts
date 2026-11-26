@@ -40,7 +40,7 @@ export interface Bloc {
   grievances: string[];
 }
 
-export interface Leader { id: number; title: string; since: number; origin: string; memory: string; lastAssessment?: string; lastStatement?: string }
+export interface Leader { id: number; title: string; since: number; origin: string; memory: string; lastAssessment?: string; lastStatement?: string; reportTopic?: string }
 
 export interface Country {
   iso3: string; name: string; alive: boolean;

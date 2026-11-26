@@ -57,6 +57,7 @@ export function applyDecisions(x: Ctx, decisions: Record<string, AgentResponse>)
     const c = w.countries[iso]; if (!c?.alive) continue;
     const resp = decisions[iso];
     c.leader.lastAssessment = resp.assessment; c.leader.lastStatement = resp.public_statement;
+    c.leader.reportTopic = resp.detailed_report; // delivered as an annex to next month's briefing
     for (const d of (resp.directives ?? []).slice(0, 12)) {
       try { apply(x, c, d); } catch (e) { reject(c, d, 'The Secretariat could not execute this order (' + (e as Error).message + ').'); }
     }
