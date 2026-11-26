@@ -1,0 +1,536 @@
+{"turn":0,"type":"imf_loan","countries":["BTN"],"text":"The IMF approves a $0.2bn programme for Bhutan, with austerity conditions."}
+{"turn":0,"type":"mobilization","countries":["COD"],"text":"Democratic Republic of the Congo orders military mobilisation."}
+{"turn":0,"type":"imf_loan","countries":["JAM"],"text":"The IMF approves a $1.0bn programme for Jamaica, with austerity conditions."}
+{"turn":0,"type":"mobilization","countries":["LBY"],"text":"Libya orders military mobilisation."}
+{"turn":0,"type":"mobilization","countries":["MMR"],"text":"Myanmar orders military mobilisation."}
+{"turn":0,"type":"mobilization","countries":["SDN"],"text":"Sudan orders military mobilisation."}
+{"turn":0,"type":"imf_loan","countries":["SLV"],"text":"The IMF approves a $1.8bn programme for El Salvador, with austerity conditions."}
+{"turn":0,"type":"mobilization","countries":["SOM"],"text":"Somalia orders military mobilisation."}
+{"turn":0,"type":"mobilization","countries":["YEM"],"text":"Yemen orders military mobilisation."}
+{"turn":0,"type":"region_captured","countries":["RUS","UKR"],"text":"Russia takes Sumy from Ukraine.","data":{"region":628,"war":"W7"}}
+{"turn":0,"type":"unrest_protests","countries":["BFA"],"text":"Burkina Faso: protests spreads. Grievances: repression, censorship."}
+{"turn":0,"type":"unrest_civil_war","countries":["COD"],"text":"Democratic Republic of the Congo: civil war spreads. Grievances: repression, censorship, autonomy.","major":true}
+{"turn":0,"type":"unrest_civil_war","countries":["LBY"],"text":"Libya: civil war spreads. Grievances: jobs, repression, censorship.","major":true}
+{"turn":0,"type":"unrest_protests","countries":["MLI"],"text":"Mali: protests spreads. Grievances: repression, censorship, autonomy."}
+{"turn":0,"type":"unrest_civil_war","countries":["MMR"],"text":"Myanmar: civil war spreads. Grievances: repression, censorship, autonomy.","major":true}
+{"turn":0,"type":"unrest_protests","countries":["NER"],"text":"Niger: protests spreads. Grievances: repression, censorship."}
+{"turn":0,"type":"unrest_protests","countries":["RUS"],"text":"Russia: protests spreads. Grievances: repression, war, censorship, autonomy."}
+{"turn":0,"type":"unrest_civil_war","countries":["SOM"],"text":"Somalia: civil war spreads. Grievances: jobs, repression, censorship.","major":true}
+{"turn":0,"type":"unrest_civil_war","countries":["SDN"],"text":"Sudan: civil war spreads. Grievances: prices, repression, censorship, autonomy.","major":true}
+{"turn":0,"type":"unrest_protests","countries":["UKR"],"text":"Ukraine: protests spreads. Grievances: repression, war, autonomy."}
+{"turn":0,"type":"unrest_civil_war","countries":["YEM"],"text":"Yemen: civil war spreads. Grievances: jobs, repression, censorship, autonomy.","major":true}
+{"turn":0,"type":"scandal","countries":["AUT"],"text":"A corruption scandal engulfs the government of Austria."}
+{"turn":0,"type":"election","countries":["CPV"],"text":"Legislative elections in Cape Verde: government-aligned parties win 45% of seats."}
+{"turn":0,"type":"scandal","countries":["FJI"],"text":"A corruption scandal engulfs the government of Fiji."}
+{"turn":0,"type":"scandal","countries":["PRY"],"text":"A corruption scandal engulfs the government of Paraguay."}
+{"turn":0,"type":"election","countries":["TJK"],"text":"Legislative elections in Tajikistan: government-aligned parties win 74% of seats."}
+{"turn":0,"type":"terror_attack","countries":["CZE"],"text":"Terrorist attack in Czechia."}
+{"turn":0,"type":"terror_attack","countries":["MLI"],"text":"Terrorist attack in Mali."}
+{"turn":0,"type":"refugees","countries":["SDN","CAF","TCD","EGY"],"text":"104k refugees flee Sudan this month."}
+{"turn":0,"type":"terror_attack","countries":["USA"],"text":"Terrorist attack in United States."}
+{"turn":0,"type":"terror_attack","countries":["TWN"],"text":"Terrorist attack in Taiwan."}
+{"turn":0,"type":"disaster","countries":["AUT"],"text":"A drought strikes Austria (Salzburg).","data":{"region":2217}}
+{"turn":1,"type":"trade_deal","countries":["ARG","MDA"],"text":"Argentina and Moldova sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["ARG","URY"],"text":"Argentina and Uruguay sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["BTN","NRU"],"text":"Bhutan and Nauru sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["CAF","GNB"],"text":"Central African Republic and Guinea-Bissau sign a trade agreement."}
+{"turn":1,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":1,"type":"trade_deal","countries":["DZA","TUN"],"text":"Algeria and Tunisia sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["EGY","ARE"],"text":"Egypt and United Arab Emirates sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["GEO","CUB"],"text":"Georgia and Cuba sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["GMB","SYC"],"text":"Gambia and Seychelles sign a trade agreement."}
+{"turn":1,"type":"trade_deal","countries":["MEX","ATG"],"text":"Mexico and Antigua and Barbuda sign a trade agreement."}
+{"turn":1,"type":"internet_shutdown","countries":["MMR"],"text":"Authorities in Myanmar shut down the internet."}
+{"turn":1,"type":"sanctions","countries":["PAK","IND"],"text":"Pakistan imposes sanctions on India."}
+{"turn":1,"type":"imf_loan","countries":["PSE"],"text":"The IMF approves a $0.0bn programme for Palestine, with austerity conditions."}
+{"turn":1,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":1,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":1,"type":"trade_deal","countries":["TUN","MOZ"],"text":"Tunisia and Mozambique sign a trade agreement."}
+{"turn":1,"type":"debt_crisis","countries":["PSE"],"text":"Palestine hits its borrowing limit; emergency spending cuts imposed."}
+{"turn":1,"type":"scandal","countries":["ALB"],"text":"A corruption scandal engulfs the government of Albania."}
+{"turn":1,"type":"election","countries":["BWA"],"text":"Legislative elections in Botswana: government-aligned parties win 37% of seats."}
+{"turn":1,"type":"election","countries":["GTM"],"text":"Legislative elections in Guatemala: government-aligned parties win 52% of seats."}
+{"turn":1,"type":"scandal","countries":["GTM"],"text":"A corruption scandal engulfs the government of Guatemala."}
+{"turn":1,"type":"scandal","countries":["JPN"],"text":"A corruption scandal engulfs the government of Japan."}
+{"turn":1,"type":"election","countries":["ROU"],"text":"Legislative elections in Romania: government-aligned parties win 58% of seats."}
+{"turn":1,"type":"scandal","countries":["TLS"],"text":"A corruption scandal engulfs the government of Timor-Leste."}
+{"turn":1,"type":"refugees","countries":["MMR","BGD","CHN","IND"],"text":"110k refugees flee Myanmar this month."}
+{"turn":1,"type":"terror_attack","countries":["PHL"],"text":"Terrorist attack in Philippines."}
+{"turn":1,"type":"refugees","countries":["SDN","CAF","TCD","EGY"],"text":"103k refugees flee Sudan this month."}
+{"turn":1,"type":"disaster","countries":["BGR"],"text":"A drought strikes Bulgaria (Burgas).","data":{"region":2818}}
+{"turn":1,"type":"crop_failure","countries":["KOR"],"text":"Crop failure in South Korea drives up food prices."}
+{"turn":1,"type":"crop_failure","countries":["ESP"],"text":"Crop failure in Spain drives up food prices."}
+{"turn":2,"type":"trade_deal","countries":["KHM","MMR"],"text":"Cambodia and Myanmar sign a trade agreement."}
+{"turn":2,"type":"internet_shutdown","countries":["MMR"],"text":"Authorities in Myanmar shut down the internet."}
+{"turn":2,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":2,"type":"trade_deal","countries":["URY","PRY"],"text":"Uruguay and Paraguay sign a trade agreement."}
+{"turn":2,"type":"election","countries":["GEO"],"text":"Legislative elections in Georgia: government-aligned parties win 70% of seats."}
+{"turn":2,"type":"election","countries":["IDN"],"text":"Legislative elections in Indonesia: government-aligned parties win 68% of seats."}
+{"turn":2,"type":"election","countries":["LBY"],"text":"Legislative elections in Libya: government-aligned parties win 64% of seats."}
+{"turn":2,"type":"election","countries":["MDV"],"text":"Legislative elections in Maldives: government-aligned parties win 54% of seats."}
+{"turn":2,"type":"scandal","countries":["MDA"],"text":"A corruption scandal engulfs the government of Moldova."}
+{"turn":2,"type":"scandal","countries":["TTO"],"text":"A corruption scandal engulfs the government of Trinidad and Tobago."}
+{"turn":2,"type":"scandal","countries":["URY"],"text":"A corruption scandal engulfs the government of Uruguay."}
+{"turn":2,"type":"terror_attack","countries":["COD"],"text":"Terrorist attack in Democratic Republic of the Congo."}
+{"turn":2,"type":"terror_attack","countries":["STP"],"text":"Terrorist attack in São Tomé and Príncipe."}
+{"turn":2,"type":"refugees","countries":["SDN","CAF","TCD","EGY"],"text":"103k refugees flee Sudan this month."}
+{"turn":2,"type":"disaster","countries":["STP"],"text":"A cyclone strikes São Tomé and Príncipe (Príncipe).","data":{"region":4381}}
+{"turn":3,"type":"trade_deal","countries":["DMA","NRU"],"text":"Dominica and Nauru sign a trade agreement."}
+{"turn":3,"type":"trade_deal","countries":["GNB","DZA"],"text":"Guinea-Bissau and Algeria sign a trade agreement."}
+{"turn":3,"type":"covert_op_exposed","countries":["PRK","JPN"],"text":"Japan exposes a fund opposition operation by North Korea.","major":true}
+{"turn":3,"type":"internet_shutdown","countries":["SDN"],"text":"Authorities in Sudan shut down the internet."}
+{"turn":3,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":3,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":3,"type":"sanctions","countries":["TWN","CHN"],"text":"Taiwan imposes sanctions on China."}
+{"turn":3,"type":"sanctions","countries":["XKX","SRB"],"text":"Kosovo imposes sanctions on Serbia."}
+{"turn":3,"type":"debt_crisis","countries":["BTN"],"text":"Bhutan hits its borrowing limit; emergency spending cuts imposed."}
+{"turn":3,"type":"region_captured","countries":["SOM"],"text":"Somalia takes Jubbada Dhexe from al-Shabaab.","data":{"region":283,"war":"W6"}}
+{"turn":3,"type":"unrest_insurgency","countries":["SOM"],"text":"Somalia: armed insurgency subsides. Grievances: jobs, repression, censorship.","major":true}
+{"turn":3,"type":"election","countries":["BLZ"],"text":"Legislative elections in Belize: government-aligned parties win 65% of seats."}
+{"turn":3,"type":"election","countries":["MAR"],"text":"Legislative elections in Morocco: government-aligned parties win 67% of seats."}
+{"turn":3,"type":"election","countries":["LCA"],"text":"Legislative elections in Saint Lucia: government-aligned parties win 53% of seats."}
+{"turn":3,"type":"refugees","countries":["COD","AGO","BDI","CAF"],"text":"248k refugees flee Democratic Republic of the Congo this month."}
+{"turn":3,"type":"terror_attack","countries":["GMB"],"text":"Terrorist attack in Gambia."}
+{"turn":3,"type":"terror_attack","countries":["SGP"],"text":"Terrorist attack in Singapore."}
+{"turn":3,"type":"disaster","countries":["DJI"],"text":"A drought strikes Djibouti (Tadjourah).","data":{"region":2203}}
+{"turn":3,"type":"crop_failure","countries":["LTU"],"text":"Crop failure in Lithuania drives up food prices."}
+{"turn":3,"type":"crop_failure","countries":["OMN"],"text":"Crop failure in Oman drives up food prices."}
+{"turn":4,"type":"trade_deal","countries":["HRV","KIR"],"text":"Croatia and Kiribati sign a trade agreement."}
+{"turn":4,"type":"trade_deal","countries":["LBR","KEN"],"text":"Liberia and Kenya sign a trade agreement."}
+{"turn":4,"type":"trade_deal","countries":["LCA","PRY"],"text":"Saint Lucia and Paraguay sign a trade agreement."}
+{"turn":4,"type":"trade_deal","countries":["LTU","CAN"],"text":"Lithuania and Canada sign a trade agreement."}
+{"turn":4,"type":"trade_deal","countries":["PRY","PER"],"text":"Paraguay and Peru sign a trade agreement."}
+{"turn":4,"type":"sanctions","countries":["RUS","UKR"],"text":"Russia imposes sanctions on Ukraine."}
+{"turn":4,"type":"internet_shutdown","countries":["SDN"],"text":"Authorities in Sudan shut down the internet."}
+{"turn":4,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":4,"type":"trade_deal","countries":["UGA","GUY"],"text":"Uganda and Guyana sign a trade agreement."}
+{"turn":4,"type":"internet_shutdown","countries":["YEM"],"text":"Authorities in Yemen shut down the internet."}
+{"turn":4,"type":"region_captured","countries":["RUS","UKR"],"text":"Russia takes Poltava from Ukraine.","data":{"region":637,"war":"W7"}}
+{"turn":4,"type":"discontent_erupts","countries":["SDN"],"text":"Long-suppressed discontent erupts in Sudan, inspired by upheaval next door.","major":true}
+{"turn":4,"type":"election","countries":["BEL"],"text":"Legislative elections in Belgium: government-aligned parties win 54% of seats."}
+{"turn":4,"type":"election","countries":["DNK"],"text":"Legislative elections in Denmark: government-aligned parties win 69% of seats."}
+{"turn":4,"type":"election","countries":["SLV"],"text":"Legislative elections in El Salvador: government-aligned parties win 72% of seats."}
+{"turn":4,"type":"election","countries":["GRD"],"text":"Legislative elections in Grenada: government-aligned parties win 52% of seats."}
+{"turn":4,"type":"election","countries":["HUN"],"text":"Legislative elections in Hungary: government-aligned parties win 70% of seats."}
+{"turn":4,"type":"election","countries":["MWI"],"text":"Legislative elections in Malawi: government-aligned parties win 36% of seats."}
+{"turn":4,"type":"election","countries":["PER"],"text":"Legislative elections in Peru: government-aligned parties win 61% of seats."}
+{"turn":4,"type":"election","countries":["UZB"],"text":"Legislative elections in Uzbekistan: government-aligned parties win 74% of seats."}
+{"turn":4,"type":"election","countries":["VUT"],"text":"Legislative elections in Vanuatu: government-aligned parties win 49% of seats."}
+{"turn":4,"type":"terror_attack","countries":["TUR"],"text":"Terrorist attack in Türkiye."}
+{"turn":4,"type":"crop_failure","countries":["KNA"],"text":"Crop failure in Saint Kitts and Nevis drives up food prices."}
+{"turn":5,"type":"trade_deal","countries":["CHL","GRD"],"text":"Chile and Grenada sign a trade agreement."}
+{"turn":5,"type":"constitutional_change","countries":["COD"],"text":"Democratic Republic of the Congo amends its constitution (legislature): expanded emergency powers."}
+{"turn":5,"type":"trade_deal","countries":["CPV","NGA"],"text":"Cape Verde and Nigeria sign a trade agreement."}
+{"turn":5,"type":"trade_deal","countries":["GHA","SYC"],"text":"Ghana and Seychelles sign a trade agreement."}
+{"turn":5,"type":"internet_shutdown","countries":["LBY"],"text":"Authorities in Libya shut down the internet."}
+{"turn":5,"type":"trade_deal","countries":["NRU","XKX"],"text":"Nauru and Kosovo sign a trade agreement."}
+{"turn":5,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":5,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":5,"type":"sanctions","countries":["UKR","RUS"],"text":"Ukraine imposes sanctions on Russia."}
+{"turn":5,"type":"scandal","countries":["COL"],"text":"A corruption scandal engulfs the government of Colombia."}
+{"turn":5,"type":"election","countries":["GMB"],"text":"Legislative elections in Gambia: government-aligned parties win 54% of seats."}
+{"turn":5,"type":"election","countries":["KWT"],"text":"Legislative elections in Kuwait: government-aligned parties win 67% of seats."}
+{"turn":5,"type":"election","countries":["SVK"],"text":"Legislative elections in Slovakia: government-aligned parties win 51% of seats."}
+{"turn":5,"type":"scandal","countries":["SVK"],"text":"A corruption scandal engulfs the government of Slovakia."}
+{"turn":5,"type":"terror_attack","countries":["SEN"],"text":"Terrorist attack in Senegal."}
+{"turn":5,"type":"disaster","countries":["LUX"],"text":"A cyclone strikes Luxembourg (Grevenmacher).","data":{"region":1213}}
+{"turn":5,"type":"crop_failure","countries":["ZAF"],"text":"Crop failure in South Africa drives up food prices."}
+{"turn":6,"type":"sanctions","countries":["CHN","USA"],"text":"China imposes sanctions on United States."}
+{"turn":6,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":6,"type":"war_declared","countries":["DZA","MAR"],"text":"Algeria declares war on Morocco: Secure our national interests across the border..","major":true,"data":{"war":"W8"}}
+{"turn":6,"type":"trade_deal","countries":["GRC","NLD"],"text":"Greece and Netherlands sign a trade agreement."}
+{"turn":6,"type":"covert_op_exposed","countries":["IRN","ISR"],"text":"Israel exposes a fund rebels operation by Iran.","major":true}
+{"turn":6,"type":"sanctions","countries":["ISR","LBN"],"text":"Israel imposes sanctions on Lebanon."}
+{"turn":6,"type":"internet_shutdown","countries":["LBY"],"text":"Authorities in Libya shut down the internet."}
+{"turn":6,"type":"legislature_blocks","countries":["MWI"],"text":"The legislature of Malawi blocks the government's set tax."}
+{"turn":6,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":6,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":6,"type":"region_captured","countries":["MMR"],"text":"Myanmar takes Kayah from Ethnic armed organisations and resistance forces.","data":{"region":3146,"war":"W2"}}
+{"turn":6,"type":"election","countries":["CHL"],"text":"Legislative elections in Chile: government-aligned parties win 55% of seats."}
+{"turn":6,"type":"election","countries":["GNB"],"text":"Legislative elections in Guinea-Bissau: government-aligned parties win 71% of seats."}
+{"turn":6,"type":"scandal","countries":["KIR"],"text":"A corruption scandal engulfs the government of Kiribati."}
+{"turn":6,"type":"scandal","countries":["LVA"],"text":"A corruption scandal engulfs the government of Latvia."}
+{"turn":6,"type":"scandal","countries":["MDA"],"text":"A corruption scandal engulfs the government of Moldova."}
+{"turn":6,"type":"election","countries":["TWN"],"text":"Legislative elections in Taiwan: government-aligned parties win 55% of seats."}
+{"turn":6,"type":"refugees","countries":["MMR","BGD","CHN","IND"],"text":"109k refugees flee Myanmar this month."}
+{"turn":6,"type":"terror_attack","countries":["NER"],"text":"Terrorist attack in Niger."}
+{"turn":6,"type":"terror_attack","countries":["ZMB"],"text":"Terrorist attack in Zambia."}
+{"turn":7,"type":"trade_deal","countries":["BLR","RUS"],"text":"Belarus and Russia sign a trade agreement."}
+{"turn":7,"type":"trade_deal","countries":["EGY","CAF"],"text":"Egypt and Central African Republic sign a trade agreement."}
+{"turn":7,"type":"trade_deal","countries":["GEO","NIC"],"text":"Georgia and Nicaragua sign a trade agreement."}
+{"turn":7,"type":"legislature_blocks","countries":["MWI"],"text":"The legislature of Malawi blocks the government's set spending."}
+{"turn":7,"type":"trade_deal","countries":["RUS","KAZ"],"text":"Russia and Kazakhstan sign a trade agreement."}
+{"turn":7,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":7,"type":"trade_deal","countries":["SEN","GHA"],"text":"Senegal and Ghana sign a trade agreement."}
+{"turn":7,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":7,"type":"election","countries":["CZE"],"text":"Legislative elections in Czechia: government-aligned parties win 63% of seats."}
+{"turn":7,"type":"election","countries":["EST"],"text":"Legislative elections in Estonia: government-aligned parties win 58% of seats."}
+{"turn":7,"type":"coup_failed","countries":["HTI"],"text":"A coup attempt in Haiti fails; plotters arrested.","major":true}
+{"turn":7,"type":"election","countries":["NZL"],"text":"Legislative elections in New Zealand: government-aligned parties win 66% of seats."}
+{"turn":7,"type":"terror_attack","countries":["CHE"],"text":"Terrorist attack in Switzerland."}
+{"turn":7,"type":"disaster","countries":["MLI"],"text":"A flood strikes Mali (Kidal).","data":{"region":2468}}
+{"turn":8,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":8,"type":"trade_deal","countries":["IRN","IND"],"text":"Iran and India sign a trade agreement."}
+{"turn":8,"type":"trade_deal","countries":["LCA","DOM"],"text":"Saint Lucia and Dominican Republic sign a trade agreement."}
+{"turn":8,"type":"internet_shutdown","countries":["MMR"],"text":"Authorities in Myanmar shut down the internet."}
+{"turn":8,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":8,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":8,"type":"autonomy","countries":["UKR"],"text":"Ukraine grants autonomy to 3 region(s)."}
+{"turn":8,"type":"purge","countries":["YEM"],"text":"Purge of the officer corps in Yemen."}
+{"turn":8,"type":"scandal","countries":["HND"],"text":"A corruption scandal engulfs the government of Honduras."}
+{"turn":8,"type":"scandal","countries":["MYS"],"text":"A corruption scandal engulfs the government of Malaysia."}
+{"turn":8,"type":"election","countries":["NOR"],"text":"Legislative elections in Norway: government-aligned parties win 68% of seats."}
+{"turn":8,"type":"election","countries":["THA"],"text":"Legislative elections in Thailand: government-aligned parties win 70% of seats."}
+{"turn":9,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":9,"type":"trade_deal","countries":["CZE","SVK"],"text":"Czechia and Slovakia sign a trade agreement."}
+{"turn":9,"type":"internet_shutdown","countries":["LBY"],"text":"Authorities in Libya shut down the internet."}
+{"turn":9,"type":"autonomy","countries":["MDA"],"text":"Moldova grants autonomy to 2 region(s)."}
+{"turn":9,"type":"sanctions","countries":["MLI","DZA"],"text":"Mali imposes sanctions on Algeria."}
+{"turn":9,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":9,"type":"scandal","countries":["ATG"],"text":"A corruption scandal engulfs the government of Antigua and Barbuda."}
+{"turn":9,"type":"election","countries":["GAB"],"text":"Legislative elections in Gabon: government-aligned parties win 59% of seats."}
+{"turn":9,"type":"election","countries":["NLD"],"text":"Legislative elections in Netherlands: government-aligned parties win 63% of seats."}
+{"turn":9,"type":"election","countries":["SGP"],"text":"Legislative elections in Singapore: government-aligned parties win 74% of seats."}
+{"turn":10,"type":"trade_deal","countries":["BOL","BLZ"],"text":"Bolivia and Belize sign a trade agreement."}
+{"turn":10,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":10,"type":"trade_deal","countries":["COL","DMA"],"text":"Colombia and Dominica sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["COM","IRQ"],"text":"Comoros and Iraq sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["CYP","AUT"],"text":"Cyprus and Austria sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["DJI","PSE"],"text":"Djibouti and Palestine sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["HND","GTM"],"text":"Honduras and Guatemala sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["KEN","BWA"],"text":"Kenya and Botswana sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["MYS","TLS"],"text":"Malaysia and Timor-Leste sign a trade agreement."}
+{"turn":10,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":10,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":10,"type":"trade_deal","countries":["STP","ZAF"],"text":"São Tomé and Príncipe and South Africa sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["TUN","AGO"],"text":"Tunisia and Angola sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["USA","SUR"],"text":"United States and Suriname sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["UZB","AZE"],"text":"Uzbekistan and Azerbaijan sign a trade agreement."}
+{"turn":10,"type":"trade_deal","countries":["VEN","CUB"],"text":"Venezuela and Cuba sign a trade agreement."}
+{"turn":10,"type":"debt_crisis","countries":["PSE"],"text":"Palestine hits its borrowing limit; emergency spending cuts imposed."}
+{"turn":10,"type":"region_captured","countries":["MMR"],"text":"Myanmar takes Kachin from Ethnic armed organisations and resistance forces.","data":{"region":3143,"war":"W2"}}
+{"turn":10,"type":"unrest_protests","countries":["NGA"],"text":"Nigeria: protests spreads. Grievances: prices, autonomy."}
+{"turn":10,"type":"election","countries":["IND"],"text":"Legislative elections in India: government-aligned parties win 71% of seats."}
+{"turn":10,"type":"election","countries":["IRL"],"text":"Legislative elections in Ireland: government-aligned parties win 62% of seats."}
+{"turn":10,"type":"scandal","countries":["MLT"],"text":"A corruption scandal engulfs the government of Malta."}
+{"turn":10,"type":"defection","countries":["SDN"],"text":"Security forces in Sudan refuse orders to fire on protesters; units defect.","major":true}
+{"turn":10,"type":"defection","countries":["YEM"],"text":"Security forces in Yemen refuse orders to fire on protesters; units defect.","major":true}
+{"turn":10,"type":"terror_attack","countries":["MLI"],"text":"Terrorist attack in Mali."}
+{"turn":10,"type":"disaster","countries":["VUT"],"text":"A cyclone strikes Vanuatu (Penama).","data":{"region":4552}}
+{"turn":11,"type":"trade_deal","countries":["BEN","STP"],"text":"Benin and São Tomé and Príncipe sign a trade agreement."}
+{"turn":11,"type":"trade_deal","countries":["CAN","GBR"],"text":"Canada and United Kingdom sign a trade agreement."}
+{"turn":11,"type":"autonomy","countries":["CYP"],"text":"Cyprus grants autonomy to 1 region(s)."}
+{"turn":11,"type":"sanctions","countries":["DZA","MAR"],"text":"Algeria imposes sanctions on Morocco."}
+{"turn":11,"type":"purge","countries":["LBY"],"text":"Purge of the officer corps in Libya."}
+{"turn":11,"type":"sanctions","countries":["MAR","DZA"],"text":"Morocco imposes sanctions on Algeria."}
+{"turn":11,"type":"concessions","countries":["NGA"],"text":"Nigeria announces concessions to protesters."}
+{"turn":11,"type":"sanctions","countries":["RUS","USA"],"text":"Russia imposes sanctions on United States."}
+{"turn":11,"type":"internet_shutdown","countries":["SDN"],"text":"Authorities in Sudan shut down the internet."}
+{"turn":11,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":11,"type":"autonomy","countries":["UKR"],"text":"Ukraine grants autonomy to 1 region(s)."}
+{"turn":11,"type":"legislature_blocks","countries":["ZAF"],"text":"The legislature of South Africa blocks the government's set tax."}
+{"turn":11,"type":"unrest_protests","countries":["ARG"],"text":"Argentina: protests spreads. Grievances: prices."}
+{"turn":11,"type":"election","countries":["JPN"],"text":"Legislative elections in Japan: government-aligned parties win 57% of seats."}
+{"turn":11,"type":"election","countries":["KNA"],"text":"Legislative elections in Saint Kitts and Nevis: government-aligned parties win 56% of seats."}
+{"turn":11,"type":"election","countries":["ESP"],"text":"Legislative elections in Spain: government-aligned parties win 55% of seats."}
+{"turn":11,"type":"election","countries":["TKM"],"text":"Legislative elections in Turkmenistan: government-aligned parties win 71% of seats."}
+{"turn":11,"type":"terror_attack","countries":["CMR"],"text":"Terrorist attack in Cameroon."}
+{"turn":11,"type":"refugees","countries":["COD","AGO","BDI","CAF"],"text":"249k refugees flee Democratic Republic of the Congo this month."}
+{"turn":11,"type":"refugees","countries":["SDN","CAF","TCD","EGY"],"text":"102k refugees flee Sudan this month."}
+{"turn":11,"type":"disaster","countries":["CAN"],"text":"A flood strikes Canada (Manitoba).","major":true,"data":{"region":3730}}
+{"turn":12,"type":"concessions","countries":["ARG"],"text":"Argentina announces concessions to protesters."}
+{"turn":12,"type":"trade_deal","countries":["COM","SDN"],"text":"Comoros and Sudan sign a trade agreement."}
+{"turn":12,"type":"autonomy","countries":["GEO"],"text":"Georgia grants autonomy to 1 region(s)."}
+{"turn":12,"type":"trade_deal","countries":["GIN","ETH"],"text":"Guinea and Ethiopia sign a trade agreement."}
+{"turn":12,"type":"annexation","countries":["ISR","PSE"],"text":"Israel formally annexes Gaza Strip from Palestine. Borders redrawn.","major":true,"data":{"region":245}}
+{"turn":12,"type":"country_extinguished","countries":["PSE","ISR"],"text":"Palestine has ceased to exist as a state; its last territory passed to Israel.","major":true}
+{"turn":12,"type":"annexation","countries":["ISR","PSE"],"text":"Israel formally annexes West Bank from Palestine. Borders redrawn.","major":true,"data":{"region":246}}
+{"turn":12,"type":"annexation","countries":["ISR","SYR"],"text":"Israel formally annexes UNDOF from Syria. Borders redrawn.","major":true,"data":{"region":354}}
+{"turn":12,"type":"annexation","countries":["ISR","SYR"],"text":"Israel formally annexes Quneitra from Syria. Borders redrawn.","major":true,"data":{"region":366}}
+{"turn":12,"type":"trade_deal","countries":["LBY","YEM"],"text":"Libya and Yemen sign a trade agreement."}
+{"turn":12,"type":"internet_shutdown","countries":["SDN"],"text":"Authorities in Sudan shut down the internet."}
+{"turn":12,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":12,"type":"imf_loan","countries":["SLV"],"text":"The IMF approves a $1.8bn programme for El Salvador, with austerity conditions."}
+{"turn":12,"type":"annexation","countries":["TUR","CYP"],"text":"Türkiye formally annexes Northern Cyprus from Cyprus. Borders redrawn.","major":true,"data":{"region":145}}
+{"turn":12,"type":"unrest_protests","countries":["BWA"],"text":"Botswana: protests spreads. Grievances: jobs."}
+{"turn":12,"type":"unrest_protests","countries":["ZAF"],"text":"South Africa: protests spreads. Grievances: jobs."}
+{"turn":12,"type":"election","countries":["HTI"],"text":"Legislative elections in Haiti: government-aligned parties win 49% of seats."}
+{"turn":12,"type":"election","countries":["MUS"],"text":"Legislative elections in Mauritius: government-aligned parties win 72% of seats."}
+{"turn":12,"type":"scandal","countries":["NRU"],"text":"A corruption scandal engulfs the government of Nauru."}
+{"turn":12,"type":"election","countries":["PAN"],"text":"Legislative elections in Panama: government-aligned parties win 63% of seats."}
+{"turn":12,"type":"scandal","countries":["ZAF"],"text":"A corruption scandal engulfs the government of South Africa."}
+{"turn":12,"type":"defection","countries":["YEM"],"text":"Security forces in Yemen refuse orders to fire on protesters; units defect.","major":true}
+{"turn":12,"type":"scandal","countries":["ZMB"],"text":"A corruption scandal engulfs the government of Zambia."}
+{"turn":12,"type":"terror_attack","countries":["DOM"],"text":"Terrorist attack in Dominican Republic."}
+{"turn":12,"type":"refugees","countries":["SDN","CAF","TCD","EGY"],"text":"101k refugees flee Sudan this month."}
+{"turn":12,"type":"disaster","countries":["KGZ"],"text":"A drought strikes Kyrgyzstan (Ysyk-Köl).","major":true,"data":{"region":1592}}
+{"turn":12,"type":"disaster","countries":["CHE"],"text":"A earthquake strikes Switzerland (Valais).","data":{"region":2349}}
+{"turn":13,"type":"concessions","countries":["ARG"],"text":"Argentina announces concessions to protesters."}
+{"turn":13,"type":"trade_deal","countries":["BGR","HRV"],"text":"Bulgaria and Croatia sign a trade agreement."}
+{"turn":13,"type":"trade_deal","countries":["BGR","TUV"],"text":"Bulgaria and Tuvalu sign a trade agreement."}
+{"turn":13,"type":"trade_deal","countries":["BOL","COL"],"text":"Bolivia and Colombia sign a trade agreement."}
+{"turn":13,"type":"concessions","countries":["BWA"],"text":"Botswana announces concessions to protesters."}
+{"turn":13,"type":"sanctions","countries":["COM","ISR"],"text":"Comoros imposes sanctions on Israel."}
+{"turn":13,"type":"sanctions","countries":["PRK","USA"],"text":"North Korea imposes sanctions on United States."}
+{"turn":13,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":13,"type":"sanctions","countries":["SLV","ISR"],"text":"El Salvador imposes sanctions on Israel."}
+{"turn":13,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":13,"type":"sanctions","countries":["TUR","ISR"],"text":"Türkiye imposes sanctions on Israel."}
+{"turn":13,"type":"trade_deal","countries":["UZB","WSM"],"text":"Uzbekistan and Samoa sign a trade agreement."}
+{"turn":13,"type":"concessions","countries":["ZAF"],"text":"South Africa announces concessions to protesters."}
+{"turn":13,"type":"region_captured","countries":["MMR"],"text":"Ethnic armed organisations and resistance forces takes Sagaing from Myanmar.","data":{"region":3144,"war":"W2"}}
+{"turn":13,"type":"discontent_erupts","countries":["SAU"],"text":"Long-suppressed discontent erupts in Saudi Arabia, inspired by upheaval next door.","major":true}
+{"turn":13,"type":"defection","countries":["LBY"],"text":"Security forces in Libya refuse orders to fire on protesters; units defect.","major":true}
+{"turn":13,"type":"election","countries":["MNE"],"text":"Legislative elections in Montenegro: government-aligned parties win 44% of seats."}
+{"turn":13,"type":"scandal","countries":["SLB"],"text":"A corruption scandal engulfs the government of Solomon Islands."}
+{"turn":13,"type":"refugees","countries":["COD","AGO","BDI","CAF"],"text":"249k refugees flee Democratic Republic of the Congo this month."}
+{"turn":13,"type":"refugees","countries":["MMR","BGD","CHN","IND"],"text":"123k refugees flee Myanmar this month."}
+{"turn":13,"type":"terror_attack","countries":["NGA"],"text":"Terrorist attack in Nigeria."}
+{"turn":13,"type":"terror_attack","countries":["OMN"],"text":"Terrorist attack in Oman."}
+{"turn":13,"type":"terror_attack","countries":["USA"],"text":"Terrorist attack in United States."}
+{"turn":13,"type":"crop_failure","countries":["TJK"],"text":"Crop failure in Tajikistan drives up food prices."}
+{"turn":14,"type":"trade_deal","countries":["DJI","SDN"],"text":"Djibouti and Sudan sign a trade agreement."}
+{"turn":14,"type":"internet_shutdown","countries":["SDN"],"text":"Authorities in Sudan shut down the internet."}
+{"turn":14,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":14,"type":"trade_deal","countries":["TKM","WSM"],"text":"Turkmenistan and Samoa sign a trade agreement."}
+{"turn":14,"type":"internet_shutdown","countries":["YEM"],"text":"Authorities in Yemen shut down the internet."}
+{"turn":14,"type":"trade_deal","countries":["ZAF","BWA"],"text":"South Africa and Botswana sign a trade agreement."}
+{"turn":14,"type":"unrest_protests","countries":["ARG"],"text":"Argentina: protests spreads. Grievances: prices."}
+{"turn":14,"type":"unrest_protests","countries":["BWA"],"text":"Botswana: protests spreads. Grievances: jobs."}
+{"turn":14,"type":"unrest_protests","countries":["LBN"],"text":"Lebanon: protests spreads. Grievances: prices, jobs, repression, censorship, autonomy."}
+{"turn":14,"type":"unrest_protests","countries":["ZAF"],"text":"South Africa: protests spreads. Grievances: jobs."}
+{"turn":14,"type":"election","countries":["ALB"],"text":"Legislative elections in Albania: government-aligned parties win 45% of seats."}
+{"turn":14,"type":"election","countries":["AND"],"text":"Legislative elections in Andorra: government-aligned parties win 61% of seats."}
+{"turn":14,"type":"scandal","countries":["BHS"],"text":"A corruption scandal engulfs the government of Bahamas."}
+{"turn":14,"type":"scandal","countries":["LCA"],"text":"A corruption scandal engulfs the government of Saint Lucia."}
+{"turn":14,"type":"election","countries":["WSM"],"text":"Legislative elections in Samoa: government-aligned parties win 74% of seats."}
+{"turn":14,"type":"election","countries":["SWE"],"text":"Legislative elections in Sweden: government-aligned parties win 64% of seats."}
+{"turn":14,"type":"terror_attack","countries":["ETH"],"text":"Terrorist attack in Ethiopia."}
+{"turn":14,"type":"terror_attack","countries":["ISR"],"text":"Terrorist attack in Israel."}
+{"turn":14,"type":"refugees","countries":["MMR","BGD","CHN","IND"],"text":"107k refugees flee Myanmar this month."}
+{"turn":15,"type":"reforms","countries":["ARG"],"text":"Argentina announces reforms."}
+{"turn":15,"type":"trade_deal","countries":["AUT","MLT"],"text":"Austria and Malta sign a trade agreement."}
+{"turn":15,"type":"trade_deal","countries":["BEL","ITA"],"text":"Belgium and Italy sign a trade agreement."}
+{"turn":15,"type":"concessions","countries":["BWA"],"text":"Botswana announces concessions to protesters."}
+{"turn":15,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":15,"type":"trade_deal","countries":["DNK","BGR"],"text":"Denmark and Bulgaria sign a trade agreement."}
+{"turn":15,"type":"trade_deal","countries":["ETH","IND"],"text":"Ethiopia and India sign a trade agreement."}
+{"turn":15,"type":"imf_loan","countries":["JAM"],"text":"The IMF approves a $1.0bn programme for Jamaica, with austerity conditions."}
+{"turn":15,"type":"trade_deal","countries":["LBN","PRK"],"text":"Lebanon and North Korea sign a trade agreement."}
+{"turn":15,"type":"court_strikes","countries":["LBY"],"text":"Courts in Libya strike down the government's repression level."}
+{"turn":15,"type":"covert_op_exposed","countries":["MAR","ISR"],"text":"Israel exposes a fund opposition operation by Morocco.","major":true}
+{"turn":15,"type":"sanctions","countries":["MDG","ISR"],"text":"Madagascar imposes sanctions on Israel."}
+{"turn":15,"type":"internet_shutdown","countries":["MMR"],"text":"Authorities in Myanmar shut down the internet."}
+{"turn":15,"type":"annexation","countries":["RUS","UKR"],"text":"Russia formally annexes Sumy from Ukraine. Borders redrawn.","major":true,"data":{"region":628}}
+{"turn":15,"type":"annexation","countries":["RUS","UKR"],"text":"Russia formally annexes Luhans'k from Ukraine. Borders redrawn.","major":true,"data":{"region":630}}
+{"turn":15,"type":"annexation","countries":["RUS","UKR"],"text":"Russia formally annexes Donets'k from Ukraine. Borders redrawn.","major":true,"data":{"region":631}}
+{"turn":15,"type":"annexation","countries":["RUS","UKR"],"text":"Russia formally annexes Crimea from Ukraine. Borders redrawn.","major":true,"data":{"region":632}}
+{"turn":15,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":15,"type":"internet_shutdown","countries":["SOM"],"text":"Authorities in Somalia shut down the internet."}
+{"turn":15,"type":"internet_shutdown","countries":["YEM"],"text":"Authorities in Yemen shut down the internet."}
+{"turn":15,"type":"purge","countries":["YEM"],"text":"Purge of the officer corps in Yemen."}
+{"turn":15,"type":"concessions","countries":["ZAF"],"text":"South Africa announces concessions to protesters."}
+{"turn":15,"type":"unrest_protests","countries":["HTI"],"text":"Haiti: protests spreads. Grievances: jobs, repression, censorship."}
+{"turn":15,"type":"election","countries":["ARG"],"text":"Legislative elections in Argentina: government-aligned parties win 25% of seats."}
+{"turn":15,"type":"election","countries":["LBN"],"text":"Legislative elections in Lebanon: government-aligned parties win 44% of seats."}
+{"turn":15,"type":"election","countries":["MNG"],"text":"Legislative elections in Mongolia: government-aligned parties win 69% of seats."}
+{"turn":15,"type":"election","countries":["MKD"],"text":"Legislative elections in North Macedonia: government-aligned parties win 40% of seats."}
+{"turn":15,"type":"scandal","countries":["SLB"],"text":"A corruption scandal engulfs the government of Solomon Islands."}
+{"turn":15,"type":"defection","countries":["YEM"],"text":"Security forces in Yemen refuse orders to fire on protesters; units defect.","major":true}
+{"turn":15,"type":"refugees","countries":["SDN","CAF","TCD","EGY"],"text":"101k refugees flee Sudan this month."}
+{"turn":15,"type":"disaster","countries":["AGO"],"text":"A cyclone strikes Angola (Malanje).","major":true,"data":{"region":2541}}
+{"turn":16,"type":"sanctions","countries":["ATG","RUS"],"text":"Antigua and Barbuda imposes sanctions on Russia."}
+{"turn":16,"type":"sanctions","countries":["AZE","ISR"],"text":"Azerbaijan imposes sanctions on Israel."}
+{"turn":16,"type":"trade_deal","countries":["FIN","MKD"],"text":"Finland and North Macedonia sign a trade agreement."}
+{"turn":16,"type":"trade_deal","countries":["HND","PAN"],"text":"Honduras and Panama sign a trade agreement."}
+{"turn":16,"type":"trade_deal","countries":["KWT","ARE"],"text":"Kuwait and United Arab Emirates sign a trade agreement."}
+{"turn":16,"type":"sanctions","countries":["LBR","RUS"],"text":"Liberia imposes sanctions on Russia."}
+{"turn":16,"type":"internet_shutdown","countries":["LBY"],"text":"Authorities in Libya shut down the internet."}
+{"turn":16,"type":"trade_deal","countries":["QAT","PLW"],"text":"Qatar and Palau sign a trade agreement."}
+{"turn":16,"type":"trade_deal","countries":["RUS","PRK"],"text":"Russia and North Korea sign a trade agreement."}
+{"turn":16,"type":"internet_shutdown","countries":["SDN"],"text":"Authorities in Sudan shut down the internet."}
+{"turn":16,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":16,"type":"covert_op_exposed","countries":["YEM","ISR"],"text":"Israel exposes a cyber operation by Yemen.","major":true}
+{"turn":16,"type":"concessions","countries":["ZAF"],"text":"South Africa announces concessions to protesters."}
+{"turn":16,"type":"region_captured","countries":["DZA","MAR"],"text":"Algeria takes Meknès - Tafilalet from Morocco.","data":{"region":539,"war":"W8"}}
+{"turn":16,"type":"region_captured","countries":["DZA","MAR"],"text":"Algeria takes Western Sahara from Morocco.","data":{"region":534,"war":"W8"}}
+{"turn":16,"type":"unrest_protests","countries":["ARG"],"text":"Argentina: protests spreads. Grievances: prices."}
+{"turn":16,"type":"unrest_protests","countries":["BWA"],"text":"Botswana: protests spreads. Grievances: jobs."}
+{"turn":16,"type":"discontent_erupts","countries":["LAO"],"text":"Long-suppressed discontent erupts in Laos, inspired by upheaval next door.","major":true}
+{"turn":16,"type":"election","countries":["AUS"],"text":"Legislative elections in Australia: government-aligned parties win 58% of seats."}
+{"turn":16,"type":"scandal","countries":["JAM"],"text":"A corruption scandal engulfs the government of Jamaica."}
+{"turn":16,"type":"election","countries":["NRU"],"text":"Legislative elections in Nauru: government-aligned parties win 49% of seats."}
+{"turn":16,"type":"defection","countries":["SOM"],"text":"Security forces in Somalia refuse orders to fire on protesters; units defect.","major":true}
+{"turn":16,"type":"coup_failed","countries":["SDN"],"text":"A coup attempt in Sudan fails; plotters arrested.","major":true}
+{"turn":16,"type":"election","countries":["USA"],"text":"Legislative elections in United States: government-aligned parties win 73% of seats."}
+{"turn":16,"type":"scandal","countries":["URY"],"text":"A corruption scandal engulfs the government of Uruguay."}
+{"turn":16,"type":"scandal","countries":["XKX"],"text":"A corruption scandal engulfs the government of Kosovo."}
+{"turn":16,"type":"refugees","countries":["MMR","BGD","CHN","IND"],"text":"107k refugees flee Myanmar this month."}
+{"turn":16,"type":"crop_failure","countries":["SYR"],"text":"Crop failure in Syria drives up food prices."}
+{"turn":17,"type":"reforms","countries":["ARG"],"text":"Argentina announces reforms."}
+{"turn":17,"type":"concessions","countries":["BWA"],"text":"Botswana announces concessions to protesters."}
+{"turn":17,"type":"sanctions","countries":["CHN","ISR"],"text":"China imposes sanctions on Israel."}
+{"turn":17,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":17,"type":"trade_deal","countries":["DEU","FRA"],"text":"Germany and France sign a trade agreement."}
+{"turn":17,"type":"sanctions","countries":["ISR","SYR"],"text":"Israel imposes sanctions on Syria."}
+{"turn":17,"type":"sanctions","countries":["JAM","RUS"],"text":"Jamaica imposes sanctions on Russia."}
+{"turn":17,"type":"trade_deal","countries":["JPN","USA"],"text":"Japan and United States sign a trade agreement."}
+{"turn":17,"type":"court_strikes","countries":["LBN"],"text":"Courts in Lebanon strike down the government's repression level."}
+{"turn":17,"type":"internet_shutdown","countries":["LBY"],"text":"Authorities in Libya shut down the internet."}
+{"turn":17,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":17,"type":"region_captured","countries":["MMR"],"text":"Myanmar takes Sagaing from Ethnic armed organisations and resistance forces.","data":{"region":3144,"war":"W2"}}
+{"turn":17,"type":"region_captured","countries":["LBY"],"text":"Libyan National Army takes Ghadamis from Libya.","data":{"region":1623,"war":"W5"}}
+{"turn":17,"type":"region_captured","countries":["DZA","MAR"],"text":"Algeria takes Chaouia - Ouardigha from Morocco.","data":{"region":544,"war":"W8"}}
+{"turn":17,"type":"election","countries":["ATG"],"text":"Legislative elections in Antigua and Barbuda: government-aligned parties win 58% of seats."}
+{"turn":17,"type":"election","countries":["AZE"],"text":"Legislative elections in Azerbaijan: government-aligned parties win 69% of seats."}
+{"turn":17,"type":"election","countries":["COL"],"text":"Legislative elections in Colombia: government-aligned parties win 49% of seats."}
+{"turn":17,"type":"scandal","countries":["COL"],"text":"A corruption scandal engulfs the government of Colombia."}
+{"turn":17,"type":"election","countries":["NIC"],"text":"Legislative elections in Nicaragua: government-aligned parties win 68% of seats."}
+{"turn":17,"type":"election","countries":["NGA"],"text":"Legislative elections in Nigeria: government-aligned parties win 19% of seats."}
+{"turn":17,"type":"election","countries":["RUS"],"text":"Legislative elections in Russia: government-aligned parties win 65% of seats."}
+{"turn":17,"type":"election","countries":["SEN"],"text":"Legislative elections in Senegal: government-aligned parties win 74% of seats."}
+{"turn":17,"type":"defection","countries":["SDN"],"text":"Security forces in Sudan refuse orders to fire on protesters; units defect.","major":true}
+{"turn":17,"type":"election","countries":["SYR"],"text":"Legislative elections in Syria: government-aligned parties win 52% of seats."}
+{"turn":17,"type":"refugees","countries":["COD","AGO","BDI","CAF"],"text":"249k refugees flee Democratic Republic of the Congo this month."}
+{"turn":17,"type":"refugees","countries":["MMR","BGD","CHN","IND"],"text":"106k refugees flee Myanmar this month."}
+{"turn":17,"type":"terror_attack","countries":["SDN"],"text":"Terrorist attack in Sudan."}
+{"turn":17,"type":"crop_failure","countries":["PAN"],"text":"Crop failure in Panama drives up food prices."}
+{"turn":18,"type":"sanctions","countries":["BWA","RUS"],"text":"Botswana imposes sanctions on Russia."}
+{"turn":18,"type":"sanctions","countries":["CHN","TWN"],"text":"China imposes sanctions on Taiwan."}
+{"turn":18,"type":"sanctions","countries":["CPV","RUS"],"text":"Cape Verde imposes sanctions on Russia."}
+{"turn":18,"type":"purge","countries":["HTI"],"text":"Purge of the officer corps in Haiti."}
+{"turn":18,"type":"purge","countries":["LBY"],"text":"Purge of the officer corps in Libya."}
+{"turn":18,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":18,"type":"sanctions","countries":["SDN","ISR"],"text":"Sudan imposes sanctions on Israel."}
+{"turn":18,"type":"sanctions","countries":["TCD","ISR"],"text":"Chad imposes sanctions on Israel."}
+{"turn":18,"type":"unrest_protests","countries":["ARG"],"text":"Argentina: protests spreads. Grievances: prices."}
+{"turn":18,"type":"discontent_erupts","countries":["ETH"],"text":"Long-suppressed discontent erupts in Ethiopia, inspired by upheaval next door.","major":true}
+{"turn":18,"type":"unrest_protests","countries":["ZAF"],"text":"South Africa: protests spreads. Grievances: jobs."}
+{"turn":18,"type":"unrest_protests","countries":["SSD"],"text":"South Sudan: protests spreads. Grievances: prices, jobs, repression, censorship, autonomy."}
+{"turn":18,"type":"coup","countries":["HTI"],"text":"Military coup in Haiti. The Head of Government has been removed.","major":true}
+{"turn":18,"type":"regime_change","countries":["HTI"],"text":"REGIME CHANGE in Haiti: a military coup. New government: military junta. A provisional constitution is in force.","major":true,"data":{"from":"authoritarian","to":"military_junta"}}
+{"turn":18,"type":"defection","countries":["LBY"],"text":"Security forces in Libya refuse orders to fire on protesters; units defect.","major":true}
+{"turn":18,"type":"terror_attack","countries":["LAO"],"text":"Terrorist attack in Laos."}
+{"turn":18,"type":"crop_failure","countries":["RUS"],"text":"Crop failure in Russia drives up food prices."}
+{"turn":19,"type":"concessions","countries":["ARG"],"text":"Argentina announces concessions to protesters."}
+{"turn":19,"type":"trade_deal","countries":["AUS","NZL"],"text":"Australia and New Zealand sign a trade agreement."}
+{"turn":19,"type":"trade_deal","countries":["BFA","FSM"],"text":"Burkina Faso and Micronesia sign a trade agreement."}
+{"turn":19,"type":"trade_deal","countries":["LBR","SYC"],"text":"Liberia and Seychelles sign a trade agreement."}
+{"turn":19,"type":"internet_shutdown","countries":["MMR"],"text":"Authorities in Myanmar shut down the internet."}
+{"turn":19,"type":"trade_deal","countries":["PRY","BRA"],"text":"Paraguay and Brazil sign a trade agreement."}
+{"turn":19,"type":"annexation","countries":["RUS","UKR"],"text":"Russia formally annexes Sevastopol from Ukraine. Borders redrawn.","major":true,"data":{"region":635}}
+{"turn":19,"type":"annexation","countries":["RUS","UKR"],"text":"Russia formally annexes Poltava from Ukraine. Borders redrawn.","major":true,"data":{"region":637}}
+{"turn":19,"type":"annexation","countries":["RUS","GEO"],"text":"Russia formally annexes Abkhazia from Georgia. Borders redrawn.","major":true,"data":{"region":1226}}
+{"turn":19,"type":"annexation","countries":["RUS","MDA"],"text":"Russia formally annexes Stîngă Nistrului from Moldova. Borders redrawn.","major":true,"data":{"region":3501}}
+{"turn":19,"type":"internet_shutdown","countries":["SDN"],"text":"Authorities in Sudan shut down the internet."}
+{"turn":19,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":19,"type":"trade_deal","countries":["SDN","BDI"],"text":"Sudan and Burundi sign a trade agreement."}
+{"turn":19,"type":"sanctions","countries":["SSD","ISR"],"text":"South Sudan imposes sanctions on Israel."}
+{"turn":19,"type":"trade_deal","countries":["TLS","KOR"],"text":"Timor-Leste and South Korea sign a trade agreement."}
+{"turn":19,"type":"sanctions","countries":["YEM","ISR"],"text":"Yemen imposes sanctions on Israel."}
+{"turn":19,"type":"concessions","countries":["ZAF"],"text":"South Africa announces concessions to protesters."}
+{"turn":19,"type":"unrest_protests","countries":["BWA"],"text":"Botswana: protests spreads. Grievances: jobs."}
+{"turn":19,"type":"discontent_erupts","countries":["CHN"],"text":"Long-suppressed discontent erupts in China, inspired by upheaval next door.","major":true}
+{"turn":19,"type":"scandal","countries":["MWI"],"text":"A corruption scandal engulfs the government of Malawi."}
+{"turn":19,"type":"terror_attack","countries":["JPN"],"text":"Terrorist attack in Japan."}
+{"turn":19,"type":"terror_attack","countries":["NER"],"text":"Terrorist attack in Niger."}
+{"turn":20,"type":"legislature_blocks","countries":["ARG"],"text":"The legislature of Argentina blocks the government's set tax."}
+{"turn":20,"type":"sanctions","countries":["BDI","RUS"],"text":"Burundi imposes sanctions on Russia."}
+{"turn":20,"type":"sanctions","countries":["BRA","RUS"],"text":"Brazil imposes sanctions on Russia."}
+{"turn":20,"type":"reforms","countries":["BWA"],"text":"Botswana announces reforms."}
+{"turn":20,"type":"war_declared","countries":["ISR","SYR"],"text":"Israel declares war on Syria: Secure our national interests across the border..","major":true,"data":{"war":"W9"}}
+{"turn":20,"type":"sanctions","countries":["ISR","RUS"],"text":"Israel imposes sanctions on Russia."}
+{"turn":20,"type":"trade_deal","countries":["KAZ","IND"],"text":"Kazakhstan and India sign a trade agreement."}
+{"turn":20,"type":"internet_shutdown","countries":["LBY"],"text":"Authorities in Libya shut down the internet."}
+{"turn":20,"type":"covert_op_exposed","countries":["MLI","ISR"],"text":"Israel exposes a fund rebels operation by Mali.","major":true}
+{"turn":20,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":20,"type":"purge","countries":["SSD"],"text":"Purge of the officer corps in South Sudan."}
+{"turn":20,"type":"region_captured","countries":["ISR","SYR"],"text":"Israel takes Dar`a from Syria.","data":{"region":364,"war":"W9"}}
+{"turn":20,"type":"unrest_protests","countries":["ARG"],"text":"Argentina: protests spreads. Grievances: prices."}
+{"turn":20,"type":"scandal","countries":["NAM"],"text":"A corruption scandal engulfs the government of Namibia."}
+{"turn":20,"type":"election","countries":["POL"],"text":"Legislative elections in Poland: government-aligned parties win 62% of seats."}
+{"turn":20,"type":"election","countries":["TUV"],"text":"Legislative elections in Tuvalu: government-aligned parties win 55% of seats."}
+{"turn":20,"type":"terror_attack","countries":["SYR"],"text":"Terrorist attack in Syria."}
+{"turn":21,"type":"concessions","countries":["ARG"],"text":"Argentina announces concessions to protesters."}
+{"turn":21,"type":"sanctions","countries":["BTN","RUS"],"text":"Bhutan imposes sanctions on Russia."}
+{"turn":21,"type":"sanctions","countries":["ERI","RUS"],"text":"Eritrea imposes sanctions on Russia."}
+{"turn":21,"type":"trade_deal","countries":["IND","ARM"],"text":"India and Armenia sign a trade agreement."}
+{"turn":21,"type":"sanctions","countries":["IND","PAK"],"text":"India imposes sanctions on Pakistan."}
+{"turn":21,"type":"sanctions","countries":["LCA","RUS"],"text":"Saint Lucia imposes sanctions on Russia."}
+{"turn":21,"type":"sanctions","countries":["PAK","RUS"],"text":"Pakistan imposes sanctions on Russia."}
+{"turn":21,"type":"sanctions","countries":["PAN","RUS"],"text":"Panama imposes sanctions on Russia."}
+{"turn":21,"type":"trade_deal","countries":["QAT","LBN"],"text":"Qatar and Lebanon sign a trade agreement."}
+{"turn":21,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":21,"type":"sanctions","countries":["VAT","ISR"],"text":"Holy See imposes sanctions on Israel."}
+{"turn":21,"type":"purge","countries":["YEM"],"text":"Purge of the officer corps in Yemen."}
+{"turn":21,"type":"region_captured","countries":["COD"],"text":"Democratic Republic of the Congo takes Sud-Kivu from M23 / AFC.","data":{"region":591,"war":"W3"}}
+{"turn":21,"type":"region_captured","countries":["ISR","SYR"],"text":"Israel takes Rif Dimashq from Syria.","data":{"region":357,"war":"W9"}}
+{"turn":21,"type":"region_captured","countries":["ISR","SYR"],"text":"Israel takes As Suwayda' from Syria.","data":{"region":363,"war":"W9"}}
+{"turn":21,"type":"discontent_erupts","countries":["BRN"],"text":"Long-suppressed discontent erupts in Brunei.","major":true}
+{"turn":21,"type":"unrest_protests","countries":["ZAF"],"text":"South Africa: protests spreads. Grievances: jobs."}
+{"turn":21,"type":"unrest_protests","countries":["TUR"],"text":"Türkiye: protests spreads. Grievances: prices, repression, censorship, autonomy."}
+{"turn":21,"type":"election","countries":["ARM"],"text":"Legislative elections in Armenia: government-aligned parties win 49% of seats."}
+{"turn":21,"type":"election","countries":["CMR"],"text":"Legislative elections in Cameroon: government-aligned parties win 67% of seats."}
+{"turn":21,"type":"election","countries":["CAN"],"text":"Legislative elections in Canada: government-aligned parties win 57% of seats."}
+{"turn":21,"type":"scandal","countries":["GRD"],"text":"A corruption scandal engulfs the government of Grenada."}
+{"turn":21,"type":"election","countries":["ISR"],"text":"Legislative elections in Israel: government-aligned parties win 51% of seats."}
+{"turn":21,"type":"election","countries":["MOZ"],"text":"Legislative elections in Mozambique: government-aligned parties win 66% of seats."}
+{"turn":21,"type":"terror_attack","countries":["MOZ"],"text":"Terrorist attack in Mozambique."}
+{"turn":21,"type":"disaster","countries":["PLW"],"text":"A drought strikes Palau (Ngeremlengui).","data":{"region":4556}}
+{"turn":22,"type":"sanctions","countries":["ARE","ISR"],"text":"United Arab Emirates imposes sanctions on Israel."}
+{"turn":22,"type":"sanctions","countries":["BGD","RUS"],"text":"Bangladesh imposes sanctions on Russia."}
+{"turn":22,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":22,"type":"trade_deal","countries":["COD","GNQ"],"text":"Democratic Republic of the Congo and Equatorial Guinea sign a trade agreement."}
+{"turn":22,"type":"trade_deal","countries":["COM","MNG"],"text":"Comoros and Mongolia sign a trade agreement."}
+{"turn":22,"type":"trade_deal","countries":["DNK","EST"],"text":"Denmark and Estonia sign a trade agreement."}
+{"turn":22,"type":"trade_deal","countries":["DNK","NOR"],"text":"Denmark and Norway sign a trade agreement."}
+{"turn":22,"type":"annexation","countries":["DZA","MAR"],"text":"Algeria formally annexes Western Sahara from Morocco. Borders redrawn.","major":true,"data":{"region":534}}
+{"turn":22,"type":"annexation","countries":["DZA","MAR"],"text":"Algeria formally annexes Meknès - Tafilalet from Morocco. Borders redrawn.","major":true,"data":{"region":539}}
+{"turn":22,"type":"annexation","countries":["DZA","MAR"],"text":"Algeria formally annexes Chaouia - Ouardigha from Morocco. Borders redrawn.","major":true,"data":{"region":544}}
+{"turn":22,"type":"sanctions","countries":["DZA","ISR"],"text":"Algeria imposes sanctions on Israel."}
+{"turn":22,"type":"covert_op_exposed","countries":["ERI","RUS"],"text":"Russia exposes a cyber operation by Eritrea.","major":true}
+{"turn":22,"type":"trade_deal","countries":["GIN","ERI"],"text":"Guinea and Eritrea sign a trade agreement."}
+{"turn":22,"type":"trade_deal","countries":["GRC","ISL"],"text":"Greece and Iceland sign a trade agreement."}
+{"turn":22,"type":"trade_deal","countries":["IND","PNG"],"text":"India and Papua New Guinea sign a trade agreement."}
+{"turn":22,"type":"trade_deal","countries":["KWT","BHR"],"text":"Kuwait and Bahrain sign a trade agreement."}
+{"turn":22,"type":"internet_shutdown","countries":["MMR"],"text":"Authorities in Myanmar shut down the internet."}
+{"turn":22,"type":"sanctions","countries":["MMR","ISR"],"text":"Myanmar imposes sanctions on Israel."}
+{"turn":22,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":22,"type":"sanctions","countries":["SOM","RUS"],"text":"Somalia imposes sanctions on Russia."}
+{"turn":22,"type":"trade_deal","countries":["SWZ","TCD"],"text":"Eswatini and Chad sign a trade agreement."}
+{"turn":22,"type":"trade_deal","countries":["SYR","YEM"],"text":"Syria and Yemen sign a trade agreement."}
+{"turn":22,"type":"sanctions","countries":["VUT","RUS"],"text":"Vanuatu imposes sanctions on Russia."}
+{"turn":22,"type":"trade_deal","countries":["WSM","PLW"],"text":"Samoa and Palau sign a trade agreement."}
+{"turn":22,"type":"sanctions","countries":["WSM","ISR"],"text":"Samoa imposes sanctions on Israel."}
+{"turn":22,"type":"purge","countries":["YEM"],"text":"Purge of the officer corps in Yemen."}
+{"turn":22,"type":"reforms","countries":["ZAF"],"text":"South Africa announces reforms."}
+{"turn":22,"type":"unrest_protests","countries":["ARG"],"text":"Argentina: protests spreads. Grievances: prices."}
+{"turn":22,"type":"unrest_protests","countries":["BWA"],"text":"Botswana: protests spreads. Grievances: jobs."}
+{"turn":22,"type":"election","countries":["AGO"],"text":"Legislative elections in Angola: government-aligned parties win 51% of seats."}
+{"turn":22,"type":"election","countries":["VCT"],"text":"Legislative elections in Saint Vincent and the Grenadines: government-aligned parties win 34% of seats."}
+{"turn":22,"type":"election","countries":["SVN"],"text":"Legislative elections in Slovenia: government-aligned parties win 69% of seats."}
+{"turn":22,"type":"disaster","countries":["MUS"],"text":"A cyclone strikes Mauritius (Flacq).","data":{"region":4367}}
+{"turn":23,"type":"reforms","countries":["ARG"],"text":"Argentina announces reforms."}
+{"turn":23,"type":"reforms","countries":["BWA"],"text":"Botswana announces reforms."}
+{"turn":23,"type":"internet_shutdown","countries":["COD"],"text":"Authorities in Democratic Republic of the Congo shut down the internet."}
+{"turn":23,"type":"sanctions","countries":["DJI","RUS"],"text":"Djibouti imposes sanctions on Russia."}
+{"turn":23,"type":"trade_deal","countries":["EST","LVA"],"text":"Estonia and Latvia sign a trade agreement."}
+{"turn":23,"type":"purge","countries":["LBN"],"text":"Purge of the officer corps in Lebanon."}
+{"turn":23,"type":"trade_deal","countries":["MAR","SOM"],"text":"Morocco and Somalia sign a trade agreement."}
+{"turn":23,"type":"trade_deal","countries":["MDG","COD"],"text":"Madagascar and Democratic Republic of the Congo sign a trade agreement."}
+{"turn":23,"type":"sanctions","countries":["PNG","ISR"],"text":"Papua New Guinea imposes sanctions on Israel."}
+{"turn":23,"type":"purge","countries":["SDN"],"text":"Purge of the officer corps in Sudan."}
+{"turn":23,"type":"sanctions","countries":["SOM","DZA"],"text":"Somalia imposes sanctions on Algeria."}
+{"turn":23,"type":"sanctions","countries":["SYR","RUS"],"text":"Syria imposes sanctions on Russia."}
+{"turn":23,"type":"sanctions","countries":["UKR","ISR"],"text":"Ukraine imposes sanctions on Israel."}
+{"turn":23,"type":"purge","countries":["YEM"],"text":"Purge of the officer corps in Yemen."}
+{"turn":23,"type":"region_captured","countries":["ISR","SYR"],"text":"Israel takes Damascus from Syria.","data":{"region":368,"war":"W9"}}
+{"turn":23,"type":"capital_fallen","countries":["SYR","ISR"],"text":"The capital of Syria, Damascus, falls to Israel.","major":true,"data":{"region":368}}
+{"turn":23,"type":"region_captured","countries":["ISR","SYR"],"text":"Israel takes Homs (Hims) from Syria.","data":{"region":355,"war":"W9"}}
+{"turn":23,"type":"discontent_erupts","countries":["MLI"],"text":"Long-suppressed discontent erupts in Mali.","major":true}
+{"turn":23,"type":"unrest_protests","countries":["NGA"],"text":"Nigeria: protests spreads. Grievances: autonomy."}
+{"turn":23,"type":"discontent_erupts","countries":["SDN"],"text":"Long-suppressed discontent erupts in Sudan, inspired by upheaval next door.","major":true}
+{"turn":23,"type":"unrest_protests","countries":["ZWE"],"text":"Zimbabwe: protests spreads. Grievances: prices, repression, censorship."}
+{"turn":23,"type":"election","countries":["GNQ"],"text":"Legislative elections in Equatorial Guinea: government-aligned parties win 65% of seats."}
+{"turn":23,"type":"disaster","countries":["KWT"],"text":"A cyclone strikes Kuwait (Al Ahmadi).","data":{"region":2997}}
+{"turn":23,"type":"crop_failure","countries":["USA"],"text":"Crop failure in United States drives up food prices."}

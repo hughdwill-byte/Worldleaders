@@ -1,0 +1,1184 @@
+{
+ "AFG": {
+  "welfare": 0.138,
+  "approval": 0.093,
+  "survival": 0.441,
+  "power": 0.328
+ },
+ "ALB": {
+  "welfare": 0.276,
+  "approval": 0.191,
+  "survival": 0.293,
+  "power": 0.24
+ },
+ "DZA": {
+  "welfare": 0.204,
+  "approval": 0.14,
+  "survival": 0.379,
+  "power": 0.277
+ },
+ "AND": {
+  "welfare": 0.345,
+  "approval": 0.24,
+  "survival": 0.225,
+  "power": 0.19
+ },
+ "AGO": {
+  "welfare": 0.227,
+  "approval": 0.156,
+  "survival": 0.349,
+  "power": 0.268
+ },
+ "ATG": {
+  "welfare": 0.345,
+  "approval": 0.24,
+  "survival": 0.225,
+  "power": 0.19
+ },
+ "ARG": {
+  "welfare": 0.333,
+  "approval": 0.232,
+  "survival": 0.221,
+  "power": 0.214
+ },
+ "ARM": {
+  "welfare": 0.311,
+  "approval": 0.216,
+  "survival": 0.254,
+  "power": 0.219
+ },
+ "AUS": {
+  "welfare": 0.386,
+  "approval": 0.269,
+  "survival": 0.178,
+  "power": 0.167
+ },
+ "AUT": {
+  "welfare": 0.378,
+  "approval": 0.264,
+  "survival": 0.183,
+  "power": 0.175
+ },
+ "AZE": {
+  "welfare": 0.179,
+  "approval": 0.122,
+  "survival": 0.407,
+  "power": 0.292
+ },
+ "BHS": {
+  "welfare": 0.343,
+  "approval": 0.239,
+  "survival": 0.224,
+  "power": 0.194
+ },
+ "BHR": {
+  "welfare": 0.167,
+  "approval": 0.113,
+  "survival": 0.433,
+  "power": 0.287
+ },
+ "BGD": {
+  "welfare": 0.186,
+  "approval": 0.127,
+  "survival": 0.396,
+  "power": 0.291
+ },
+ "BRB": {
+  "welfare": 0.363,
+  "approval": 0.253,
+  "survival": 0.201,
+  "power": 0.183
+ },
+ "BLR": {
+  "welfare": 0.175,
+  "approval": 0.119,
+  "survival": 0.413,
+  "power": 0.293
+ },
+ "BEL": {
+  "welfare": 0.391,
+  "approval": 0.274,
+  "survival": 0.166,
+  "power": 0.169
+ },
+ "BLZ": {
+  "welfare": 0.335,
+  "approval": 0.233,
+  "survival": 0.218,
+  "power": 0.214
+ },
+ "BEN": {
+  "welfare": 0.276,
+  "approval": 0.191,
+  "survival": 0.296,
+  "power": 0.237
+ },
+ "BTN": {
+  "welfare": 0.299,
+  "approval": 0.208,
+  "survival": 0.281,
+  "power": 0.212
+ },
+ "BOL": {
+  "welfare": 0.293,
+  "approval": 0.203,
+  "survival": 0.266,
+  "power": 0.238
+ },
+ "BIH": {
+  "welfare": 0.275,
+  "approval": 0.191,
+  "survival": 0.291,
+  "power": 0.243
+ },
+ "BWA": {
+  "welfare": 0.305,
+  "approval": 0.212,
+  "survival": 0.267,
+  "power": 0.216
+ },
+ "BRA": {
+  "welfare": 0.357,
+  "approval": 0.249,
+  "survival": 0.191,
+  "power": 0.203
+ },
+ "BRN": {
+  "welfare": 0.189,
+  "approval": 0.101,
+  "survival": 0.451,
+  "power": 0.259
+ },
+ "BGR": {
+  "welfare": 0.315,
+  "approval": 0.219,
+  "survival": 0.245,
+  "power": 0.221
+ },
+ "BFA": {
+  "welfare": 0.155,
+  "approval": 0.105,
+  "survival": 0.446,
+  "power": 0.294
+ },
+ "BDI": {
+  "welfare": 0.177,
+  "approval": 0.121,
+  "survival": 0.403,
+  "power": 0.299
+ },
+ "CPV": {
+  "welfare": 0.353,
+  "approval": 0.246,
+  "survival": 0.21,
+  "power": 0.191
+ },
+ "KHM": {
+  "welfare": 0.181,
+  "approval": 0.123,
+  "survival": 0.4,
+  "power": 0.296
+ },
+ "CMR": {
+  "welfare": 0.21,
+  "approval": 0.144,
+  "survival": 0.367,
+  "power": 0.279
+ },
+ "CAN": {
+  "welfare": 0.381,
+  "approval": 0.266,
+  "survival": 0.183,
+  "power": 0.17
+ },
+ "CAF": {
+  "welfare": 0.215,
+  "approval": 0.147,
+  "survival": 0.36,
+  "power": 0.278
+ },
+ "TCD": {
+  "welfare": 0.186,
+  "approval": 0.127,
+  "survival": 0.394,
+  "power": 0.293
+ },
+ "CHL": {
+  "welfare": 0.378,
+  "approval": 0.264,
+  "survival": 0.18,
+  "power": 0.178
+ },
+ "CHN": {
+  "welfare": 0.151,
+  "approval": 0.102,
+  "survival": 0.449,
+  "power": 0.298
+ },
+ "COL": {
+  "welfare": 0.33,
+  "approval": 0.23,
+  "survival": 0.225,
+  "power": 0.215
+ },
+ "COM": {
+  "welfare": 0.208,
+  "approval": 0.143,
+  "survival": 0.366,
+  "power": 0.283
+ },
+ "COG": {
+  "welfare": 0.201,
+  "approval": 0.137,
+  "survival": 0.377,
+  "power": 0.285
+ },
+ "COD": {
+  "welfare": 0.221,
+  "approval": 0.152,
+  "survival": 0.35,
+  "power": 0.277
+ },
+ "CRI": {
+  "welfare": 0.38,
+  "approval": 0.265,
+  "survival": 0.174,
+  "power": 0.181
+ },
+ "CIV": {
+  "welfare": 0.256,
+  "approval": 0.176,
+  "survival": 0.32,
+  "power": 0.248
+ },
+ "HRV": {
+  "welfare": 0.339,
+  "approval": 0.236,
+  "survival": 0.219,
+  "power": 0.206
+ },
+ "CUB": {
+  "welfare": 0.182,
+  "approval": 0.124,
+  "survival": 0.41,
+  "power": 0.284
+ },
+ "CYP": {
+  "welfare": 0.356,
+  "approval": 0.248,
+  "survival": 0.203,
+  "power": 0.193
+ },
+ "CZE": {
+  "welfare": 0.384,
+  "approval": 0.268,
+  "survival": 0.171,
+  "power": 0.177
+ },
+ "DNK": {
+  "welfare": 0.407,
+  "approval": 0.284,
+  "survival": 0.159,
+  "power": 0.15
+ },
+ "DJI": {
+  "welfare": 0.201,
+  "approval": 0.138,
+  "survival": 0.381,
+  "power": 0.28
+ },
+ "DMA": {
+  "welfare": 0.342,
+  "approval": 0.238,
+  "survival": 0.223,
+  "power": 0.197
+ },
+ "DOM": {
+  "welfare": 0.331,
+  "approval": 0.231,
+  "survival": 0.224,
+  "power": 0.214
+ },
+ "ECU": {
+  "welfare": 0.315,
+  "approval": 0.219,
+  "survival": 0.241,
+  "power": 0.225
+ },
+ "EGY": {
+  "welfare": 0.182,
+  "approval": 0.124,
+  "survival": 0.403,
+  "power": 0.291
+ },
+ "SLV": {
+  "welfare": 0.227,
+  "approval": 0.156,
+  "survival": 0.35,
+  "power": 0.267
+ },
+ "GNQ": {
+  "welfare": 0.178,
+  "approval": 0.121,
+  "survival": 0.401,
+  "power": 0.3
+ },
+ "ERI": {
+  "welfare": 0.146,
+  "approval": 0.098,
+  "survival": 0.439,
+  "power": 0.317
+ },
+ "EST": {
+  "welfare": 0.396,
+  "approval": 0.277,
+  "survival": 0.164,
+  "power": 0.163
+ },
+ "SWZ": {
+  "welfare": 0.191,
+  "approval": 0.103,
+  "survival": 0.427,
+  "power": 0.279
+ },
+ "ETH": {
+  "welfare": 0.206,
+  "approval": 0.141,
+  "survival": 0.379,
+  "power": 0.274
+ },
+ "FJI": {
+  "welfare": 0.282,
+  "approval": 0.196,
+  "survival": 0.293,
+  "power": 0.229
+ },
+ "FIN": {
+  "welfare": 0.387,
+  "approval": 0.27,
+  "survival": 0.183,
+  "power": 0.16
+ },
+ "FRA": {
+  "welfare": 0.385,
+  "approval": 0.269,
+  "survival": 0.173,
+  "power": 0.173
+ },
+ "GAB": {
+  "welfare": 0.195,
+  "approval": 0.133,
+  "survival": 0.388,
+  "power": 0.284
+ },
+ "GMB": {
+  "welfare": 0.311,
+  "approval": 0.216,
+  "survival": 0.248,
+  "power": 0.225
+ },
+ "GEO": {
+  "welfare": 0.271,
+  "approval": 0.187,
+  "survival": 0.305,
+  "power": 0.237
+ },
+ "DEU": {
+  "welfare": 0.381,
+  "approval": 0.266,
+  "survival": 0.184,
+  "power": 0.169
+ },
+ "GHA": {
+  "welfare": 0.323,
+  "approval": 0.224,
+  "survival": 0.237,
+  "power": 0.216
+ },
+ "GRC": {
+  "welfare": 0.347,
+  "approval": 0.242,
+  "survival": 0.211,
+  "power": 0.2
+ },
+ "GRD": {
+  "welfare": 0.341,
+  "approval": 0.237,
+  "survival": 0.222,
+  "power": 0.2
+ },
+ "GTM": {
+  "welfare": 0.298,
+  "approval": 0.207,
+  "survival": 0.259,
+  "power": 0.236
+ },
+ "GIN": {
+  "welfare": 0.175,
+  "approval": 0.119,
+  "survival": 0.411,
+  "power": 0.295
+ },
+ "GNB": {
+  "welfare": 0.208,
+  "approval": 0.142,
+  "survival": 0.367,
+  "power": 0.283
+ },
+ "GUY": {
+  "welfare": 0.272,
+  "approval": 0.188,
+  "survival": 0.299,
+  "power": 0.241
+ },
+ "HTI": {
+  "welfare": 0.189,
+  "approval": 0.129,
+  "survival": 0.387,
+  "power": 0.295
+ },
+ "HND": {
+  "welfare": 0.282,
+  "approval": 0.195,
+  "survival": 0.277,
+  "power": 0.246
+ },
+ "HUN": {
+  "welfare": 0.256,
+  "approval": 0.177,
+  "survival": 0.318,
+  "power": 0.249
+ },
+ "ISL": {
+  "welfare": 0.382,
+  "approval": 0.267,
+  "survival": 0.182,
+  "power": 0.169
+ },
+ "IND": {
+  "welfare": 0.245,
+  "approval": 0.169,
+  "survival": 0.331,
+  "power": 0.255
+ },
+ "IDN": {
+  "welfare": 0.268,
+  "approval": 0.185,
+  "survival": 0.3,
+  "power": 0.247
+ },
+ "IRN": {
+  "welfare": 0.162,
+  "approval": 0.11,
+  "survival": 0.415,
+  "power": 0.313
+ },
+ "IRQ": {
+  "welfare": 0.229,
+  "approval": 0.158,
+  "survival": 0.344,
+  "power": 0.269
+ },
+ "IRL": {
+  "welfare": 0.396,
+  "approval": 0.277,
+  "survival": 0.164,
+  "power": 0.163
+ },
+ "ISR": {
+  "welfare": 0.341,
+  "approval": 0.237,
+  "survival": 0.225,
+  "power": 0.197
+ },
+ "ITA": {
+  "welfare": 0.363,
+  "approval": 0.253,
+  "survival": 0.193,
+  "power": 0.191
+ },
+ "JAM": {
+  "welfare": 0.36,
+  "approval": 0.251,
+  "survival": 0.191,
+  "power": 0.198
+ },
+ "JPN": {
+  "welfare": 0.374,
+  "approval": 0.261,
+  "survival": 0.19,
+  "power": 0.175
+ },
+ "JOR": {
+  "welfare": 0.211,
+  "approval": 0.145,
+  "survival": 0.379,
+  "power": 0.265
+ },
+ "KAZ": {
+  "welfare": 0.209,
+  "approval": 0.143,
+  "survival": 0.375,
+  "power": 0.273
+ },
+ "KEN": {
+  "welfare": 0.286,
+  "approval": 0.198,
+  "survival": 0.276,
+  "power": 0.24
+ },
+ "KIR": {
+  "welfare": 0.342,
+  "approval": 0.238,
+  "survival": 0.223,
+  "power": 0.197
+ },
+ "PRK": {
+  "welfare": 0.152,
+  "approval": 0.103,
+  "survival": 0.44,
+  "power": 0.305
+ },
+ "KOR": {
+  "welfare": 0.348,
+  "approval": 0.242,
+  "survival": 0.222,
+  "power": 0.188
+ },
+ "KWT": {
+  "welfare": 0.216,
+  "approval": 0.148,
+  "survival": 0.371,
+  "power": 0.265
+ },
+ "KGZ": {
+  "welfare": 0.224,
+  "approval": 0.154,
+  "survival": 0.35,
+  "power": 0.272
+ },
+ "LAO": {
+  "welfare": 0.168,
+  "approval": 0.114,
+  "survival": 0.423,
+  "power": 0.295
+ },
+ "LVA": {
+  "welfare": 0.375,
+  "approval": 0.262,
+  "survival": 0.182,
+  "power": 0.181
+ },
+ "LBN": {
+  "welfare": 0.228,
+  "approval": 0.157,
+  "survival": 0.344,
+  "power": 0.271
+ },
+ "LSO": {
+  "welfare": 0.318,
+  "approval": 0.221,
+  "survival": 0.24,
+  "power": 0.221
+ },
+ "LBR": {
+  "welfare": 0.303,
+  "approval": 0.211,
+  "survival": 0.253,
+  "power": 0.233
+ },
+ "LBY": {
+  "welfare": 0.183,
+  "approval": 0.124,
+  "survival": 0.394,
+  "power": 0.299
+ },
+ "LIE": {
+  "welfare": 0.264,
+  "approval": 0.182,
+  "survival": 0.318,
+  "power": 0.236
+ },
+ "LTU": {
+  "welfare": 0.366,
+  "approval": 0.255,
+  "survival": 0.196,
+  "power": 0.183
+ },
+ "LUX": {
+  "welfare": 0.389,
+  "approval": 0.272,
+  "survival": 0.174,
+  "power": 0.165
+ },
+ "MDG": {
+  "welfare": 0.247,
+  "approval": 0.171,
+  "survival": 0.32,
+  "power": 0.262
+ },
+ "MWI": {
+  "welfare": 0.295,
+  "approval": 0.205,
+  "survival": 0.266,
+  "power": 0.234
+ },
+ "MYS": {
+  "welfare": 0.282,
+  "approval": 0.195,
+  "survival": 0.292,
+  "power": 0.231
+ },
+ "MDV": {
+  "welfare": 0.292,
+  "approval": 0.203,
+  "survival": 0.273,
+  "power": 0.232
+ },
+ "MLI": {
+  "welfare": 0.165,
+  "approval": 0.112,
+  "survival": 0.428,
+  "power": 0.295
+ },
+ "MLT": {
+  "welfare": 0.357,
+  "approval": 0.249,
+  "survival": 0.198,
+  "power": 0.196
+ },
+ "MHL": {
+  "welfare": 0.342,
+  "approval": 0.238,
+  "survival": 0.223,
+  "power": 0.197
+ },
+ "MRT": {
+  "welfare": 0.225,
+  "approval": 0.154,
+  "survival": 0.351,
+  "power": 0.27
+ },
+ "MUS": {
+  "welfare": 0.274,
+  "approval": 0.19,
+  "survival": 0.3,
+  "power": 0.236
+ },
+ "MEX": {
+  "welfare": 0.273,
+  "approval": 0.189,
+  "survival": 0.29,
+  "power": 0.248
+ },
+ "FSM": {
+  "welfare": 0.262,
+  "approval": 0.181,
+  "survival": 0.315,
+  "power": 0.242
+ },
+ "MDA": {
+  "welfare": 0.312,
+  "approval": 0.217,
+  "survival": 0.25,
+  "power": 0.221
+ },
+ "MCO": {
+  "welfare": 0.264,
+  "approval": 0.182,
+  "survival": 0.318,
+  "power": 0.236
+ },
+ "MNG": {
+  "welfare": 0.271,
+  "approval": 0.188,
+  "survival": 0.295,
+  "power": 0.246
+ },
+ "MNE": {
+  "welfare": 0.308,
+  "approval": 0.214,
+  "survival": 0.257,
+  "power": 0.221
+ },
+ "MAR": {
+  "welfare": 0.206,
+  "approval": 0.141,
+  "survival": 0.379,
+  "power": 0.274
+ },
+ "MOZ": {
+  "welfare": 0.215,
+  "approval": 0.147,
+  "survival": 0.359,
+  "power": 0.279
+ },
+ "MMR": {
+  "welfare": 0.134,
+  "approval": 0.09,
+  "survival": 0.461,
+  "power": 0.315
+ },
+ "NAM": {
+  "welfare": 0.311,
+  "approval": 0.216,
+  "survival": 0.254,
+  "power": 0.219
+ },
+ "NRU": {
+  "welfare": 0.342,
+  "approval": 0.238,
+  "survival": 0.223,
+  "power": 0.197
+ },
+ "NPL": {
+  "welfare": 0.32,
+  "approval": 0.223,
+  "survival": 0.235,
+  "power": 0.222
+ },
+ "NLD": {
+  "welfare": 0.376,
+  "approval": 0.263,
+  "survival": 0.19,
+  "power": 0.171
+ },
+ "NZL": {
+  "welfare": 0.389,
+  "approval": 0.272,
+  "survival": 0.176,
+  "power": 0.163
+ },
+ "NIC": {
+  "welfare": 0.171,
+  "approval": 0.116,
+  "survival": 0.41,
+  "power": 0.303
+ },
+ "NER": {
+  "welfare": 0.176,
+  "approval": 0.12,
+  "survival": 0.416,
+  "power": 0.288
+ },
+ "NGA": {
+  "welfare": 0.272,
+  "approval": 0.188,
+  "survival": 0.291,
+  "power": 0.249
+ },
+ "MKD": {
+  "welfare": 0.292,
+  "approval": 0.203,
+  "survival": 0.273,
+  "power": 0.232
+ },
+ "NOR": {
+  "welfare": 0.395,
+  "approval": 0.276,
+  "survival": 0.169,
+  "power": 0.16
+ },
+ "OMN": {
+  "welfare": 0.208,
+  "approval": 0.114,
+  "survival": 0.422,
+  "power": 0.256
+ },
+ "PAK": {
+  "welfare": 0.219,
+  "approval": 0.15,
+  "survival": 0.358,
+  "power": 0.273
+ },
+ "PLW": {
+  "welfare": 0.264,
+  "approval": 0.182,
+  "survival": 0.318,
+  "power": 0.236
+ },
+ "PAN": {
+  "welfare": 0.336,
+  "approval": 0.234,
+  "survival": 0.216,
+  "power": 0.214
+ },
+ "PNG": {
+  "welfare": 0.26,
+  "approval": 0.18,
+  "survival": 0.305,
+  "power": 0.255
+ },
+ "PRY": {
+  "welfare": 0.293,
+  "approval": 0.203,
+  "survival": 0.264,
+  "power": 0.24
+ },
+ "PER": {
+  "welfare": 0.309,
+  "approval": 0.215,
+  "survival": 0.247,
+  "power": 0.229
+ },
+ "PHL": {
+  "welfare": 0.254,
+  "approval": 0.175,
+  "survival": 0.316,
+  "power": 0.255
+ },
+ "POL": {
+  "welfare": 0.342,
+  "approval": 0.238,
+  "survival": 0.218,
+  "power": 0.202
+ },
+ "PRT": {
+  "welfare": 0.372,
+  "approval": 0.26,
+  "survival": 0.184,
+  "power": 0.184
+ },
+ "QAT": {
+  "welfare": 0.185,
+  "approval": 0.098,
+  "survival": 0.453,
+  "power": 0.264
+ },
+ "ROU": {
+  "welfare": 0.312,
+  "approval": 0.217,
+  "survival": 0.252,
+  "power": 0.219
+ },
+ "RUS": {
+  "welfare": 0.177,
+  "approval": 0.121,
+  "survival": 0.406,
+  "power": 0.296
+ },
+ "RWA": {
+  "welfare": 0.192,
+  "approval": 0.131,
+  "survival": 0.407,
+  "power": 0.27
+ },
+ "KNA": {
+  "welfare": 0.345,
+  "approval": 0.24,
+  "survival": 0.225,
+  "power": 0.19
+ },
+ "LCA": {
+  "welfare": 0.342,
+  "approval": 0.238,
+  "survival": 0.223,
+  "power": 0.197
+ },
+ "VCT": {
+  "welfare": 0.343,
+  "approval": 0.239,
+  "survival": 0.223,
+  "power": 0.195
+ },
+ "WSM": {
+  "welfare": 0.262,
+  "approval": 0.181,
+  "survival": 0.315,
+  "power": 0.242
+ },
+ "SMR": {
+  "welfare": 0.345,
+  "approval": 0.24,
+  "survival": 0.225,
+  "power": 0.19
+ },
+ "STP": {
+  "welfare": 0.324,
+  "approval": 0.226,
+  "survival": 0.236,
+  "power": 0.214
+ },
+ "SAU": {
+  "welfare": 0.165,
+  "approval": 0.083,
+  "survival": 0.478,
+  "power": 0.274
+ },
+ "SEN": {
+  "welfare": 0.309,
+  "approval": 0.215,
+  "survival": 0.256,
+  "power": 0.22
+ },
+ "SRB": {
+  "welfare": 0.22,
+  "approval": 0.151,
+  "survival": 0.358,
+  "power": 0.271
+ },
+ "SYC": {
+  "welfare": 0.35,
+  "approval": 0.244,
+  "survival": 0.217,
+  "power": 0.189
+ },
+ "SLE": {
+  "welfare": 0.256,
+  "approval": 0.177,
+  "survival": 0.315,
+  "power": 0.252
+ },
+ "SGP": {
+  "welfare": 0.259,
+  "approval": 0.179,
+  "survival": 0.338,
+  "power": 0.224
+ },
+ "SVK": {
+  "welfare": 0.347,
+  "approval": 0.242,
+  "survival": 0.209,
+  "power": 0.202
+ },
+ "SVN": {
+  "welfare": 0.34,
+  "approval": 0.237,
+  "survival": 0.224,
+  "power": 0.199
+ },
+ "SLB": {
+  "welfare": 0.322,
+  "approval": 0.224,
+  "survival": 0.239,
+  "power": 0.215
+ },
+ "SOM": {
+  "welfare": 0.174,
+  "approval": 0.119,
+  "survival": 0.402,
+  "power": 0.305
+ },
+ "ZAF": {
+  "welfare": 0.34,
+  "approval": 0.237,
+  "survival": 0.214,
+  "power": 0.209
+ },
+ "SSD": {
+  "welfare": 0.172,
+  "approval": 0.117,
+  "survival": 0.405,
+  "power": 0.306
+ },
+ "ESP": {
+  "welfare": 0.371,
+  "approval": 0.259,
+  "survival": 0.184,
+  "power": 0.186
+ },
+ "LKA": {
+  "welfare": 0.319,
+  "approval": 0.222,
+  "survival": 0.237,
+  "power": 0.222
+ },
+ "SDN": {
+  "welfare": 0.147,
+  "approval": 0.1,
+  "survival": 0.444,
+  "power": 0.309
+ },
+ "SUR": {
+  "welfare": 0.349,
+  "approval": 0.243,
+  "survival": 0.202,
+  "power": 0.206
+ },
+ "SWE": {
+  "welfare": 0.394,
+  "approval": 0.275,
+  "survival": 0.17,
+  "power": 0.161
+ },
+ "CHE": {
+  "welfare": 0.397,
+  "approval": 0.278,
+  "survival": 0.165,
+  "power": 0.16
+ },
+ "SYR": {
+  "welfare": 0.168,
+  "approval": 0.114,
+  "survival": 0.413,
+  "power": 0.305
+ },
+ "TJK": {
+  "welfare": 0.177,
+  "approval": 0.121,
+  "survival": 0.404,
+  "power": 0.298
+ },
+ "TZA": {
+  "welfare": 0.25,
+  "approval": 0.173,
+  "survival": 0.325,
+  "power": 0.252
+ },
+ "THA": {
+  "welfare": 0.241,
+  "approval": 0.166,
+  "survival": 0.332,
+  "power": 0.261
+ },
+ "TLS": {
+  "welfare": 0.341,
+  "approval": 0.237,
+  "survival": 0.215,
+  "power": 0.207
+ },
+ "TGO": {
+  "welfare": 0.231,
+  "approval": 0.159,
+  "survival": 0.344,
+  "power": 0.266
+ },
+ "TON": {
+  "welfare": 0.262,
+  "approval": 0.181,
+  "survival": 0.315,
+  "power": 0.242
+ },
+ "TTO": {
+  "welfare": 0.346,
+  "approval": 0.241,
+  "survival": 0.207,
+  "power": 0.206
+ },
+ "TUN": {
+  "welfare": 0.255,
+  "approval": 0.176,
+  "survival": 0.318,
+  "power": 0.251
+ },
+ "TUR": {
+  "welfare": 0.212,
+  "approval": 0.145,
+  "survival": 0.367,
+  "power": 0.276
+ },
+ "TKM": {
+  "welfare": 0.17,
+  "approval": 0.115,
+  "survival": 0.412,
+  "power": 0.303
+ },
+ "TUV": {
+  "welfare": 0.342,
+  "approval": 0.238,
+  "survival": 0.223,
+  "power": 0.197
+ },
+ "UGA": {
+  "welfare": 0.206,
+  "approval": 0.141,
+  "survival": 0.371,
+  "power": 0.282
+ },
+ "UKR": {
+  "welfare": 0.242,
+  "approval": 0.167,
+  "survival": 0.333,
+  "power": 0.258
+ },
+ "ARE": {
+  "welfare": 0.191,
+  "approval": 0.102,
+  "survival": 0.452,
+  "power": 0.255
+ },
+ "GBR": {
+  "welfare": 0.377,
+  "approval": 0.263,
+  "survival": 0.185,
+  "power": 0.175
+ },
+ "USA": {
+  "welfare": 0.377,
+  "approval": 0.263,
+  "survival": 0.182,
+  "power": 0.178
+ },
+ "URY": {
+  "welfare": 0.382,
+  "approval": 0.267,
+  "survival": 0.18,
+  "power": 0.171
+ },
+ "UZB": {
+  "welfare": 0.191,
+  "approval": 0.13,
+  "survival": 0.393,
+  "power": 0.286
+ },
+ "VUT": {
+  "welfare": 0.359,
+  "approval": 0.251,
+  "survival": 0.194,
+  "power": 0.196
+ },
+ "VEN": {
+  "welfare": 0.182,
+  "approval": 0.124,
+  "survival": 0.393,
+  "power": 0.301
+ },
+ "VNM": {
+  "welfare": 0.181,
+  "approval": 0.123,
+  "survival": 0.411,
+  "power": 0.285
+ },
+ "YEM": {
+  "welfare": 0.163,
+  "approval": 0.11,
+  "survival": 0.418,
+  "power": 0.309
+ },
+ "ZMB": {
+  "welfare": 0.276,
+  "approval": 0.191,
+  "survival": 0.291,
+  "power": 0.242
+ },
+ "ZWE": {
+  "welfare": 0.205,
+  "approval": 0.141,
+  "survival": 0.371,
+  "power": 0.283
+ },
+ "VAT": {
+  "welfare": 0.176,
+  "approval": 0.091,
+  "survival": 0.471,
+  "power": 0.262
+ },
+ "PSE": {
+  "welfare": 0.19,
+  "approval": 0.13,
+  "survival": 0.393,
+  "power": 0.287
+ },
+ "XKX": {
+  "welfare": 0.318,
+  "approval": 0.221,
+  "survival": 0.243,
+  "power": 0.218
+ },
+ "TWN": {
+  "welfare": 0.367,
+  "approval": 0.256,
+  "survival": 0.196,
+  "power": 0.181
+ }
+}

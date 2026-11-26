@@ -1,0 +1,17 @@
+{
+ "id": "mock-baseline-202611260422",
+ "name": "mock baseline",
+ "seed": 1,
+ "createdAt": "2026-11-26T04:22:40.710Z",
+ "startDate": "2026-11",
+ "provider": "mock",
+ "model": "mock",
+ "countries": "all",
+ "parent": null,
+ "preset": null,
+ "lastTurn": 24,
+ "lock": null,
+ "costUsd": 0,
+ "requests": 0,
+ "stoppedReason": "done"
+}

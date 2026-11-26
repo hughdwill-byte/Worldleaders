@@ -1,0 +1,28 @@
+CABINET SECRETARIAT — MONTHLY BRIEFING FOR THE HEAD OF GOVERNMENT
+{{country}} · {{month}} · SECRET
+
+1. SITUATION REPORT
+{{situation}}
+
+2. ECONOMIC SUMMARY
+{{economy}}
+
+3. DOMESTIC POLITICAL AND SECURITY REPORT
+{{domestic}}
+
+4. INTELLIGENCE ASSESSMENTS
+{{intel}}
+
+5. DIPLOMATIC SERVICE ASSESSMENT
+{{diplomacy}}
+
+6. INBOX: CABLES AND PROPOSALS
+{{inbox}}
+
+7. SECRETARIAT NOTES ON LAST MONTH'S ORDERS
+{{notes}}
+
+8. RECORD OF YOUR RECENT DECISIONS
+{{memory}}
+{{annex}}
+Reply with your directive memo for {{month}} (JSON only).

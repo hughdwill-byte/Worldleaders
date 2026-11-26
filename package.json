@@ -1,0 +1,26 @@
+{
+  "name": "worldleaders",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "data": "tsx scripts/build-data.ts",
+    "sim": "tsx sim/cli.ts",
+    "start": "vite build viewer --emptyOutDir && tsx sim/server.ts",
+    "dev:viewer": "vite viewer",
+    "test": "tsx test/selfcheck.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.11",
+    "@types/topojson-client": "^3.1.5",
+    "mapshaper": "^0.8.10",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  },
+  "dependencies": {
+    "maplibre-gl": "^6.19.0",
+    "topojson-client": "^3.1.0",
+    "uplot": "^1.6.32"
+  }
+}

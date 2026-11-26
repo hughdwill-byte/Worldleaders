@@ -1,0 +1,41 @@
+# Optional: publish the read-only viewer + runs to GitHub Pages (Settings → Pages → Source: GitHub Actions).
+# Public repos only on the free plan. Redeploys whenever new results are committed.
+name: pages
+on:
+  push:
+    branches: [main]
+    paths: ['runs/**', 'viewer/**', 'data/regions*.json']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx vite build viewer --emptyOutDir
+      - name: Assemble site
+        run: |
+          mkdir -p site/data
+          cp -r viewer/dist/. site/
+          cp data/regions.topo.json data/regions.json site/data/
+          cp -r runs site/runs
+          rm -f site/runs/.quota.json
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deploy
+        uses: actions/deploy-pages@v4

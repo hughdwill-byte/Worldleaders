@@ -1,0 +1,20 @@
+{
+ "id": "mock-welfare-branch-202611260422",
+ "name": "mock welfare branch",
+ "seed": 1,
+ "createdAt": "2026-11-26T04:22:48.343Z",
+ "startDate": "2026-11",
+ "provider": "mock",
+ "model": "mock",
+ "countries": "all",
+ "parent": {
+  "id": "mock-baseline-202611260422",
+  "turn": 12
+ },
+ "preset": "welfare",
+ "lastTurn": 24,
+ "lock": null,
+ "costUsd": 0,
+ "requests": 0,
+ "stoppedReason": "done"
+}

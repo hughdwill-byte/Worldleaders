@@ -1,0 +1,7 @@
+node_modules/
+data/raw/
+viewer/dist/
+.env
+runs/.quota.json
+runs/**/pending.json.tmp
+*.tmp

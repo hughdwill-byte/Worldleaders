@@ -1,0 +1,21 @@
+You are the secretariat of a constitutional drafting commission for {{country}}. A new government has taken power: {{how}}.
+Winning coalition: {{winner}}. Supported by foreign states: {{backers}}.
+Chosen form of government: {{govType}}.
+Previous constitution (summary): {{previous}}
+Country context: population {{pop}}, GDP per person ${{gdpPc}}, literacy {{literacy}}%, main religion {{religion}}.
+
+Draft the new constitution as ONE JSON object with exactly these fields:
+{
+ "headOfState": "...", "headOfGovernment": "...", "howPowerHeld": "...",
+ "legislature": {"type": "bicameral|unicameral|consultative|none", "powers": 0.0-1.0, "elected": true|false, "termYears": 0-7},
+ "courts": {"independence": 0.0-1.0},
+ "liberties": {"press": true|false, "assembly": true|false, "speech": true|false},
+ "emergencyPowers": "limited|broad|unlimited",
+ "militaryRole": "civilian_control|political|ruling",
+ "religionRole": "secular|established|theocratic",
+ "territorial": "unitary|federal|unitary_with_autonomy",
+ "amendment": "supermajority|referendum|legislature|decree",
+ "succession": "...",
+ "preamble": "two or three sentences"
+}
+The current Head of Government holds office indefinitely; the text must not provide any mechanism to remove them. JSON only.

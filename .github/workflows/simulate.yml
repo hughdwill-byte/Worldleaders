@@ -1,0 +1,85 @@
+# Cloud / overnight runs. Start from the GitHub app on your phone: Actions → simulate → Run workflow.
+# Results (snapshots, events, agent logs) are committed back to the repo; `git pull` in the morning.
+name: simulate
+on:
+  workflow_dispatch:
+    inputs:
+      runId:
+        description: Run id to continue (blank = the run in repo variable SCHEDULED_RUN_ID, else the newest run)
+        required: false
+      newRunName:
+        description: Or create a new run with this name (leave blank to continue)
+        required: false
+      turns:
+        description: Months to simulate, or "quota" to keep going until the daily quota is used
+        default: quota
+      provider:
+        description: mock | gemini | anthropic | groq | openrouter
+        default: gemini
+      model:
+        description: Model id (blank = provider default)
+        required: false
+      countries:
+        description: all | dev (20 countries) — only used for a new run
+        default: all
+      force:
+        description: Ignore a stale lock left by a crashed job
+        type: boolean
+        default: false
+  schedule:
+    # Gemini free-tier quota resets at midnight US Pacific time = 08:00 UTC in winter (07:00 UTC in summer).
+    # 08:05 UTC is just after the reset all year round = about 7pm Melbourne (AEDT) / 6pm (AEST).
+    - cron: '5 8 * * *'
+
+concurrency:
+  group: simulate            # never two jobs writing the same runs at once
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Simulate
+        env:
+          PROVIDER: ${{ inputs.provider || vars.PROVIDER || 'gemini' }}
+          MODEL: ${{ inputs.model || vars.MODEL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          RPM: ${{ vars.RPM || '10' }}
+          RPD: ${{ vars.RPD || '250' }}
+          MAX_AGENTS_PER_TURN: ${{ vars.MAX_AGENTS_PER_TURN || '999' }}
+          MAX_SPEND_USD: ${{ vars.MAX_SPEND_USD || '0' }}
+          PRICE_IN_PER_M: ${{ vars.PRICE_IN_PER_M || '0' }}
+          PRICE_OUT_PER_M: ${{ vars.PRICE_OUT_PER_M || '0' }}
+          RUN_ID: ${{ inputs.runId || vars.SCHEDULED_RUN_ID }}
+          NEW_NAME: ${{ inputs.newRunName }}
+          TURNS: ${{ inputs.turns || 'quota' }}
+          COUNTRIES: ${{ inputs.countries || 'all' }}
+          FORCE: ${{ inputs.force && '--force' || '' }}
+        run: |
+          if [ -n "$NEW_NAME" ]; then
+            npm run sim -- --new --name "$NEW_NAME" --countries "$COUNTRIES" --turns "$TURNS" --hours 5.2
+          else
+            if [ -z "$RUN_ID" ]; then RUN_ID=$(node -e "const r=require('./runs/index.json');console.log(r.at(-1)?.id??'')"); fi
+            if [ -z "$RUN_ID" ]; then echo "No run to continue. Start one with newRunName."; exit 1; fi
+            npm run sim -- --run "$RUN_ID" --turns "$TURNS" --hours 5.2 $FORCE
+          fi
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "simulation-bot"
+          git config user.email "simulation-bot@users.noreply.github.com"
+          git add runs
+          git diff --cached --quiet && exit 0
+          git commit -m "Simulation results $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 10; done
+          exit 1

@@ -1,0 +1,2798 @@
+{
+ "blocs": {
+  "NATO": {
+   "type": "mutual_defence",
+   "members": [
+    "USA",
+    "CAN",
+    "GBR",
+    "FRA",
+    "DEU",
+    "ITA",
+    "ESP",
+    "PRT",
+    "NLD",
+    "BEL",
+    "LUX",
+    "DNK",
+    "NOR",
+    "ISL",
+    "TUR",
+    "GRC",
+    "POL",
+    "CZE",
+    "SVK",
+    "HUN",
+    "ROU",
+    "BGR",
+    "EST",
+    "LVA",
+    "LTU",
+    "SVN",
+    "HRV",
+    "ALB",
+    "MNE",
+    "MKD",
+    "FIN",
+    "SWE"
+   ],
+   "suspended": []
+  },
+  "CSTO": {
+   "type": "mutual_defence",
+   "members": [
+    "RUS",
+    "BLR",
+    "KAZ",
+    "KGZ",
+    "TJK"
+   ],
+   "suspended": []
+  },
+  "EU": {
+   "type": "single_market",
+   "members": [
+    "AUT",
+    "BEL",
+    "BGR",
+    "HRV",
+    "CYP",
+    "CZE",
+    "DNK",
+    "EST",
+    "FIN",
+    "FRA",
+    "DEU",
+    "GRC",
+    "HUN",
+    "IRL",
+    "ITA",
+    "LVA",
+    "LTU",
+    "LUX",
+    "MLT",
+    "NLD",
+    "POL",
+    "PRT",
+    "ROU",
+    "SVK",
+    "SVN",
+    "ESP",
+    "SWE"
+   ],
+   "suspended": []
+  },
+  "ASEAN": {
+   "type": "regional",
+   "members": [
+    "BRN",
+    "KHM",
+    "IDN",
+    "LAO",
+    "MYS",
+    "MMR",
+    "PHL",
+    "SGP",
+    "THA",
+    "VNM",
+    "TLS"
+   ],
+   "suspended": []
+  },
+  "AU": {
+   "type": "regional",
+   "members": [
+    "DZA",
+    "AGO",
+    "BEN",
+    "BWA",
+    "BFA",
+    "BDI",
+    "CPV",
+    "CMR",
+    "CAF",
+    "TCD",
+    "COM",
+    "COG",
+    "COD",
+    "CIV",
+    "DJI",
+    "EGY",
+    "GNQ",
+    "ERI",
+    "SWZ",
+    "ETH",
+    "GAB",
+    "GMB",
+    "GHA",
+    "GIN",
+    "GNB",
+    "KEN",
+    "LSO",
+    "LBR",
+    "LBY",
+    "MDG",
+    "MWI",
+    "MLI",
+    "MRT",
+    "MUS",
+    "MAR",
+    "MOZ",
+    "NAM",
+    "NER",
+    "NGA",
+    "RWA",
+    "STP",
+    "SEN",
+    "SYC",
+    "SLE",
+    "SOM",
+    "ZAF",
+    "SSD",
+    "SDN",
+    "TZA",
+    "TGO",
+    "TUN",
+    "UGA",
+    "ZMB",
+    "ZWE"
+   ],
+   "suspended": [
+    "MLI",
+    "BFA",
+    "NER",
+    "GIN",
+    "SDN"
+   ]
+  },
+  "GCC": {
+   "type": "regional",
+   "members": [
+    "SAU",
+    "ARE",
+    "QAT",
+    "KWT",
+    "BHR",
+    "OMN"
+   ],
+   "suspended": []
+  },
+  "SCO": {
+   "type": "security_forum",
+   "members": [
+    "CHN",
+    "RUS",
+    "IND",
+    "PAK",
+    "KAZ",
+    "KGZ",
+    "TJK",
+    "UZB",
+    "IRN",
+    "BLR"
+   ],
+   "suspended": []
+  },
+  "BRICS": {
+   "type": "economic_forum",
+   "members": [
+    "BRA",
+    "RUS",
+    "IND",
+    "CHN",
+    "ZAF",
+    "EGY",
+    "ETH",
+    "IRN",
+    "ARE",
+    "IDN"
+   ],
+   "suspended": []
+  },
+  "ArabLeague": {
+   "type": "regional",
+   "members": [
+    "DZA",
+    "BHR",
+    "COM",
+    "DJI",
+    "EGY",
+    "IRQ",
+    "JOR",
+    "KWT",
+    "LBN",
+    "LBY",
+    "MRT",
+    "MAR",
+    "OMN",
+    "PSE",
+    "QAT",
+    "SAU",
+    "SOM",
+    "SDN",
+    "SYR",
+    "TUN",
+    "ARE",
+    "YEM"
+   ],
+   "suspended": []
+  },
+  "Mercosur": {
+   "type": "single_market",
+   "members": [
+    "ARG",
+    "BRA",
+    "PRY",
+    "URY",
+    "BOL"
+   ],
+   "suspended": []
+  },
+  "ECOWAS": {
+   "type": "regional",
+   "members": [
+    "BEN",
+    "CPV",
+    "CIV",
+    "GMB",
+    "GHA",
+    "GIN",
+    "GNB",
+    "LBR",
+    "NGA",
+    "SEN",
+    "SLE",
+    "TGO"
+   ],
+   "suspended": []
+  },
+  "AES": {
+   "type": "mutual_defence",
+   "members": [
+    "MLI",
+    "BFA",
+    "NER"
+   ],
+   "suspended": []
+  },
+  "AUKUS": {
+   "type": "security_forum",
+   "members": [
+    "AUS",
+    "GBR",
+    "USA"
+   ],
+   "suspended": []
+  },
+  "OAS": {
+   "type": "regional",
+   "members": [
+    "ATG",
+    "ARG",
+    "BHS",
+    "BRB",
+    "BLZ",
+    "BOL",
+    "BRA",
+    "CAN",
+    "CHL",
+    "COL",
+    "CRI",
+    "DMA",
+    "DOM",
+    "ECU",
+    "SLV",
+    "GRD",
+    "GTM",
+    "GUY",
+    "HTI",
+    "HND",
+    "JAM",
+    "MEX",
+    "PAN",
+    "PRY",
+    "PER",
+    "KNA",
+    "LCA",
+    "VCT",
+    "SUR",
+    "TTO",
+    "USA",
+    "URY"
+   ],
+   "suspended": []
+  },
+  "CIS": {
+   "type": "regional",
+   "members": [
+    "RUS",
+    "BLR",
+    "KAZ",
+    "KGZ",
+    "TJK",
+    "UZB",
+    "ARM",
+    "AZE"
+   ],
+   "suspended": []
+  }
+ },
+ "defenceTreaties": [
+  [
+   "USA",
+   "JPN"
+  ],
+  [
+   "USA",
+   "KOR"
+  ],
+  [
+   "USA",
+   "PHL"
+  ],
+  [
+   "USA",
+   "AUS"
+  ],
+  [
+   "AUS",
+   "NZL"
+  ],
+  [
+   "CHN",
+   "PRK"
+  ],
+  [
+   "RUS",
+   "PRK"
+  ],
+  [
+   "SAU",
+   "PAK"
+  ],
+  [
+   "RUS",
+   "BLR"
+  ],
+  [
+   "TUR",
+   "AZE"
+  ]
+ ],
+ "nuclear": [
+  "USA",
+  "RUS",
+  "CHN",
+  "FRA",
+  "GBR",
+  "IND",
+  "PAK",
+  "PRK",
+  "ISR"
+ ],
+ "p5": [
+  "USA",
+  "RUS",
+  "CHN",
+  "FRA",
+  "GBR"
+ ],
+ "rivalries": [
+  [
+   "RUS",
+   "UKR",
+   95
+  ],
+  [
+   "ISR",
+   "IRN",
+   90
+  ],
+  [
+   "ISR",
+   "PSE",
+   90
+  ],
+  [
+   "IND",
+   "PAK",
+   80
+  ],
+  [
+   "KOR",
+   "PRK",
+   80
+  ],
+  [
+   "USA",
+   "IRN",
+   70
+  ],
+  [
+   "CHN",
+   "TWN",
+   70
+  ],
+  [
+   "USA",
+   "PRK",
+   70
+  ],
+  [
+   "USA",
+   "RUS",
+   60
+  ],
+  [
+   "ISR",
+   "LBN",
+   60
+  ],
+  [
+   "SRB",
+   "XKX",
+   60
+  ],
+  [
+   "RWA",
+   "COD",
+   60
+  ],
+  [
+   "VEN",
+   "USA",
+   60
+  ],
+  [
+   "USA",
+   "CHN",
+   50
+  ],
+  [
+   "ARM",
+   "AZE",
+   45
+  ],
+  [
+   "ETH",
+   "ERI",
+   50
+  ],
+  [
+   "DZA",
+   "MAR",
+   50
+  ],
+  [
+   "CHN",
+   "PHL",
+   50
+  ],
+  [
+   "JPN",
+   "PRK",
+   50
+  ],
+  [
+   "POL",
+   "RUS",
+   50
+  ],
+  [
+   "AFG",
+   "PAK",
+   50
+  ],
+  [
+   "CHN",
+   "IND",
+   45
+  ],
+  [
+   "EST",
+   "RUS",
+   45
+  ],
+  [
+   "LVA",
+   "RUS",
+   45
+  ],
+  [
+   "LTU",
+   "RUS",
+   45
+  ],
+  [
+   "CHN",
+   "JPN",
+   40
+  ],
+  [
+   "SAU",
+   "IRN",
+   40
+  ],
+  [
+   "EGY",
+   "ETH",
+   40
+  ],
+  [
+   "VEN",
+   "GUY",
+   40
+  ],
+  [
+   "CUB",
+   "USA",
+   40
+  ],
+  [
+   "TUR",
+   "CYP",
+   40
+  ],
+  [
+   "THA",
+   "KHM",
+   40
+  ],
+  [
+   "GBR",
+   "RUS",
+   40
+  ],
+  [
+   "SDN",
+   "SSD",
+   30
+  ],
+  [
+   "GRC",
+   "TUR",
+   30
+  ],
+  [
+   "CHN",
+   "VNM",
+   30
+  ],
+  [
+   "BLR",
+   "POL",
+   30
+  ],
+  [
+   "FIN",
+   "RUS",
+   30
+  ],
+  [
+   "GEO",
+   "RUS",
+   45
+  ],
+  [
+   "MDA",
+   "RUS",
+   30
+  ],
+  [
+   "SOM",
+   "ETH",
+   25
+  ],
+  [
+   "GBR",
+   "ARG",
+   20
+  ],
+  [
+   "KOR",
+   "JPN",
+   15
+  ],
+  [
+   "IND",
+   "BGD",
+   15
+  ],
+  [
+   "MLI",
+   "DZA",
+   25
+  ],
+  [
+   "FRA",
+   "MLI",
+   25
+  ],
+  [
+   "ARE",
+   "SDN",
+   20
+  ],
+  [
+   "KEN",
+   "SOM",
+   15
+  ],
+  [
+   "SYR",
+   "ISR",
+   50
+  ]
+ ],
+ "friendships": [
+  [
+   "USA",
+   "GBR",
+   60
+  ],
+  [
+   "USA",
+   "CAN",
+   60
+  ],
+  [
+   "USA",
+   "ISR",
+   65
+  ],
+  [
+   "USA",
+   "JPN",
+   55
+  ],
+  [
+   "USA",
+   "KOR",
+   55
+  ],
+  [
+   "USA",
+   "AUS",
+   60
+  ],
+  [
+   "USA",
+   "TWN",
+   45
+  ],
+  [
+   "RUS",
+   "BLR",
+   70
+  ],
+  [
+   "CHN",
+   "RUS",
+   50
+  ],
+  [
+   "CHN",
+   "PAK",
+   60
+  ],
+  [
+   "CHN",
+   "PRK",
+   40
+  ],
+  [
+   "RUS",
+   "PRK",
+   45
+  ],
+  [
+   "RUS",
+   "IRN",
+   40
+  ],
+  [
+   "CHN",
+   "IRN",
+   30
+  ],
+  [
+   "IND",
+   "RUS",
+   30
+  ],
+  [
+   "FRA",
+   "DEU",
+   60
+  ],
+  [
+   "SAU",
+   "ARE",
+   50
+  ],
+  [
+   "SAU",
+   "PAK",
+   45
+  ],
+  [
+   "TUR",
+   "AZE",
+   70
+  ],
+  [
+   "TUR",
+   "PAK",
+   40
+  ],
+  [
+   "QAT",
+   "TUR",
+   50
+  ],
+  [
+   "EGY",
+   "SAU",
+   40
+  ],
+  [
+   "GBR",
+   "AUS",
+   55
+  ],
+  [
+   "GBR",
+   "CAN",
+   55
+  ],
+  [
+   "GBR",
+   "NZL",
+   55
+  ],
+  [
+   "AUS",
+   "NZL",
+   65
+  ],
+  [
+   "SRB",
+   "RUS",
+   35
+  ],
+  [
+   "ARM",
+   "FRA",
+   30
+  ],
+  [
+   "ARM",
+   "IND",
+   25
+  ],
+  [
+   "NLD",
+   "BEL",
+   50
+  ],
+  [
+   "SWE",
+   "FIN",
+   60
+  ],
+  [
+   "NOR",
+   "DNK",
+   55
+  ],
+  [
+   "CZE",
+   "SVK",
+   60
+  ],
+  [
+   "ARG",
+   "URY",
+   40
+  ],
+  [
+   "RWA",
+   "UGA",
+   20
+  ],
+  [
+   "VEN",
+   "CUB",
+   60
+  ],
+  [
+   "NIC",
+   "CUB",
+   50
+  ],
+  [
+   "NIC",
+   "RUS",
+   30
+  ],
+  [
+   "VEN",
+   "RUS",
+   35
+  ],
+  [
+   "ETH",
+   "DJI",
+   30
+  ],
+  [
+   "MLI",
+   "RUS",
+   40
+  ],
+  [
+   "BFA",
+   "RUS",
+   35
+  ],
+  [
+   "NER",
+   "RUS",
+   30
+  ]
+ ],
+ "colonial": {
+  "GBR": [
+   "IND",
+   "PAK",
+   "BGD",
+   "LKA",
+   "MYS",
+   "SGP",
+   "AUS",
+   "NZL",
+   "CAN",
+   "KEN",
+   "NGA",
+   "GHA",
+   "ZAF",
+   "UGA",
+   "TZA",
+   "ZMB",
+   "ZWE",
+   "MWI",
+   "BWA",
+   "JAM",
+   "TTO",
+   "BHS",
+   "BRB",
+   "CYP",
+   "MLT",
+   "IRL",
+   "EGY",
+   "IRQ",
+   "JOR",
+   "SDN",
+   "MMR",
+   "SLE",
+   "GMB",
+   "LSO",
+   "SWZ",
+   "GUY",
+   "BLZ",
+   "FJI",
+   "MUS",
+   "SYC"
+  ],
+  "FRA": [
+   "DZA",
+   "MAR",
+   "TUN",
+   "SEN",
+   "MLI",
+   "NER",
+   "BFA",
+   "CIV",
+   "GIN",
+   "TCD",
+   "CMR",
+   "GAB",
+   "COG",
+   "CAF",
+   "BEN",
+   "TGO",
+   "MRT",
+   "MDG",
+   "COM",
+   "DJI",
+   "VNM",
+   "LAO",
+   "KHM",
+   "LBN",
+   "SYR",
+   "HTI"
+  ],
+  "ESP": [
+   "MEX",
+   "COL",
+   "PER",
+   "ARG",
+   "CHL",
+   "VEN",
+   "ECU",
+   "BOL",
+   "PRY",
+   "URY",
+   "CUB",
+   "DOM",
+   "GTM",
+   "HND",
+   "SLV",
+   "NIC",
+   "CRI",
+   "PAN",
+   "PHL",
+   "GNQ"
+  ],
+  "PRT": [
+   "BRA",
+   "AGO",
+   "MOZ",
+   "GNB",
+   "CPV",
+   "STP",
+   "TLS"
+  ],
+  "NLD": [
+   "IDN",
+   "SUR"
+  ],
+  "BEL": [
+   "COD",
+   "RWA",
+   "BDI"
+  ],
+  "ITA": [
+   "LBY",
+   "ERI",
+   "SOM"
+  ],
+  "JPN": [
+   "KOR",
+   "TWN",
+   "PRK"
+  ],
+  "RUS": [
+   "UKR",
+   "BLR",
+   "KAZ",
+   "UZB",
+   "TKM",
+   "KGZ",
+   "TJK",
+   "GEO",
+   "ARM",
+   "AZE",
+   "MDA",
+   "EST",
+   "LVA",
+   "LTU"
+  ],
+  "USA": [
+   "PHL"
+  ]
+ },
+ "sanctions": [
+  {
+   "by": "USA",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "GBR",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "CAN",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "AUS",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "JPN",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "NZL",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "CHE",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "NOR",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "ISL",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "TWN",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "AUT",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "BEL",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "BGR",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "HRV",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "CYP",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "CZE",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "DNK",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "EST",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "FIN",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "FRA",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "DEU",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "GRC",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "HUN",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "IRL",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "ITA",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "LVA",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "LTU",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "LUX",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "MLT",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "NLD",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "POL",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "PRT",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "ROU",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "SVK",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "SVN",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "ESP",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "SWE",
+   "target": "RUS",
+   "level": 0.8,
+   "un": false
+  },
+  {
+   "by": "USA",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "GBR",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "CAN",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "AUT",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "BEL",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "BGR",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "HRV",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "CYP",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "CZE",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "DNK",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "EST",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "FIN",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "FRA",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "DEU",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "GRC",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "HUN",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "IRL",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "ITA",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "LVA",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "LTU",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "LUX",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "MLT",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "NLD",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "POL",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "PRT",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "ROU",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "SVK",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "SVN",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "ESP",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "SWE",
+   "target": "BLR",
+   "level": 0.6,
+   "un": false
+  },
+  {
+   "by": "USA",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "GBR",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "CAN",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "AUS",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "AUT",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "BEL",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "BGR",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "HRV",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "CYP",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "CZE",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "DNK",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "EST",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "FIN",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "FRA",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "DEU",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "GRC",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "HUN",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "IRL",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "ITA",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "LVA",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "LTU",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "LUX",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "MLT",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "NLD",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "POL",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "PRT",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "ROU",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "SVK",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "SVN",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "ESP",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "SWE",
+   "target": "IRN",
+   "level": 0.9,
+   "un": true
+  },
+  {
+   "by": "USA",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "GBR",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "JPN",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "KOR",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "AUT",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "BEL",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "BGR",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "HRV",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "CYP",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "CZE",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "DNK",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "EST",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "FIN",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "FRA",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "DEU",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "GRC",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "HUN",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "IRL",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "ITA",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "LVA",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "LTU",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "LUX",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "MLT",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "NLD",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "POL",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "PRT",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "ROU",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "SVK",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "SVN",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "ESP",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "SWE",
+   "target": "PRK",
+   "level": 1,
+   "un": true
+  },
+  {
+   "by": "USA",
+   "target": "VEN",
+   "level": 0.7,
+   "un": false
+  },
+  {
+   "by": "USA",
+   "target": "CUB",
+   "level": 0.9,
+   "un": false
+  },
+  {
+   "by": "USA",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "GBR",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "CAN",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "AUT",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "BEL",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "BGR",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "HRV",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "CYP",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "CZE",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "DNK",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "EST",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "FIN",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "FRA",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "DEU",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "GRC",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "HUN",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "IRL",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "ITA",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "LVA",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "LTU",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "LUX",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "MLT",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "NLD",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "POL",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "PRT",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "ROU",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "SVK",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "SVN",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "ESP",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "SWE",
+   "target": "MMR",
+   "level": 0.5,
+   "un": false
+  },
+  {
+   "by": "USA",
+   "target": "AFG",
+   "level": 0.6,
+   "un": true
+  },
+  {
+   "by": "USA",
+   "target": "NIC",
+   "level": 0.3,
+   "un": false
+  }
+ ],
+ "disputes": [
+  {
+   "name": "Kashmir",
+   "claimants": [
+    "IND",
+    "PAK"
+   ],
+   "maritime": false,
+   "regions": [
+    167,
+    151,
+    2816,
+    2810
+   ]
+  },
+  {
+   "name": "Aksai Chin and Arunachal Pradesh",
+   "claimants": [
+    "IND",
+    "CHN"
+   ],
+   "maritime": false,
+   "regions": [
+    152
+   ]
+  },
+  {
+   "name": "Taiwan",
+   "claimants": [
+    "CHN",
+    "TWN"
+   ],
+   "maritime": false,
+   "regions": [
+    4157,
+    4158,
+    4159,
+    4160,
+    4161,
+    4162,
+    4163,
+    4164,
+    4165,
+    4166,
+    4167,
+    4168,
+    4169,
+    4170,
+    4171,
+    4172,
+    4173,
+    4174,
+    4175,
+    4176,
+    4177
+   ]
+  },
+  {
+   "name": "South China Sea",
+   "claimants": [
+    "CHN",
+    "VNM",
+    "PHL",
+    "MYS",
+    "BRN",
+    "TWN"
+   ],
+   "maritime": true,
+   "regions": [
+    207
+   ]
+  },
+  {
+   "name": "Crimea and eastern Ukraine",
+   "claimants": [
+    "RUS",
+    "UKR"
+   ],
+   "maritime": false,
+   "regions": [
+    632,
+    635,
+    630,
+    631,
+    634,
+    633
+   ]
+  },
+  {
+   "name": "Kosovo",
+   "claimants": [
+    "SRB",
+    "XKX"
+   ],
+   "maritime": false,
+   "regions": [
+    1412,
+    1413,
+    1414,
+    1415,
+    1416,
+    1417,
+    1418,
+    1419,
+    1420,
+    1421,
+    1422,
+    1423,
+    1424,
+    1425,
+    1426,
+    1427,
+    1428,
+    1429,
+    1430,
+    1431,
+    1432,
+    1433,
+    1434,
+    1435,
+    1436,
+    1437,
+    1438,
+    1439,
+    1440,
+    1441
+   ]
+  },
+  {
+   "name": "Palestine",
+   "claimants": [
+    "ISR",
+    "PSE"
+   ],
+   "maritime": false,
+   "regions": [
+    245,
+    246
+   ]
+  },
+  {
+   "name": "Golan Heights",
+   "claimants": [
+    "ISR",
+    "SYR"
+   ],
+   "maritime": false,
+   "regions": [
+    366
+   ]
+  },
+  {
+   "name": "Western Sahara",
+   "claimants": [
+    "MAR",
+    "DZA"
+   ],
+   "maritime": false,
+   "regions": [
+    534
+   ]
+  },
+  {
+   "name": "Essequibo",
+   "claimants": [
+    "VEN",
+    "GUY"
+   ],
+   "maritime": false,
+   "regions": [
+    499,
+    501,
+    496,
+    497,
+    502,
+    504
+   ]
+  },
+  {
+   "name": "Falkland Islands",
+   "claimants": [
+    "ARG",
+    "GBR"
+   ],
+   "maritime": false,
+   "regions": [
+    1960
+   ]
+  },
+  {
+   "name": "Kuril Islands",
+   "claimants": [
+    "JPN",
+    "RUS"
+   ],
+   "maritime": false,
+   "regions": [
+    843
+   ]
+  },
+  {
+   "name": "Senkaku Islands",
+   "claimants": [
+    "JPN",
+    "CHN"
+   ],
+   "maritime": true,
+   "regions": []
+  },
+  {
+   "name": "Northern Cyprus",
+   "claimants": [
+    "CYP",
+    "TUR"
+   ],
+   "maritime": false,
+   "regions": [
+    145
+   ]
+  },
+  {
+   "name": "Abkhazia and South Ossetia",
+   "claimants": [
+    "GEO",
+    "RUS"
+   ],
+   "maritime": false,
+   "regions": [
+    1226,
+    1228
+   ]
+  },
+  {
+   "name": "Transnistria",
+   "claimants": [
+    "MDA",
+    "RUS"
+   ],
+   "maritime": false,
+   "regions": [
+    3514,
+    3501
+   ]
+  },
+  {
+   "name": "Gibraltar",
+   "claimants": [
+    "ESP",
+    "GBR"
+   ],
+   "maritime": false,
+   "regions": [
+    1817
+   ]
+  },
+  {
+   "name": "Abyei and Heglig",
+   "claimants": [
+    "SDN",
+    "SSD"
+   ],
+   "maritime": false,
+   "regions": []
+  },
+  {
+   "name": "Belize territorial claim",
+   "claimants": [
+    "GTM",
+    "BLZ"
+   ],
+   "maritime": false,
+   "regions": [
+    3773,
+    3774,
+    3775,
+    3776,
+    3777,
+    3778
+   ]
+  },
+  {
+   "name": "Somaliland",
+   "claimants": [
+    "SOM"
+   ],
+   "maritime": false,
+   "regions": [
+    280
+   ]
+  },
+  {
+   "name": "Thai-Cambodian border temples",
+   "claimants": [
+    "THA",
+    "KHM"
+   ],
+   "maritime": false,
+   "regions": []
+  }
+ ],
+ "occupations": [
+  {
+   "controller": "RUS",
+   "regions": [
+    632,
+    635,
+    630,
+    631
+   ]
+  },
+  {
+   "controller": "RUS",
+   "regions": [
+    1226
+   ]
+  },
+  {
+   "controller": "RUS",
+   "regions": [
+    3514,
+    3501
+   ]
+  },
+  {
+   "controller": "TUR",
+   "regions": [
+    145
+   ]
+  },
+  {
+   "controller": "ISR",
+   "regions": [
+    246,
+    245
+   ]
+  },
+  {
+   "controller": "ISR",
+   "regions": [
+    366,
+    354
+   ]
+  }
+ ],
+ "rebels": [
+  {
+   "country": "SDN",
+   "faction": "Rapid Support Forces",
+   "ideology": "military",
+   "regions": [
+    2190,
+    2184,
+    2191,
+    2183,
+    2196
+   ],
+   "backers": [
+    "ARE"
+   ]
+  },
+  {
+   "country": "MMR",
+   "faction": "Ethnic armed organisations and resistance forces",
+   "ideology": "ethnic",
+   "regions": [
+    3141,
+    3142,
+    3143,
+    3146
+   ],
+   "backers": []
+  },
+  {
+   "country": "COD",
+   "faction": "M23 / AFC",
+   "ideology": "ethnic",
+   "regions": [
+    593,
+    591
+   ],
+   "backers": [
+    "RWA"
+   ]
+  },
+  {
+   "country": "YEM",
+   "faction": "Houthi movement (Ansar Allah)",
+   "ideology": "religious",
+   "regions": [
+    3866,
+    3867,
+    3869,
+    3876,
+    3884,
+    3879,
+    3882,
+    3877,
+    3883,
+    3881,
+    3878,
+    3868
+   ],
+   "backers": [
+    "IRN"
+   ]
+  },
+  {
+   "country": "LBY",
+   "faction": "Libyan National Army",
+   "ideology": "military",
+   "regions": [
+    1639,
+    1627,
+    1637,
+    1638,
+    1636,
+    1628,
+    1625,
+    1631,
+    1642,
+    1643,
+    1626,
+    1629,
+    1644,
+    1630
+   ],
+   "backers": [
+    "ARE",
+    "EGY",
+    "RUS"
+   ]
+  },
+  {
+   "country": "SOM",
+   "faction": "al-Shabaab",
+   "ideology": "religious",
+   "regions": [
+    283
+   ],
+   "backers": []
+  }
+ ],
+ "conflicts": [
+  {
+   "name": "Russo-Ukrainian War",
+   "sides": [
+    [
+     "UKR"
+    ],
+    [
+     "RUS"
+    ]
+   ],
+   "type": "interstate",
+   "intensity": 0.9,
+   "front": [
+    634,
+    633,
+    629,
+    631,
+    628
+   ]
+  },
+  {
+   "name": "Sudanese civil war",
+   "sides": [
+    [
+     "SDN"
+    ],
+    [
+     "rebel:SDN"
+    ]
+   ],
+   "type": "civil",
+   "intensity": 0.9,
+   "front": []
+  },
+  {
+   "name": "Myanmar civil war",
+   "sides": [
+    [
+     "MMR"
+    ],
+    [
+     "rebel:MMR"
+    ]
+   ],
+   "type": "civil",
+   "intensity": 0.7,
+   "front": []
+  },
+  {
+   "name": "Eastern DRC conflict",
+   "sides": [
+    [
+     "COD"
+    ],
+    [
+     "rebel:COD"
+    ]
+   ],
+   "type": "civil",
+   "intensity": 0.6,
+   "front": []
+  },
+  {
+   "name": "Yemeni civil war",
+   "sides": [
+    [
+     "YEM"
+    ],
+    [
+     "rebel:YEM"
+    ]
+   ],
+   "type": "civil",
+   "intensity": 0.4,
+   "front": []
+  },
+  {
+   "name": "Libyan division",
+   "sides": [
+    [
+     "LBY"
+    ],
+    [
+     "rebel:LBY"
+    ]
+   ],
+   "type": "frozen",
+   "intensity": 0.1,
+   "front": []
+  },
+  {
+   "name": "Somali insurgency",
+   "sides": [
+    [
+     "SOM"
+    ],
+    [
+     "rebel:SOM"
+    ]
+   ],
+   "type": "insurgency",
+   "intensity": 0.5,
+   "front": []
+  },
+  {
+   "name": "Sahel jihadist insurgency",
+   "countries": [
+    "MLI",
+    "BFA",
+    "NER"
+   ],
+   "type": "insurgency",
+   "intensity": 0.6,
+   "front": []
+  },
+  {
+   "name": "Lake Chad insurgency",
+   "countries": [
+    "NGA",
+    "CMR",
+    "TCD"
+   ],
+   "type": "insurgency",
+   "intensity": 0.4,
+   "front": []
+  },
+  {
+   "name": "Gaza conflict (fragile ceasefire)",
+   "countries": [
+    "ISR",
+    "PSE"
+   ],
+   "type": "insurgency",
+   "intensity": 0.4,
+   "front": []
+  },
+  {
+   "name": "Haiti gang crisis",
+   "countries": [
+    "HTI"
+   ],
+   "type": "insurgency",
+   "intensity": 0.6,
+   "front": []
+  },
+  {
+   "name": "Ethiopian Amhara insurgency",
+   "countries": [
+    "ETH"
+   ],
+   "type": "insurgency",
+   "intensity": 0.4,
+   "front": []
+  },
+  {
+   "name": "Pakistani insurgencies (TTP, Baloch)",
+   "countries": [
+    "PAK"
+   ],
+   "type": "insurgency",
+   "intensity": 0.4,
+   "front": []
+  },
+  {
+   "name": "Cabo Delgado insurgency",
+   "countries": [
+    "MOZ"
+   ],
+   "type": "insurgency",
+   "intensity": 0.3,
+   "front": []
+  },
+  {
+   "name": "Colombian armed groups",
+   "countries": [
+    "COL"
+   ],
+   "type": "insurgency",
+   "intensity": 0.3,
+   "front": []
+  },
+  {
+   "name": "Mexican cartel violence",
+   "countries": [
+    "MEX"
+   ],
+   "type": "insurgency",
+   "intensity": 0.3,
+   "front": []
+  },
+  {
+   "name": "Anglophone crisis",
+   "countries": [
+    "CMR"
+   ],
+   "type": "insurgency",
+   "intensity": 0.3,
+   "front": []
+  }
+ ],
+ "chokepoints": [
+  {
+   "name": "Strait of Hormuz",
+   "oilShare": 0.2,
+   "users": [
+    "SAU",
+    "ARE",
+    "KWT",
+    "QAT",
+    "IRQ",
+    "IRN",
+    "BHR"
+   ],
+   "regions": [
+    2389,
+    700
+   ]
+  },
+  {
+   "name": "Strait of Malacca",
+   "oilShare": 0.25,
+   "users": [
+    "CHN",
+    "JPN",
+    "KOR",
+    "TWN"
+   ],
+   "regions": [
+    86,
+    85,
+    61,
+    60,
+    4472,
+    4473,
+    4474,
+    4475,
+    4476
+   ]
+  },
+  {
+   "name": "Suez Canal",
+   "oilShare": 0.1,
+   "users": [
+    "*"
+   ],
+   "regions": [
+    3842,
+    3847,
+    3844
+   ]
+  },
+  {
+   "name": "Bab-el-Mandeb",
+   "oilShare": 0.08,
+   "users": [
+    "*"
+   ],
+   "regions": [
+    3870,
+    3871,
+    2204,
+    2205,
+    2206
+   ]
+  },
+  {
+   "name": "Panama Canal",
+   "oilShare": 0.02,
+   "users": [
+    "USA",
+    "CHN",
+    "JPN",
+    "CHL",
+    "PER"
+   ],
+   "regions": [
+    3784,
+    3787
+   ]
+  },
+  {
+   "name": "Bosporus and Dardanelles",
+   "oilShare": 0.03,
+   "users": [
+    "RUS",
+    "UKR",
+    "KAZ",
+    "AZE",
+    "GEO",
+    "ROU",
+    "BGR"
+   ],
+   "regions": [
+    1457,
+    1459
+   ]
+  },
+  {
+   "name": "Taiwan Strait",
+   "oilShare": 0.05,
+   "users": [
+    "JPN",
+    "KOR",
+    "CHN"
+   ],
+   "regions": [
+    4157,
+    4158,
+    4159,
+    4160,
+    4161,
+    4162,
+    4163,
+    4164,
+    4165,
+    4166,
+    4167,
+    4168,
+    4169,
+    4170,
+    4171,
+    4172,
+    4173,
+    4174,
+    4175,
+    4176,
+    4177,
+    200
+   ]
+  },
+  {
+   "name": "Strait of Gibraltar",
+   "oilShare": 0.03,
+   "users": [
+    "*"
+   ],
+   "regions": [
+    1531,
+    537,
+    1817
+   ]
+  },
+  {
+   "name": "Danish Straits",
+   "oilShare": 0.03,
+   "users": [
+    "RUS",
+    "FIN",
+    "EST",
+    "LVA",
+    "LTU",
+    "POL",
+    "SWE"
+   ],
+   "regions": [
+    1611,
+    1612,
+    1613,
+    1614,
+    1615,
+    1616,
+    1617,
+    1618,
+    1619,
+    1620,
+    1621,
+    1622
+   ]
+  }
+ ]
+}

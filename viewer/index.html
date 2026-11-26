@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>World Governance Simulator</title>
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+  <header id="top">
+    <h1>World Governance</h1>
+    <label>Run <select id="runSel" aria-label="Run"></select></label>
+    <div id="month" aria-live="polite">—</div>
+    <div id="controls" hidden>
+      <button id="btnNext" title="Resolve the next month">Next month</button>
+      <input id="nTurns" type="number" min="1" value="6" aria-label="Months to run" />
+      <button id="btnRunN">Run N</button>
+      <button id="btnAuto">Auto-play</button>
+      <button id="btnPause">Pause</button>
+      <button id="btnNew">New run</button>
+      <select id="presetSel" aria-label="Branch preset"><option value="">same weights</option><option>welfare</option><option>approval</option><option>survival</option><option>power</option><option>equal</option></select>
+      <button id="btnBranch" title="Branch a new run from the month shown">Branch here</button>
+      <progress id="pbar" max="1" value="0" hidden></progress>
+      <span id="progress"></span>
+    </div>
+  </header>
+  <main>
+    <section id="mapWrap">
+      <div id="map"></div>
+      <div id="layerBox">
+        <label>Colour <select id="layerSel"></select></label>
+        <div id="overlays"></div>
+        <div id="legend"></div>
+      </div>
+      <div id="tooltip" hidden></div>
+    </section>
+    <aside id="side">
+      <nav id="tabs">
+        <button data-tab="country" class="on">Country</button>
+        <button data-tab="events">Events</button>
+        <button data-tab="world">World</button>
+        <button data-tab="compare">Compare</button>
+      </nav>
+      <div id="tab-country" class="tab"><p class="muted">Click a country on the map.</p></div>
+      <div id="tab-events" class="tab" hidden></div>
+      <div id="tab-world" class="tab" hidden></div>
+      <div id="tab-compare" class="tab" hidden></div>
+    </aside>
+  </main>
+  <footer id="timeline">
+    <button id="btnPrev" aria-label="Previous month">◀</button>
+    <button id="btnPlay" aria-label="Play">▶ Play</button>
+    <button id="btnFwd" aria-label="Next saved month">▶|</button>
+    <input id="slider" type="range" min="0" max="0" value="0" aria-label="Month" />
+    <span id="sliderLabel"></span>
+  </footer>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>
