@@ -59,7 +59,21 @@ export function applyDecisions(x: Ctx, decisions: Record<string, AgentResponse>)
     c.leader.lastAssessment = resp.assessment; c.leader.lastStatement = resp.public_statement;
     c.leader.reportTopic = resp.detailed_report; // delivered as an annex to next month's briefing
     for (const d of (resp.directives ?? []).slice(0, 12)) {
+      const ev0 = x.ev.length, rej0 = c.rejections.length;
+      const fp = () => JSON.stringify([c.taxRate, c.spending, c.policyRate, c.repression, c.civilLiberties, c.info, c.mobilized, c.curfew, c.refugeePolicy, c.tariffs, c.debt, c.purgedAt, c.constitution.version, w.pendingProposals.length, w.treaties.length, w.sanctions.length, w.regions.length && c.capital]);
+      const before = fp();
       try { apply(x, c, d); } catch (e) { reject(c, d, 'The Secretariat could not execute this order (' + (e as Error).message + ').'); }
+      const by = { iso, type: d.type, target: d.target ?? null, order: d.order ?? '', reasoning: resp.assessment, ai: resp.source === 'ai' };
+      // events this order caused carry the order and the leader's reasoning
+      for (const e of x.ev.slice(ev0)) e.data = { ...(e.data ?? {}), by };
+      // AI leaders' own decisions are events too (executed or not)
+      if (resp.source === 'ai' && (c.rejections.length > rej0 || x.ev.length > ev0 || fp() !== before)) { // skip "maintain current level" no-ops
+        const rejected = c.rejections.length > rej0 ? c.rejections.at(-1) : null;
+        const tgt = d.target && w.countries[d.target] ? ` → ${w.countries[d.target].name}` : '';
+        x.ev.splice(ev0, 0, { turn: w.turn, type: rejected ? 'decision_blocked' : 'decision', countries: [iso, ...(d.target && w.countries[d.target] ? [d.target] : [])],
+          text: `${c.name} orders ${d.type.replace(/_/g, ' ')}${d.sub ? ` (${d.sub})` : ''}${tgt}${d.order ? `: "${d.order.slice(0, 200)}"` : ''}${rejected ? ` — NOT EXECUTED: ${rejected.replace(/^[^:]*: /, '')}` : ''}`,
+          data: { by } });
+      }
     }
     for (const cb of (resp.cables ?? []).slice(0, 8)) {
       if (!w.countries[cb.to]?.alive || cb.to === iso) continue;

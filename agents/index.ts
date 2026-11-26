@@ -72,6 +72,7 @@ export async function decide(w: World, s: Statics, iso: string, useLlm: boolean,
     } catch (e) { if ((e as Error).name !== 'Error') throw e; }
   }
   if (!resp) { events.push({ turn: w.turn, type: 'agent_fallback', countries: [iso], text: `${c.name}: memo unreadable after retry; current policies continue.` }); resp = FALLBACK; }
+  resp.source = 'ai';
   events.push(...scan(w, iso, resp));
   return { resp, events, costUsd: cost, log: { system, briefing: brief, annexBriefing: annexBrief, raw: raws, parsed: resp, provider: config.provider, model: config.model } };
 }

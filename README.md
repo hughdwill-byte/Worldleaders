@@ -92,6 +92,15 @@ Each night:
 
 The workflow also runs on a schedule at 08:05 UTC, just after the Gemini free quota resets at midnight Pacific time (about 7pm Melbourne). To turn the schedule off, delete the `schedule:` lines in `.github/workflows/simulate.yml`. Two jobs never write at once (`concurrency`). A run in progress is locked in `meta.json`, and a stale lock can be overridden with `force`.
 
+## Why did that happen?
+
+In the **Events** tab, click any event to expand it:
+- **Caused by a decision:** for events a leader's order produced (wars, annexations, sanctions, alliances…), you see the order and the leader's private reasoning that month.
+- **Why it happened:** for events the world produced (unrest, coups, civil wars, battles, crises, elections), you see the drivers: approval by group, grievances, military loyalty, strength ratios, debt and so on.
+- **Thinking that month / reaction next month:** what each involved AI leader wrote in its memo before and after the event.
+
+AI leaders' own orders appear as **➤ AI decision** events. Orders that change nothing aren't listed; orders that were blocked are, with the reason (e.g. the legislature voted them down). Filter with **all kinds → AI decisions**.
+
 ## Run months straight from the website
 
 On the GitHub Pages site, the buttons at the top run the simulation for you:

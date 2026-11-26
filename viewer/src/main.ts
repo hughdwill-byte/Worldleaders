@@ -311,6 +311,7 @@ async function renderCountry() {
 
 // event categories: colour + symbol, so kinds of news are recognisable at a glance
 const CATS: Record<string, { label: string; icon: string; col: string; types: RegExp }> = {
+  decision: { label: 'AI decisions', icon: '➤', col: '#f778ba', types: /^decision/ },
   war: { label: 'War', icon: '⚔', col: '#f85149', types: /^(war_|region_captured|capital_fallen|ally_joins_war|annexation|mobilization|deployment|blockade|chokepoint_closed|nuclear_threat|cession|withdrawal)/ },
   power: { label: 'Power', icon: '♛', col: '#bc8cff', types: /^(coup|regime_|independence|assassination|constitution|defection|purge|country_extinguished)/ },
   unrest: { label: 'Unrest', icon: '✊', col: '#f0883e', types: /^(unrest_|civil_war|insurgency|separatism|resistance|discontent_erupts|terror_attack|internet_shutdown)/ },
@@ -322,6 +323,28 @@ const CATS: Record<string, { label: string; icon: string; col: string; types: Re
   news: { label: 'Headlines', icon: '❝', col: '#8b949e', types: /^headline/ },
 };
 const catOf = (type: string) => Object.entries(CATS).find(([, c]) => c.types.test(type))?.[0] ?? 'politics';
+
+// expanded event: why it happened, which order caused it, what the leaders were thinking (that month) and their reaction (next month)
+async function showWhy(el: HTMLElement, e: SimEvent) {
+  const box = document.createElement('div'); box.className = 'evDetail'; box.innerHTML = '<span class="muted">Loading…</span>'; el.appendChild(box);
+  const d = (e.data ?? {}) as any, by = d.by, name = (i: string) => S.world?.countries[i]?.name ?? i;
+  const parts: string[] = [];
+  if (by) parts.push(`<div class="whyH">Caused by a decision</div><div>${esc(name(by.iso))}'s leader ordered <b>${esc(by.type.replace(/_/g, ' '))}</b>${by.target ? ` → ${esc(name(by.target))}` : ''}${by.order ? `: “${esc(by.order)}”` : ''}</div>
+    <div class="whyH">${by.ai ? 'Their reasoning (AI leader)' : 'Their reasoning (rule-based stand-in leader)'}</div><div class="quote">${esc(by.reasoning)}</div>`);
+  if (d.why) parts.push(`<div class="whyH">Why it happened</div><div>${esc(d.why)}</div>`);
+  const isos = [...new Set(e.countries)].filter(i => S.world?.countries[i]).slice(0, 3);
+  for (const iso of isos) {
+    if (by?.iso === iso && by.ai) { /* already shown */ } else {
+      const now = await agentLog(e.turn, iso);
+      if (now?.parsed && !now.mock) parts.push(`<div class="whyH">${esc(name(iso))} — thinking that month (before this happened)</div><div class="quote">${esc(now.parsed.assessment)}</div>`);
+    }
+    const next = e.turn + 1 <= S.run.lastTurn ? await agentLog(e.turn + 1, iso) : null;
+    if (next?.parsed && !next.mock) parts.push(`<div class="whyH">${esc(name(iso))} — reaction next month</div><div class="quote">${esc(next.parsed.assessment)}</div>${next.parsed.public_statement ? `<div class="muted">Public statement: “${esc(next.parsed.public_statement)}”</div>` : ''}`);
+  }
+  if (!parts.length) parts.push('<div class="muted">No further explanation recorded for this event.</div>');
+  box.innerHTML = parts.join('') + `<button class="showMap">Show on map →</button>`;
+  box.querySelector<HTMLElement>('.showMap')!.onclick = () => { if (e.countries[0]) S.selected = e.countries[0]; goTo(Math.min(S.run.lastTurn, e.turn + 1)); };
+}
 
 function renderEvents() {
   const el = $('#tab-events');
@@ -347,11 +370,15 @@ function renderEvents() {
       html += ev.map(e => {
         const cat = CATS[catOf(e.type)];
         return `<div class="ev ${e.major ? 'major' : ''}" style="--c:${cat.col}" data-i="${xs.indexOf(e)}" title="${esc(e.type)}">
-          <span class="ico">${cat.icon}</span><div>${e.major ? '<span class="badge">★ MAJOR</span>' : ''}<span class="kind">${esc(e.type.replace(/_/g, ' '))}</span><div class="txt">${esc(e.text)}</div></div></div>`;
+          <span class="ico">${cat.icon}</span><div>${e.major ? '<span class="badge">★ MAJOR</span>' : ''}<span class="kind">${esc(e.type.replace(/_/g, ' '))}</span><span class="more">▸ ${(e.data as any)?.by || (e.data as any)?.why ? 'why?' : 'details'}</span><div class="txt">${esc(e.text)}</div></div></div>`;
       }).join('');
     }
     $('#evList').innerHTML = html || '<p class="muted">No events.</p>';
-    $('#evList').querySelectorAll<HTMLElement>('.ev').forEach(d => d.onclick = () => { const e = xs[Number(d.dataset.i)]; if (e.countries[0]) S.selected = e.countries[0]; goTo(Math.min(S.run.lastTurn, e.turn + 1)); });
+    $('#evList').querySelectorAll<HTMLElement>('.ev').forEach(d => d.onclick = ev => {
+      if ((ev.target as HTMLElement).closest('.evDetail')) return;
+      const open = d.querySelector('.evDetail'); if (open) { open.remove(); return; }
+      showWhy(d, xs[Number(d.dataset.i)]);
+    });
   };
   el.querySelectorAll('input,select').forEach(x => x.addEventListener('input', list));
   list();

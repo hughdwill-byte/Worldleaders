@@ -7,6 +7,7 @@ import { ATT, BLOCS, COUP_BASE, DEFECTION_BASE, ECON, EVENTS, INDEPENDENCE_HOLD_
 import { type Ctx, alive, createCountry, endWar, log, nameOf, regimeChange, regionsOf, relocateCapital, setController, shift, spawnFaction } from './ops.ts';
 import { applyDecisions, borrowLimit, debtRatio, totalSpending } from './directives.ts';
 import { isDemocracy } from './regime.ts';
+import { explainAll } from './explain.ts';
 import { Rng, clamp, km, sigmoid } from './util.ts';
 
 export function runTurn(w: World, s: Statics, decisions: Record<string, AgentResponse>): SimEvent[] {
@@ -26,6 +27,7 @@ export function runTurn(w: World, s: Statics, decisions: Record<string, AgentRes
   worldEvents(x);
   attitudes(x);
   scores(x);
+  explainAll(x, x.ev);
   w.turn++;
   return x.ev;
 }

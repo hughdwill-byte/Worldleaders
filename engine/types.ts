@@ -133,7 +133,7 @@ export interface SimEvent {
 }
 
 export interface Directive { type: string; target?: string | null; amount?: number; order?: string; regions?: string[]; sub?: string }
-export interface AgentResponse { assessment: string; directives: Directive[]; cables: { to: string; private: boolean; text: string }[]; public_statement: string; detailed_report?: string }
+export interface AgentResponse { assessment: string; directives: Directive[]; cables: { to: string; private: boolean; text: string }[]; public_statement: string; detailed_report?: string; source?: 'ai' | 'mock' }
 
 // static region info from data/regions.json
 export interface RegionStatic {
