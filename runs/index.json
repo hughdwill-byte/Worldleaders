@@ -47,10 +47,10 @@
    "turn": 12
   },
   "preset": "welfare",
-  "lastTurn": 25,
+  "lastTurn": 26,
   "lock": null,
   "costUsd": 0,
-  "requests": 248,
+  "requests": 433,
   "stoppedReason": "quota"
  }
 ]
