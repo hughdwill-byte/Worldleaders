@@ -14,7 +14,7 @@ export const BASE_URLS: Record<string, string> = {
   ollama: 'http://localhost:11434/v1',
 };
 const DEFAULT_MODELS: Record<string, string> = {
-  gemini: 'gemini-2.5-flash', anthropic: 'claude-haiku-5-5', groq: 'llama-3.3-70b-versatile',
+  gemini: 'gemini-3.8-flash', anthropic: 'claude-haiku-5-5', groq: 'llama-3.3-70b-versatile',
   openrouter: 'meta-llama/llama-3.3-70b-instruct:free', ollama: 'llama3.1', mock: 'mock',
 };
 
