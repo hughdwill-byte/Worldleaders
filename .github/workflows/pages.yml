@@ -6,6 +6,10 @@ on:
     branches: [main]
     paths: ['runs/**', 'viewer/**', 'data/regions*.json']
   workflow_dispatch:
+  # commits pushed by the simulate job don't trigger push events, so also redeploy when it finishes
+  workflow_run:
+    workflows: [simulate]
+    types: [completed]
 permissions:
   contents: read
   pages: write
