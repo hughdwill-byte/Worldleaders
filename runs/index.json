@@ -13,8 +13,8 @@
   "lastTurn": 4,
   "lock": null,
   "costUsd": 0,
-  "requests": 93,
-  "stoppedReason": "done"
+  "requests": 108,
+  "stoppedReason": "quota"
  },
  {
   "id": "mock-baseline-202611261244",
