@@ -1,0 +1,69 @@
+{
+ "system": "You are the Head of Government of Ukraine.\n\nCONSTITUTIONAL POSITION\nForm of government: hybrid regime (ratified). Head of State: President. Head of Government: Prime Minister.\nExecutive power is held by a semi-presidential system centered on the presidency, currently concentrated via wartime martial law authorities. The current Head of Government serves indefinitely.\nLegislature: unicameral, elected every 5 years; its powers over budgets and laws are moderate.\nCourts: partly independent.\nGuaranteed liberties: press, speech. Emergency powers: broad. Armed forces: civilian control. Religion: secular. State structure: unitary with autonomy. Amendment by: supermajority.\nSuccession: In the event of the early termination of presidential powers, executive duties temporarily pass to the Chairman of the Verkhovna Rada..\n\nYour foremost duty is to the people of Ukraine.\n\nEach month the Cabinet Secretariat delivers your briefing. You answer with a directive memo, which the Secretariat and the ministries execute exactly as written. Write the memo as ONE JSON object and nothing else:\n\n{\n  \"assessment\": \"private 2-4 sentence summary of the situation and your reasoning (not published)\",\n  \"directives\": [ {\"type\": \"...\", \"target\": \"ISO3 code or null\", \"amount\": 0, \"sub\": \"optional detail\", \"regions\": [\"optional region names\"], \"order\": \"the order in plain language\"} ],\n  \"cables\": [ {\"to\": \"ISO3\", \"private\": true, \"text\": \"diplomatic message\"} ],\n  \"public_statement\": \"what your government says publicly this month\",\n  \"detailed_report\": \"optional: one topic for a detailed report, attached to next month's briefing (economy, military, domestic, a country code, or a region name)\"\n}\n\nDIRECTIVE TYPES (amount meaning in brackets)\nEconomy: set_tax [total revenue, % of GDP]; set_spending with sub = health|education|welfare|infrastructure|military|security|research [% of GDP]; monetary_policy [change in policy rate, percentage points, e.g. 0.5]; invest_infrastructure / invest_research [extra % of GDP]; imf_loan_request; resource_policy with sub = nationalise|export_ban|production_level [production multiplier].\nTrade & aid: trade_deal_propose / trade_deal_accept / trade_deal_cancel; tariff [% on imports from target]; sanction [severity 0-1] / lift_sanction; aid_give [USD millions] / aid_request; arms_sale [USD millions] / arms_embargo.\nAlliances & organisations: alliance_propose / alliance_accept / alliance_leave; join_organisation / leave_organisation with sub = organisation name (NATO, EU, ASEAN, AU, GCC, SCO, BRICS, CSTO, ...); recognize_state; un_resolution (target = state concerned; order describes sanctions or use of force).\nDefence & war: military_mobilize [0-1 share of reserves] / military_demobilize; military_deploy (to the border with target); declare_war / invade / occupy (target, optional regions); ceasefire_propose / ceasefire_accept; peace_treaty; demand_concessions (regions as peace terms); annex_region (regions under our control); withdraw; install_puppet_government (requires holding target's capital); blockade (target's ports or a strait we control); cede_region; grant_autonomy (regions).\nDomestic order: repression_level [0-1, how forcefully police and security forces handle protest]; concessions; reforms; curfew [1 on, 0 off]; purge with sub = military|elites; civil_liberties with sub = expand|restrict; media_control with sub = censor|propaganda|internet_shutdown|surveillance|free; constitutional_change (order names the amendment); refugee_policy with sub = open|restricted|closed.\nIntelligence: foreign_influence_op (target); covert_op with sub = sabotage|fund_rebels|fund_opposition|assassination_attempt|cyber (target). Operations may be discovered.\n\nOrders not listed above cannot be executed. The Treasury rejects spending it cannot finance. Cables are delivered next month; private cables are seen only by the recipient unless intercepted.\n",
+ "briefing": "CABINET SECRETARIAT — MONTHLY BRIEFING FOR THE HEAD OF GOVERNMENT\nUkraine · February 2029 · SECRET\n\n1. SITUATION REPORT\nPopulation 26.5 million. Government controls 20 of our 27 regions; not under government control: Sumy (held by Russia (RUS)), Luhans'k (held by Russia (RUS)), Donets'k (held by Russia (RUS)), Crimea (held by Russia (RUS)), Sevastopol (held by Russia (RUS)), Poltava (held by Russia (RUS)), Cherkasy (held by Russia (RUS)).\nState of war: Russo-Ukrainian War. Opponents: Russia (RUS). War-weariness: growing.\nCommodity prices (index, 100 = last year's average): oil 88, food 101.\n\n2. ECONOMIC SUMMARY\nGDP $161.2 billion ($6,083 per person). Growth -2.6% annualised; inflation 5.0%; unemployment 11.3%.\nBudget: revenue 57.0% of GDP, balance 12.9% of GDP; public debt 59% of GDP at 5.4% average yield.\nSpending (% of GDP): health 4.9, education 5.1, welfare 5.0, infrastructure 3.0, military 15.0, security 1.5, research 0.2.\nMain export markets: Poland (POL) $7.2 billion; Germany (DEU) $7.2 billion; China (CHN) $6.2 billion; United States (USA) $5.7 billion; Romania (ROU) $5.2 billion.\nUnder sanctions from 1 states (RUS); roughly 4% of our trade is affected.\nSocial indicators: life expectancy 73.4 years; literacy 95%; 87k refugees hosted.\n\n3. DOMESTIC POLITICAL AND SECURITY REPORT\nOverall public mood: discontent. \n- Urban workers: discontented\n- Business elites: discontented\n- Military & security services: discontented\n- Rural population: discontented\n- Urban youth: discontented\n- Russian-speaking: discontented\n- Retirees: discontented\nLegislative support: 71% of seats. Next legislative elections: August 2031.\nCurrent posture: repression high; civil liberties limited; media partly controlled.\n\n4. INTELLIGENCE ASSESSMENTS\n- Russia (RUS): military considerably stronger than ours, partially mobilised; hostile intentions toward us are assessed as likely (low confidence). Internal stability: stable.\n- Belarus (BLR): military weaker than ours; no indication of imminent hostile action (low confidence). Internal stability: stable.\n- Hungary (HUN): military weaker than ours; hostile intentions toward us are assessed as likely (low confidence). Internal stability: stable.\n\n5. DIPLOMATIC SERVICE ASSESSMENT\nMemberships: none. Treaty allies: none.\nMost favourable towards us: Lebanon (LBN), Philippines (PHL), Mauritius (MUS), Vietnam (VNM), Chad (TCD).\nMost hostile towards us: Russia (RUS), United States (USA), Zambia (ZMB), United Kingdom (GBR), Timor-Leste (TLS).\n\n6. INBOX: CABLES AND PROPOSALS\n- Cable from Germany (DEU): \"Germany remains steadfast in its support for Ukraine's sovereignty, security, and European integration. Our continued aid reflects our enduring partnership.\"\n- Cable from United States (USA): \"The United States remains steadfast in its support for Ukraine's sovereignty and security. We are approving this aid package to ensure your continued resilience.\"\n- Public statement by the government of Russia (RUS): \"The Russian Federation enters 2029 with economic stability, a strengthened security framework, and an unwavering commitment to defending our national interests and deepening our partnerships with reliable allies across Eurasia.\"\n\n7. SECRETARIAT NOTES ON LAST MONTH'S ORDERS\nAll orders were executed.\n\n8. RECORD OF YOUR RECENT DECISIONS\nJune 2028: set spending; growth -1.8→-2.2%, mood calm.\nJuly 2028: set spending; growth -2.2→-2.2%, mood calm.\nAugust 2028: set spending; growth -2.2→-1.9%, mood calm.\nSeptember 2028: set spending; growth -1.9→-2.0%, mood calm.\nOctober 2028: set spending; growth -2.0→-2.3%, mood discontent.\nNovember 2028: set spending, set spending; growth -2.3→-2.8%, mood discontent.\nDecember 2028: set spending, set spending, aid request USA, aid request DEU; growth -2.8→-2.8%, mood discontent.\nJanuary 2029: set spending, aid request USA, aid request DEU; growth -2.8→-2.6%, mood discontent.\n\nANNEX: DETAILED REPORT ON ECONOMY\nPotential growth 3.1%; policy rate stance neutral; corruption endemic; organised crime present.\n\nReply with your directive memo for February 2029 (JSON only).\n",
+ "raw": [
+  "{\n  \"assessment\": \"Public mood across all demographics has turned to discontent amid high war weariness and ongoing economic contraction under heavy military spending. To ease internal pressures while sustaining our defense, we must slightly rebalance expenditures toward domestic welfare and health without sacrificing military readiness. We will continue to request international financial and military support from our key partners to stabilize the budget.\",\n  \"directives\": [\n    {\n      \"type\": \"set_spending\",\n      \"target\": null,\n      \"amount\": 0,\n      \"sub\": \"military\",\n      \"regions\": [],\n      \"order\": \"Set military spending to 14.0% of GDP.\"\n    },\n    {\n      \"type\": \"set_spending\",\n      \"target\": null,\n      \"amount\": 0,\n      \"sub\": \"welfare\",\n      \"regions\": [],\n      \"order\": \"Set welfare spending to 5.5% of GDP.\"\n    },\n    {\n      \"type\": \"set_spending\",\n      \"target\": null,\n      \"amount\": 0,\n      \"sub\": \"health\",\n      \"regions\": [],\n      \"order\": \"Set health spending to 5.4% of GDP.\"\n    },\n    {\n      \"type\": \"aid_request\",\n      \"target\": \"USA\",\n      \"amount\": 2500,\n      \"sub\": \"\",\n      \"regions\": [],\n      \"order\": \"Request financial and material aid from the United States.\"\n    },\n    {\n      \"type\": \"aid_request\",\n      \"target\": \"DEU\",\n      \"amount\": 2000,\n      \"sub\": \"\",\n      \"regions\": [],\n      \"order\": \"Request financial and material aid from Germany.\"\n    }\n  ],\n  \"cables\": [\n    {\n      \"to\": \"DEU\",\n      \"private\": true,\n      \"text\": \"We thank Germany for your steadfast support. Continued economic and military assistance remains vital as we defend our sovereign territory.\"\n    },\n    {\n      \"to\": \"USA\",\n      \"private\": true,\n      \"text\": \"We deeply appreciate the continued partnership of the United States. Sustained aid is critical to ensuring our resilience against ongoing aggression.\"\n    }\n  ],\n  \"public_statement\": \"Ukraine stands resolute in the face of ongoing aggression. While our people face immense hardships, our defense remains unwavering, and we continue working with international partners to secure a just and lasting peace based on our territorial integrity.\",\n  \"detailed_report\": \"military\"\n}"
+ ],
+ "parsed": {
+  "assessment": "Public mood across all demographics has turned to discontent amid high war weariness and ongoing economic contraction under heavy military spending. To ease internal pressures while sustaining our defense, we must slightly rebalance expenditures toward domestic welfare and health without sacrificing military readiness. We will continue to request international financial and military support from our key partners to stabilize the budget.",
+  "directives": [
+   {
+    "type": "set_spending",
+    "target": null,
+    "amount": 0,
+    "order": "Set military spending to 14.0% of GDP.",
+    "sub": "military",
+    "regions": []
+   },
+   {
+    "type": "set_spending",
+    "target": null,
+    "amount": 0,
+    "order": "Set welfare spending to 5.5% of GDP.",
+    "sub": "welfare",
+    "regions": []
+   },
+   {
+    "type": "set_spending",
+    "target": null,
+    "amount": 0,
+    "order": "Set health spending to 5.4% of GDP.",
+    "sub": "health",
+    "regions": []
+   },
+   {
+    "type": "aid_request",
+    "target": "USA",
+    "amount": 2500,
+    "order": "Request financial and material aid from the United States.",
+    "sub": "",
+    "regions": []
+   },
+   {
+    "type": "aid_request",
+    "target": "DEU",
+    "amount": 2000,
+    "order": "Request financial and material aid from Germany.",
+    "sub": "",
+    "regions": []
+   }
+  ],
+  "cables": [
+   {
+    "to": "DEU",
+    "private": true,
+    "text": "We thank Germany for your steadfast support. Continued economic and military assistance remains vital as we defend our sovereign territory."
+   },
+   {
+    "to": "USA",
+    "private": true,
+    "text": "We deeply appreciate the continued partnership of the United States. Sustained aid is critical to ensuring our resilience against ongoing aggression."
+   }
+  ],
+  "public_statement": "Ukraine stands resolute in the face of ongoing aggression. While our people face immense hardships, our defense remains unwavering, and we continue working with international partners to secure a just and lasting peace based on our territorial integrity.",
+  "detailed_report": "military",
+  "source": "ai"
+ },
+ "provider": "gemini",
+ "model": "gemini-3.5-flash-lite"
+}
