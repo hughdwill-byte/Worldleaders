@@ -9,9 +9,9 @@
  "countries": "dev",
  "parent": null,
  "preset": null,
- "lastTurn": 4,
+ "lastTurn": 5,
  "lock": null,
  "costUsd": 0,
- "requests": 108,
- "stoppedReason": "quota"
+ "requests": 113,
+ "stoppedReason": "done"
 }
