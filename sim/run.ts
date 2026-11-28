@@ -21,7 +21,7 @@ export interface Meta {
   id: string; name: string; seed: number; createdAt: string; startDate: string;
   provider: string; model: string; countries: 'all' | 'dev';
   parent: { id: string; turn: number } | null; preset: string | null;
-  lastTurn: number; lock: { by: string; since: string } | null;
+  lastTurn: number; lock: { by: string; since: string } | null; updatedAt?: string;
   costUsd: number; requests: number; stoppedReason?: string;
 }
 export interface ProgressInfo { runId: string; turn: number; month: string; done: number; total: number; message: string }
@@ -142,6 +142,11 @@ function unlock(id: string) { const m = readMeta(id); m.lock = null; writeMeta(m
 export async function step(id: string, o: { turns: number; force?: boolean; shouldStop?: () => boolean; onProgress?: OnProgress; deadline?: number }): Promise<string> {
   const s = loadStatics();
   let m = readMeta(id);
+  // one model per run: a run always continues with the provider/model it started with (set FORCE_MODEL=1 to override)
+  if (!process.env.FORCE_MODEL && (m.provider !== config.provider || m.model !== config.model)) {
+    console.warn(`Run ${id} uses ${m.provider}/${m.model}; continuing with that instead of ${config.provider}/${config.model}.`);
+    process.env.PROVIDER = m.provider; process.env.MODEL = m.model;
+  }
   lock(m, !!o.force);
   let reason = 'done';
   try {
@@ -198,7 +203,7 @@ export async function step(id: string, o: { turns: number; force?: boolean; shou
       fs.appendFileSync(path.join(dir(id), 'events.jsonl'), events.map(e => JSON.stringify(e) + '\n').join(''));
       appendSeries(id, w, events);
       if (fs.existsSync(pendFile)) fs.unlinkSync(pendFile);
-      m = readMeta(id); m.lastTurn = w.turn; writeMeta(m);
+      m = readMeta(id); m.lastTurn = w.turn; m.updatedAt = new Date().toISOString(); writeMeta(m);
       o.onProgress?.({ runId: id, turn: w.turn, month: monthLabel(w.startDate, w.turn), done: 0, total: 0, message: `${month} resolved: ${events.filter(e => e.major).length} major events` });
     }
   } finally {

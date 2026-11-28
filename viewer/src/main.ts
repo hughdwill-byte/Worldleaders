@@ -461,7 +461,8 @@ async function refreshRuns(select?: string) {
   // default: newest real run with months simulated (test runs never shown); fall back if one fails to load
   S.runs = S.runs.filter(r => !r.name.startsWith('selfcheck'));
   $('#runSel').innerHTML = S.runs.map(r => `<option value="${esc(r.id)}">${esc(r.name)} · ${r.lastTurn} mo${r.parent ? ' · branch' : ''}</option>`).join('');
-  const best = [...S.runs].reverse().find(r => r.lastTurn > 0) ?? S.runs.at(-1);
+  // most recently advanced run (then newest created) with months simulated
+  const best = [...S.runs].filter(r => r.lastTurn > 0).sort((p, q) => (q.updatedAt ?? q.createdAt).localeCompare(p.updatedAt ?? p.createdAt))[0] ?? S.runs.at(-1);
   const order = [select ?? S.run?.id ?? best?.id, ...[...S.runs].reverse().map(r => r.id)].filter(Boolean) as string[];
   for (const id of [...new Set(order)]) {
     try { ($('#runSel') as HTMLSelectElement).value = id; await loadRun(id); return; }
@@ -532,37 +533,47 @@ function wireGithub() {
     if (!token()) return askToken();
     if (!S.run) return;
     busy(true);
-    const runId = S.run.id, before = S.run.lastTurn, since = Date.now() - 60_000;
+    const runId = S.run.id, before = S.run.lastTurn;
+    const listRuns = async () => {
+      const r = await api('actions/workflows/simulate.yml/runs?per_page=10', { cache: 'no-store' });
+      if (!r.ok) throw new Error(`GitHub status check failed (${r.status})${r.status === 403 ? ': the token needs Actions: Read and write' : ''}`);
+      return ((await r.json()).workflow_runs ?? []) as any[];
+    };
+    // done = the website's run list shows more months (works even if the status check misbehaves)
+    const published = async () => (await fresh('./runs/index.json').catch(() => null))?.find((x: any) => x.id === runId);
+    const done = (m: any) => {
+      const added = m.lastTurn - before;
+      status(`<span class="good">✓ ${added} new month${added > 1 ? 's' : ''}: now ${esc(monthLabel(m.startDate, m.lastTurn))}</span>${m.stoppedReason && m.stoppedReason !== 'done' ? ` <span class="warn">(stopped early: ${esc(String(m.stoppedReason).replace('_', ' '))})</span>` : ''}`);
+    };
     try {
+      // remember GitHub's newest run id, so the new run is "any id above it" (no dependence on this device's clock)
+      const lastId = Math.max(0, ...(await listRuns()).map(x => x.id));
       const r = await api('actions/workflows/simulate.yml/dispatches', { method: 'POST', body: JSON.stringify({ ref: 'main', inputs: { runId, turns: String(months) } }) });
       if (r.status === 401 || r.status === 403 || r.status === 404) { askToken(`GitHub refused (${r.status}). The token may have expired or lack Actions: Read and write.`); return; }
       if (!r.ok) { status(`<span class="bad">Could not start: ${r.status}</span>`); return; }
       status(`Starting ${months} month${months > 1 ? 's' : ''}…`);
-      // 1) wait for the simulate run to finish
-      let ghRun: any = null; const t0 = Date.now();
-      while (Date.now() - t0 < 6 * 3600_000) {
-        await sleep(15_000);
-        const j = await (await api('actions/workflows/simulate.yml/runs?event=workflow_dispatch&per_page=5')).json().catch(() => null);
-        ghRun = j?.workflow_runs?.find((x: any) => Date.parse(x.created_at) >= since) ?? ghRun;
+      const t0 = Date.now(); let ghRun: any = null;
+      for (;;) {
+        if (Date.now() - t0 > 6 * 3600_000) { status('<span class="bad">Gave up waiting after 6 hours.</span>'); return; }
+        await sleep(10_000);
         const mins = Math.round((Date.now() - t0) / 60000);
-        if (!ghRun) { status(`Queued… (${mins} min)`); continue; }
-        if (ghRun.status !== 'completed') { status(`Simulating ${months} month${months > 1 ? 's' : ''}… (${mins} min) <a href="${ghRun.html_url}" target="_blank" rel="noopener">details</a>`); continue; }
-        break;
+        const runs = await listRuns();
+        ghRun = runs.filter(x => x.id > lastId).sort((p, q) => p.id - q.id)[0] ?? ghRun;
+        const m = await published();
+        if (m && m.lastTurn > before) { S.cache.clear(); await refreshRuns(runId); done(m); return; }
+        const link = ghRun ? ` <a href="${ghRun.html_url}" target="_blank" rel="noopener">details</a>` : '';
+        if (!ghRun) status(`Waiting for GitHub to start the run… (${mins} min)`);
+        else if (ghRun.status === 'queued' || ghRun.status === 'waiting' || ghRun.status === 'pending') status(`Queued behind another run… (${mins} min)${link}`);
+        else if (ghRun.status !== 'completed') status(`Simulating ${months} month${months > 1 ? 's' : ''}… (${mins} min)${link}`);
+        else if (ghRun.conclusion !== 'success') { status(`<span class="bad">Run ${esc(ghRun.conclusion)}.</span>${link}`); return; }
+        else break; // simulated; now wait for the website to republish
       }
-      if (!ghRun || ghRun.conclusion !== 'success') { status(`<span class="bad">Run ${ghRun?.conclusion ?? 'timed out'}.</span> ${ghRun ? `<a href="${ghRun.html_url}" target="_blank" rel="noopener">See what happened</a>` : ''}`); return; }
-      // 2) wait for the website to republish with the new months
       for (let i = 0; i < 60; i++) {
         status(`Publishing to the website… (${i * 10}s)`);
         await sleep(10_000);
-        const idx = await fresh('./runs/index.json').catch(() => null);
-        const m = idx?.find((x: any) => x.id === runId);
-        if (m && m.lastTurn > before) {
-          S.cache.clear(); await refreshRuns(runId);
-          const added = m.lastTurn - before;
-          status(`<span class="good">✓ ${added} new month${added > 1 ? 's' : ''}: now ${esc(monthLabel(m.startDate, m.lastTurn))}</span>${m.stoppedReason && m.stoppedReason !== 'done' ? ` <span class="warn">(stopped early: ${esc(m.stoppedReason.replace('_', ' '))})</span>` : ''}`);
-          return;
-        }
-        if (m && i > 6 && m.lastTurn === before && m.stoppedReason && m.stoppedReason !== 'done') { status(`<span class="warn">No new month: ${esc(m.stoppedReason.replace('_', ' '))}. Try again later.</span>`); return; }
+        const m = await published();
+        if (m && m.lastTurn > before) { S.cache.clear(); await refreshRuns(runId); done(m); return; }
+        if (m && i > 9 && m.lastTurn === before && m.stoppedReason && m.stoppedReason !== 'done') { status(`<span class="warn">No new month: ${esc(String(m.stoppedReason).replace('_', ' '))} (e.g. today's free Gemini quota is used up). Try again later.</span>`); return; }
       }
       status('<span class="warn">Simulation finished but the website has not updated yet. Refresh in a few minutes.</span>');
     } catch (e) { status(`<span class="bad">${esc((e as Error).message)}</span>`); }
