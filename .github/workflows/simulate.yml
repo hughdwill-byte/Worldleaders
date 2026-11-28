@@ -10,6 +10,9 @@ on:
       newRunName:
         description: Or create a new run with this name (leave blank to continue)
         required: false
+      setup:
+        description: 'New test options as JSON (used by the website): {"preset":"welfare","weights":{"@democracies":{"welfare":1}},"countries":"dev","branchFrom":{"run":"<id>","turn":3}}'
+        required: false
       turns:
         description: Months to simulate (1 = one month), or "quota" to keep going until the daily quota is used
         default: '1'
@@ -62,12 +65,14 @@ jobs:
           PRICE_OUT_PER_M: ${{ vars.PRICE_OUT_PER_M || '0' }}
           RUN_ID: ${{ inputs.runId || vars.SCHEDULED_RUN_ID }}
           NEW_NAME: ${{ inputs.newRunName }}
+          SETUP: ${{ inputs.setup }}
           TURNS: ${{ inputs.turns || 'quota' }}
           COUNTRIES: ${{ inputs.countries || 'all' }}
           FORCE: ${{ inputs.force && '--force' || '' }}
         run: |
           if [ -n "$NEW_NAME" ]; then
-            npm run sim -- --new --name "$NEW_NAME" --countries "$COUNTRIES" --turns "$TURNS" --hours 5.2
+            ARGS=$(node scripts/setup-args.mjs)   # turns the setup JSON into CLI flags (weights go to a temp file)
+            eval "npm run sim -- --name \"\$NEW_NAME\" $ARGS --turns \"\$TURNS\" --hours 5.2"
           else
             if [ -z "$RUN_ID" ]; then RUN_ID=$(node -e "const r=require('./runs/index.json');console.log(r.at(-1)?.id??'')"); fi
             if [ -z "$RUN_ID" ]; then echo "No run to continue. Start one with newRunName."; exit 1; fi

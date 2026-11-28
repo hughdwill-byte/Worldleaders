@@ -504,6 +504,9 @@ function attitudes(x: Ctx) {
   }
 }
 
+/** Scores for a fresh world (so month 0 isn't a placeholder). */
+export function initialScores(w: World, s: Statics) { scores({ w, s, rng: new Rng(w.seed), ev: [] }); for (const c of Object.values(w.countries)) c.stability = clamp(100 - c.unrest * 0.7 - c.suppressed * 0.2 + (c.legitimacy - 50) * 0.3); }
+
 function scores(x: Ctx) {
   const { w } = x;
   const live = alive(w);

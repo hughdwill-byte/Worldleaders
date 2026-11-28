@@ -15,6 +15,7 @@
       <button id="ghNext" class="go">▶ Next month</button>
       <label class="hint" title="How many months to simulate in one go (max 24). Each month uses about 20 of the ~250 free Gemini requests per day in dev mode.">or <input id="ghN" type="number" min="1" max="24" value="3" aria-label="Months to run" /></label>
       <button id="ghRunN">Run 3 months</button>
+      <button id="ghNew" class="go">＋ New test</button>
       <button id="ghTok" title="GitHub token settings" aria-label="GitHub token settings">⚙</button>
       <span id="ghStatus" class="hint" aria-live="polite"></span>
     </span>
@@ -24,9 +25,8 @@
       <button id="btnRunN">Run N</button>
       <button id="btnAuto">Auto-play</button>
       <button id="btnPause">Pause</button>
-      <button id="btnNew">New run</button>
-      <select id="presetSel" aria-label="Branch preset"><option value="">same weights</option><option>welfare</option><option>approval</option><option>survival</option><option>power</option><option>equal</option></select>
-      <button id="btnBranch" title="Branch a new run from the month shown">Branch here</button>
+      <button id="btnNew" class="go">＋ New test</button>
+      <button id="btnBranch" title="Start a what-if test from the month shown">Branch here</button>
       <progress id="pbar" max="1" value="0" hidden></progress>
       <span id="progress"></span>
     </div>
@@ -61,6 +61,7 @@
     <input id="slider" type="range" min="0" max="0" value="0" aria-label="Month" />
     <span id="sliderLabel"></span>
   </footer>
+  <dialog id="newDlg"></dialog>
   <dialog id="tokDlg">
     <h3 style="margin-top:0">Connect this page to GitHub</h3>
     <p>To run months from this page, paste a GitHub token that can only start this repo's simulation. It is stored in this browser only (never on the website or in the repo). You do this once per device.</p>

@@ -9,7 +9,8 @@
     "dev:viewer": "vite viewer",
     "test": "tsx test/selfcheck.ts",
     "typecheck": "tsc --noEmit",
-    "constitutions": "tsx scripts/enrich-constitutions.ts"
+    "constitutions": "tsx scripts/enrich-constitutions.ts",
+    "report": "tsx sim/report.ts"
   },
   "devDependencies": {
     "@types/node": "^26.6.11",

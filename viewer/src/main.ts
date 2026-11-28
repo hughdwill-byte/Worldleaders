@@ -15,10 +15,14 @@ const monthLabel = (start: string, t: number) => { const [y, m] = start.split('-
 
 const DEV = ['USA', 'CHN', 'RUS', 'IND', 'GBR', 'FRA', 'DEU', 'JPN', 'BRA', 'IRN', 'ISR', 'SAU', 'TUR', 'UKR', 'PAK', 'KOR', 'PRK', 'TWN', 'EGY', 'NGA']; // keep in sync with engine/world.ts
 
+type W4 = { welfare: number; approval: number; survival: number; power: number };
+interface NewTest { name: string; countries: 'dev' | 'all'; preset: string; weights: Record<string, W4>; months: number; branchFrom?: { run: string; turn: number } }
+
 // ---------- state ----------
 const S = {
   server: false, runs: [] as any[], run: null as any, series: null as any, events: [] as SimEvent[],
   turn: 0, world: null as World | null, prevWorld: null as World | null, cache: new Map<string, Promise<World>>(),
+  startOnGithub: null as null | ((o: NewTest) => Promise<void>),
   selected: null as string | null, layer: 'political', overlays: new Set<string>(['wars', 'events']), playing: 0 as any,
   regions: [] as RegionStatic[], topo: null as any,
 };
@@ -384,11 +388,33 @@ function renderEvents() {
   list();
 }
 
+// ---------- AI summary logs (runs/<id>/report.md) ----------
+function reportBar(kind: 'single' | 'pair') {
+  return `<div class="repBar"><span>📄 ${kind === 'single' ? 'AI summary log for this test' : 'Combined log for the two tests below'}</span>
+    <button data-rep="${kind}" data-act="dl">Download</button><button data-rep="${kind}" data-act="copy">Copy</button>
+    <span class="muted">Paste it into ChatGPT, Claude or Gemini and ask for a summary of the major events and key findings.</span></div>`;
+}
+async function reportText(kind: 'single' | 'pair'): Promise<[string, string]> {
+  const get = async (id: string) => { const r = await fetch(`./runs/${id}/report.md?v=${Date.now()}`, { cache: 'no-cache' }); if (!r.ok) throw new Error(`No log yet for ${id} (it is written after the next simulated month).`); return r.text(); };
+  if (kind === 'single') return [await get(S.run.id), `${S.run.id}-log.md`];
+  const a = ($('#cA') as HTMLSelectElement).value, b = ($('#cB') as HTMLSelectElement).value;
+  const [ta, tb] = await Promise.all([get(a), get(b)]);
+  return [`# Comparison of two tests\n\n> Instructions for an AI reader: below are the logs of two tests of the same AI world-governance experiment, usually with different incentive weights. Compare them: what differed in outcomes (wars, stability, welfare, regime changes, territory), how the AI leaders behaved differently, and what that suggests about how incentives shape AI governance. Note when the tests share history (a branch inherits its parent's earlier months).\n\n---\n\n${ta}\n\n---\n\n${tb}`, `compare-${a}-vs-${b}.md`];
+}
+document.addEventListener('click', async ev => {
+  const b = (ev.target as HTMLElement).closest<HTMLElement>('[data-rep]'); if (!b) return;
+  try {
+    const [text, file] = await reportText(b.dataset.rep as 'single' | 'pair');
+    if (b.dataset.act === 'copy') { await navigator.clipboard.writeText(text); b.textContent = 'Copied ✓'; setTimeout(() => (b.textContent = 'Copy'), 2000); }
+    else { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'text/markdown' })); a.download = file; a.click(); URL.revokeObjectURL(a.href); }
+  } catch (e) { alert((e as Error).message); }
+});
+
 function renderWorld() {
   const el = $('#tab-world'), w = S.world, sr = S.series; if (!w || !sr) return;
   const t = S.turn, W = sr.world;
   const card = (label: string, v: string) => `<div class="stat"><small>${label}</small><b>${v}</b></div>`;
-  el.innerHTML = `<div class="grid">
+  el.innerHTML = `${reportBar('single')}<div class="grid">
     ${card('Global GDP', money(W.gdp[t] ?? 0))}${card('Interstate wars', String(W.wars[t] ?? 0))}
     ${card('Civil wars', String(W.civilWars[t] ?? 0))}${card('Alliances', String(W.alliances[t] ?? 0))}
     ${card('Democracies / autocracies', `${W.democracies[t]} / ${W.autocracies[t]}`)}${card('Avg welfare (pop-weighted)', fmt(W.welfare[t] ?? 0))}
@@ -407,7 +433,7 @@ function renderWorld() {
 async function renderCompare() {
   const el = $('#tab-compare');
   const opts = S.runs.map(r => `<option value="${esc(r.id)}">${esc(r.name)} (${r.lastTurn} months${r.parent ? `, branch of ${esc(r.parent.id)}@${r.parent.turn}` : ''})</option>`).join('');
-  el.innerHTML = `<p class="muted">Chart one metric from two runs side by side.</p><div class="filters">
+  el.innerHTML = `${reportBar('pair')}<p class="muted">Chart one metric from two runs side by side.</p><div class="filters">
     <select id="cA">${opts}</select><select id="cB">${opts}</select>
     <select id="cM">${['welfare', 'approval', 'survival', 'power', 'gdp', 'growth', 'stability', 'unrest', 'inflation', 'weighted'].map(k => `<option>${k}</option>`).join('')}</select>
     <input id="cC" placeholder="Country ISO3 (blank = world)" value="${esc(S.selected ?? '')}" /></div><div id="cc"></div>`;
@@ -496,9 +522,61 @@ function wireControls() {
   $('#btnRunN').onclick = () => run({ turns: Number(($('#nTurns') as HTMLInputElement).value) });
   $('#btnAuto').onclick = () => run({ auto: true });
   $('#btnPause').onclick = () => api('pause');
-  $('#btnNew').onclick = async () => { const name = prompt('Name for the new run?', 'baseline'); if (!name) return; const m = await api('new', { name }); await refreshRuns(m.id); };
-  $('#btnBranch').onclick = async () => { const preset = ($('#presetSel') as HTMLSelectElement).value; const m = await api('branch', { run: S.run.id, from: S.turn, preset }); await refreshRuns(m.id); };
+  $('#btnNew').onclick = () => openNewTest(false);
+  $('#btnBranch').onclick = () => openNewTest(true);
   api('status').then(s => { if (s.running) startPolling(); });
+}
+
+// ---------- New test dialog (website and local server) ----------
+const GOV_TYPES = ['liberal_democracy', 'electoral_democracy', 'hybrid_regime', 'authoritarian', 'absolute_monarchy', 'one_party_state', 'theocracy', 'military_junta'];
+function openNewTest(branch = false) {
+  const dlg = $<HTMLDialogElement>('#newDlg'), w = S.world;
+  const overrides: Record<string, W4> = {};
+  const targets: [string, string][] = [['*', 'All countries'], ['@democracies', 'All democracies'], ['@autocracies', 'All autocracies'],
+    ...GOV_TYPES.map(g => ['@' + g, 'All ' + g.replace(/_/g, ' ') + (g.endsWith('y') ? '' : 's')] as [string, string]),
+    ...Object.values(w?.countries ?? {}).filter(c => c.alive).sort((a, b) => a.name.localeCompare(b.name)).map(c => [c.iso3, c.name] as [string, string])];
+  const label = (k: string) => targets.find(t => t[0] === k)?.[1] ?? k;
+  dlg.innerHTML = `<h3 style="margin-top:0">New test</h3>
+    <div class="ntGrid">
+      <label>Name <input id="ntName" value="${esc(branch ? `${S.run?.name ?? 'test'} what-if` : 'test ' + new Date().toISOString().slice(5, 10))}" /></label>
+      <label>Start from <select id="ntStart"><option value="fresh">Fresh world (real-world start)</option>${S.run ? `<option value="branch" ${branch ? 'selected' : ''}>Branch: "${esc(S.run.name)}" at ${esc(monthLabel(S.run.startDate, S.turn))}</option>` : ''}</select></label>
+      <label id="ntCountriesL">AI leaders <select id="ntCountries"><option value="dev">20 major countries (others rule-based) — ~20 requests/month</option><option value="all">All 197 countries — ~200 requests/month</option></select></label>
+      <label>Base incentive weights <select id="ntPreset"><option value="">${branch ? 'Keep the weights of the run' : 'Realistic: each government as it really behaves'}</option><option value="welfare">Everyone 100% population welfare</option><option value="approval">Everyone 100% approval</option><option value="survival">Everyone 100% regime survival</option><option value="power">Everyone 100% national power</option><option value="equal">Everyone equal mix (25% each)</option></select></label>
+    </div>
+    <h4>Override weights for a country or group <span class="muted">(optional; specific beats general)</span></h4>
+    <div class="ntOv">
+      <select id="ntTarget">${targets.map(([k, l]) => `<option value="${esc(k)}">${esc(l)}</option>`).join('')}</select>
+      ${(['welfare', 'approval', 'survival', 'power'] as const).map(k => `<label class="sl"><span style="color:${INC_COLORS[k]}">${k}</span><input id="nt_${k}" type="range" min="0" max="100" value="${k === 'welfare' ? 100 : 0}" /><b id="ntv_${k}"></b></label>`).join('')}
+      <button id="ntAdd">Add override</button>
+    </div>
+    <div id="ntList" class="muted">No overrides.</div>
+    <label>Months to simulate now <input id="ntMonths" type="number" min="0" max="24" value="1" /></label>
+    <p class="muted" id="ntNote"></p>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button id="ntCancel">Cancel</button><button id="ntGo" class="go">Start test</button></div>`;
+  const sl = (k: string) => Number(($('#nt_' + k) as HTMLInputElement).value);
+  const showPct = () => { const t = ['welfare', 'approval', 'survival', 'power'].reduce((a, k) => a + sl(k), 0) || 1; for (const k of ['welfare', 'approval', 'survival', 'power']) $('#ntv_' + k).textContent = Math.round(sl(k) / t * 100) + '%'; };
+  dlg.querySelectorAll<HTMLInputElement>('.sl input').forEach(i => i.oninput = showPct); showPct();
+  const list = () => { $('#ntList').innerHTML = Object.keys(overrides).length ? Object.entries(overrides).map(([k, v]) => `<div class="ntRow"><b>${esc(label(k))}</b> <span class="mix" style="width:120px;display:inline-flex">${Object.entries(v).map(([n, x]) => `<i style="width:${x * 100}%;background:${INC_COLORS[n]}"></i>`).join('')}</span> ${Object.entries(v).filter(([, x]) => x).map(([n, x]) => `${n} ${Math.round(x * 100)}%`).join(', ')} <button data-k="${esc(k)}">✕</button></div>`).join('') : 'No overrides.';
+    $('#ntList').querySelectorAll<HTMLElement>('button').forEach(b => b.onclick = () => { delete overrides[b.dataset.k!]; list(); }); };
+  $('#ntAdd').onclick = () => { const t = ['welfare', 'approval', 'survival', 'power'].reduce((a, k) => a + sl(k), 0) || 1;
+    overrides[($('#ntTarget') as HTMLSelectElement).value] = { welfare: +(sl('welfare') / t).toFixed(3), approval: +(sl('approval') / t).toFixed(3), survival: +(sl('survival') / t).toFixed(3), power: +(sl('power') / t).toFixed(3) }; list(); };
+  const note = () => { const br = ($('#ntStart') as HTMLSelectElement).value === 'branch'; $('#ntCountriesL').hidden = br;
+    $('#ntNote').textContent = (br ? 'The branch copies the world at that month and keeps its AI model and leader setup. ' : '') + (S.server ? 'Runs on this computer.' : 'Runs on GitHub; this page follows progress and loads the result.') + ' Every test is saved and listed in the Run menu; download its AI summary log from the World tab.'; };
+  $('#ntStart').oninput = note; note();
+  $('#ntCancel').onclick = () => dlg.close();
+  $('#ntGo').onclick = async () => {
+    const br = ($('#ntStart') as HTMLSelectElement).value === 'branch' && S.run;
+    const o: NewTest = { name: ($('#ntName') as HTMLInputElement).value.trim() || 'test', countries: ($('#ntCountries') as HTMLSelectElement).value as 'dev' | 'all', preset: ($('#ntPreset') as HTMLSelectElement).value, weights: overrides,
+      months: Math.max(0, Math.min(24, Number(($('#ntMonths') as HTMLInputElement).value) || 0)), branchFrom: br ? { run: S.run.id, turn: S.turn } : undefined };
+    dlg.close();
+    if (S.server) {
+      const m = o.branchFrom ? await api('branch', { run: o.branchFrom.run, from: o.branchFrom.turn, name: o.name, preset: o.preset || null, weights: o.weights })
+        : await api('new', { name: o.name, countries: o.countries, preset: o.preset || null, weights: o.weights });
+      await refreshRuns(m.id);
+      if (o.months) { await api('run', { run: m.id, turns: o.months }); startPolling(); }
+    } else if (S.startOnGithub) await S.startOnGithub({ ...o, months: Math.max(1, o.months) });
+  };
+  dlg.showModal();
 }
 
 // ---------- run controls on GitHub Pages (static site) ----------
@@ -529,60 +607,67 @@ function wireGithub() {
   const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
   const fresh = (u: string) => getJSON(`${u}?v=${Date.now()}`); // bust the Pages CDN cache
 
-  async function run(months: number) {
+  /** Start the simulate workflow and follow it until the website shows the result. `finished(index)` returns the run meta once done. */
+  async function dispatch(inputs: Record<string, string>, what: string, finished: (idx: any[]) => any, onDone: (m: any) => Promise<void>) {
     if (!token()) return askToken();
-    if (!S.run) return;
     busy(true);
-    const runId = S.run.id, before = S.run.lastTurn;
-    const listRuns = async () => {
+    const listGh = async () => {
       const r = await api('actions/workflows/simulate.yml/runs?per_page=10', { cache: 'no-store' });
       if (!r.ok) throw new Error(`GitHub status check failed (${r.status})${r.status === 403 ? ': the token needs Actions: Read and write' : ''}`);
       return ((await r.json()).workflow_runs ?? []) as any[];
     };
-    // done = the website's run list shows more months (works even if the status check misbehaves)
-    const published = async () => (await fresh('./runs/index.json').catch(() => null))?.find((x: any) => x.id === runId);
-    const done = (m: any) => {
-      const added = m.lastTurn - before;
-      status(`<span class="good">✓ ${added} new month${added > 1 ? 's' : ''}: now ${esc(monthLabel(m.startDate, m.lastTurn))}</span>${m.stoppedReason && m.stoppedReason !== 'done' ? ` <span class="warn">(stopped early: ${esc(String(m.stoppedReason).replace('_', ' '))})</span>` : ''}`);
-    };
+    const published = async () => { const idx = await fresh('./runs/index.json').catch(() => null); return idx ? finished(idx) : null; };
     try {
       // remember GitHub's newest run id, so the new run is "any id above it" (no dependence on this device's clock)
-      const lastId = Math.max(0, ...(await listRuns()).map(x => x.id));
-      const r = await api('actions/workflows/simulate.yml/dispatches', { method: 'POST', body: JSON.stringify({ ref: 'main', inputs: { runId, turns: String(months) } }) });
+      const lastId = Math.max(0, ...(await listGh()).map(x => x.id));
+      const r = await api('actions/workflows/simulate.yml/dispatches', { method: 'POST', body: JSON.stringify({ ref: 'main', inputs }) });
       if (r.status === 401 || r.status === 403 || r.status === 404) { askToken(`GitHub refused (${r.status}). The token may have expired or lack Actions: Read and write.`); return; }
-      if (!r.ok) { status(`<span class="bad">Could not start: ${r.status}</span>`); return; }
-      status(`Starting ${months} month${months > 1 ? 's' : ''}…`);
+      if (!r.ok) { status(`<span class="bad">Could not start: ${r.status} ${esc(await r.text())}</span>`); return; }
+      status(`Starting: ${esc(what)}…`);
       const t0 = Date.now(); let ghRun: any = null;
       for (;;) {
         if (Date.now() - t0 > 6 * 3600_000) { status('<span class="bad">Gave up waiting after 6 hours.</span>'); return; }
         await sleep(10_000);
         const mins = Math.round((Date.now() - t0) / 60000);
-        const runs = await listRuns();
-        ghRun = runs.filter(x => x.id > lastId).sort((p, q) => p.id - q.id)[0] ?? ghRun;
-        const m = await published();
-        if (m && m.lastTurn > before) { S.cache.clear(); await refreshRuns(runId); done(m); return; }
+        ghRun = (await listGh()).filter(x => x.id > lastId).sort((p, q) => p.id - q.id)[0] ?? ghRun;
+        const m = await published(); if (m) { S.cache.clear(); await onDone(m); return; }
         const link = ghRun ? ` <a href="${ghRun.html_url}" target="_blank" rel="noopener">details</a>` : '';
-        if (!ghRun) status(`Waiting for GitHub to start the run… (${mins} min)`);
-        else if (ghRun.status === 'queued' || ghRun.status === 'waiting' || ghRun.status === 'pending') status(`Queued behind another run… (${mins} min)${link}`);
-        else if (ghRun.status !== 'completed') status(`Simulating ${months} month${months > 1 ? 's' : ''}… (${mins} min)${link}`);
+        if (!ghRun) status(`Waiting for GitHub to start… (${mins} min)`);
+        else if (['queued', 'waiting', 'pending', 'requested'].includes(ghRun.status)) status(`Queued behind another run… (${mins} min)${link}`);
+        else if (ghRun.status !== 'completed') status(`Simulating: ${esc(what)}… (${mins} min)${link}`);
         else if (ghRun.conclusion !== 'success') { status(`<span class="bad">Run ${esc(ghRun.conclusion)}.</span>${link}`); return; }
-        else break; // simulated; now wait for the website to republish
+        else break;
       }
       for (let i = 0; i < 60; i++) {
         status(`Publishing to the website… (${i * 10}s)`);
         await sleep(10_000);
-        const m = await published();
-        if (m && m.lastTurn > before) { S.cache.clear(); await refreshRuns(runId); done(m); return; }
-        if (m && i > 9 && m.lastTurn === before && m.stoppedReason && m.stoppedReason !== 'done') { status(`<span class="warn">No new month: ${esc(String(m.stoppedReason).replace('_', ' '))} (e.g. today's free Gemini quota is used up). Try again later.</span>`); return; }
+        const m = await published(); if (m) { S.cache.clear(); await onDone(m); return; }
       }
-      status('<span class="warn">Simulation finished but the website has not updated yet. Refresh in a few minutes.</span>');
+      status('<span class="warn">Finished on GitHub but the website has not updated yet (or no month could be simulated, e.g. the daily Gemini quota is used up). Refresh in a few minutes.</span>');
     } catch (e) { status(`<span class="bad">${esc((e as Error).message)}</span>`); }
     finally { busy(false); }
   }
+  const stopNote = (m: any) => m.stoppedReason && m.stoppedReason !== 'done' ? ` <span class="warn">(stopped early: ${esc(String(m.stoppedReason).replace('_', ' '))})</span>` : '';
+  async function run(months: number) {
+    if (!S.run) return;
+    const runId = S.run.id, before = S.run.lastTurn;
+    await dispatch({ runId, turns: String(months) }, `${months} month${months > 1 ? 's' : ''} of ${S.run.name}`,
+      idx => { const m = idx.find((x: any) => x.id === runId); return m && m.lastTurn > before ? m : null; },
+      async m => { await refreshRuns(runId); status(`<span class="good">✓ ${m.lastTurn - before} new month(s): now ${esc(monthLabel(m.startDate, m.lastTurn))}</span>${stopNote(m)}`); });
+  }
+  // used by the New test dialog
+  S.startOnGithub = async (o: NewTest) => {
+    const known = new Set(S.runs.map(r => r.id));
+    const setup = { preset: o.preset || undefined, weights: Object.keys(o.weights).length ? o.weights : undefined, countries: o.countries, branchFrom: o.branchFrom };
+    await dispatch({ newRunName: o.name, setup: JSON.stringify(setup), turns: String(o.months) }, `new test "${o.name}" (${o.months} month${o.months > 1 ? 's' : ''})`,
+      idx => idx.find((x: any) => !known.has(x.id) && x.name === o.name && !x.lock && (x.lastTurn > (o.branchFrom?.turn ?? 0) || x.stoppedReason)) ?? null,
+      async m => { await refreshRuns(m.id); status(`<span class="good">✓ Test "${esc(m.name)}" created: ${m.lastTurn - (o.branchFrom?.turn ?? 0)} month(s) simulated</span>${stopNote(m)}`); });
+  };
   $('#ghNext').onclick = () => run(1);
   const nMonths = () => Math.max(1, Math.min(24, Number(($('#ghN') as HTMLInputElement).value) || 1));
   $('#ghN').oninput = () => { $('#ghRunN').textContent = `Run ${nMonths()} month${nMonths() > 1 ? 's' : ''}`; };
   $('#ghRunN').onclick = () => run(nMonths());
+  $('#ghNew').onclick = () => openNewTest(false);
   $('#ghWrap').hidden = false;
   status(token() ? '' : 'First time: you will be asked for a GitHub token.');
 }

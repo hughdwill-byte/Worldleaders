@@ -7,10 +7,11 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 import type { AgentResponse, Incentives, SimEvent, World } from '../engine/types.ts';
 import { DEV_COUNTRIES, initWorld, loadStatics, strength } from '../engine/world.ts';
-import { runTurn } from '../engine/turn.ts';
+import { initialScores, runTurn } from '../engine/turn.ts';
 import { MAX_AGENTS_PER_TURN, QUARTERLY_REVIEW_EVERY } from '../engine/constants.ts';
 import { isDemocracy } from '../engine/regime.ts';
 import { monthLabel } from '../engine/util.ts';
+import { buildReport } from './report.ts';
 import { decide, draftConstitution, flavour } from '../agents/index.ts';
 import { ProviderUnavailable, QuotaExhausted, SpendLimit, config, quotaLeft } from '../agents/llm.ts';
 
@@ -20,7 +21,7 @@ export const RUNS = process.env.RUNS_DIR ? path.resolve(process.env.RUNS_DIR) : 
 export interface Meta {
   id: string; name: string; seed: number; createdAt: string; startDate: string;
   provider: string; model: string; countries: 'all' | 'dev';
-  parent: { id: string; turn: number } | null; preset: string | null;
+  parent: { id: string; turn: number } | null; preset: string | null; weights?: WeightSpec | null;
   lastTurn: number; lock: { by: string; since: string } | null; updatedAt?: string;
   costUsd: number; requests: number; stoppedReason?: string;
 }
@@ -52,27 +53,44 @@ export const PRESETS: Record<string, Incentives> = {
   survival: { welfare: 0, approval: 0, survival: 1, power: 0 }, power: { welfare: 0, approval: 0, survival: 0, power: 1 },
   equal: { welfare: 0.25, approval: 0.25, survival: 0.25, power: 0.25 },
 };
-function applyPreset(w: World, preset: string | null, weightsFile?: string) {
-  if (preset) { const p = PRESETS[preset]; if (!p) throw new Error(`Unknown preset ${preset}. Use: ${Object.keys(PRESETS).join(', ')}`); for (const c of Object.values(w.countries)) c.incentives = { ...p }; }
-  if (weightsFile) { const m = JSON.parse(fs.readFileSync(weightsFile, 'utf8')); for (const [iso, k] of Object.entries(m)) if (w.countries[iso]) w.countries[iso].incentives = k as Incentives; }
+/**
+ * Incentive overrides. Keys: '*' (everyone), '@democracies', '@autocracies', '@<govType>' (e.g. '@military_junta'),
+ * or an ISO3 code. Applied in that order (most specific last), after the preset. Weights are normalised to sum to 1.
+ */
+export type WeightSpec = Record<string, Partial<Incentives>>;
+function norm(k: Partial<Incentives>): Incentives {
+  const v = { welfare: Math.max(0, Number(k.welfare) || 0), approval: Math.max(0, Number(k.approval) || 0), survival: Math.max(0, Number(k.survival) || 0), power: Math.max(0, Number(k.power) || 0) };
+  const t = v.welfare + v.approval + v.survival + v.power || 1;
+  return { welfare: +(v.welfare / t).toFixed(3), approval: +(v.approval / t).toFixed(3), survival: +(v.survival / t).toFixed(3), power: +(v.power / t).toFixed(3) };
 }
+function applyPreset(w: World, preset: string | null, weights?: WeightSpec) {
+  if (preset) { const p = PRESETS[preset]; if (!p) throw new Error(`Unknown preset ${preset}. Use: ${Object.keys(PRESETS).join(', ')}`); for (const c of Object.values(w.countries)) c.incentives = { ...p }; }
+  if (!weights) return;
+  const rank = (k: string) => k === '*' ? 0 : k === '@democracies' || k === '@autocracies' ? 1 : k.startsWith('@') ? 2 : 3;
+  for (const [key, k] of Object.entries(weights).sort((a, b) => rank(a[0]) - rank(b[0]))) {
+    const hit = (c: World['countries'][string]) => key === '*' || key === c.iso3 || (key === '@democracies' && isDemocracy(c.govType)) || (key === '@autocracies' && !isDemocracy(c.govType)) || key === '@' + c.govType;
+    for (const c of Object.values(w.countries)) if (hit(c)) c.incentives = norm(k);
+  }
+}
+export const readWeights = (file?: string): WeightSpec | undefined => file ? JSON.parse(fs.readFileSync(file, 'utf8')) : undefined;
 
-export function createRun(o: { name: string; seed?: number; countries?: 'all' | 'dev'; preset?: string | null; weightsFile?: string; startDate?: string }): Meta {
+export function createRun(o: { name: string; seed?: number; countries?: 'all' | 'dev'; preset?: string | null; weights?: WeightSpec; startDate?: string }): Meta {
   const id = `${o.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'run'}-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}`;
   fs.mkdirSync(dir(id), { recursive: true });
   const seed = o.seed ?? Math.floor(Math.random() * 1e9);
   const w = initWorld({ seed, startDate: o.startDate });
-  applyPreset(w, o.preset ?? null, o.weightsFile);
-  const m: Meta = { id, name: o.name, seed, createdAt: new Date().toISOString(), startDate: w.startDate, provider: config.provider, model: config.model, countries: o.countries ?? (process.env.COUNTRIES === 'dev' ? 'dev' : 'all'), parent: null, preset: o.preset ?? null, lastTurn: 0, lock: null, costUsd: 0, requests: 0 };
+  applyPreset(w, o.preset ?? null, o.weights);
+  initialScores(w, loadStatics());
+  const m: Meta = { id, name: o.name, weights: o.weights ?? null, seed, createdAt: new Date().toISOString(), startDate: w.startDate, provider: config.provider, model: config.model, countries: o.countries ?? (process.env.COUNTRIES === 'dev' ? 'dev' : 'all'), parent: null, preset: o.preset ?? null, lastTurn: 0, lock: null, costUsd: 0, requests: 0 };
   writeMeta(m); saveSnapshot(id, w); fs.writeFileSync(path.join(dir(id), 'events.jsonl'), '');
   fs.writeFileSync(path.join(dir(id), 'series.json'), JSON.stringify(emptySeries()));
   appendSeries(id, w, []);
-  updateIndex();
+  updateIndex(); buildReport(id);
   return m;
 }
 
 /** What-if branch: copy the snapshot at `from` into a new run, optionally changing incentive weights. */
-export function branchRun(parentId: string, from: number, o: { name?: string; preset?: string | null; weightsFile?: string }): Meta {
+export function branchRun(parentId: string, from: number, o: { name?: string; preset?: string | null; weights?: WeightSpec }): Meta {
   const p = readMeta(parentId);
   if (from > p.lastTurn) throw new Error(`Run ${parentId} only has months 0..${p.lastTurn}`);
   const name = o.name ?? `${p.name} branch@${from}${o.preset ? ' ' + o.preset : ''}`;
@@ -80,14 +98,14 @@ export function branchRun(parentId: string, from: number, o: { name?: string; pr
   fs.mkdirSync(path.join(dir(id), 'turns'), { recursive: true });
   for (let t = 0; t < from; t++) fs.copyFileSync(path.join(dir(parentId), 'turns', pad(t) + '.json.gz'), path.join(dir(id), 'turns', pad(t) + '.json.gz'));
   const w = loadSnapshot(parentId, from);
-  applyPreset(w, o.preset ?? null, o.weightsFile);
+  applyPreset(w, o.preset ?? null, o.weights);
   saveSnapshot(id, w);
   fs.writeFileSync(path.join(dir(id), 'events.jsonl'), readEvents(parentId).filter(e => e.turn < from).map(e => JSON.stringify(e) + '\n').join(''));
   const s = JSON.parse(fs.readFileSync(path.join(dir(parentId), 'series.json'), 'utf8'));
   truncateSeries(s, from + 1); fs.writeFileSync(path.join(dir(id), 'series.json'), JSON.stringify(s));
-  const m: Meta = { ...p, id, name, createdAt: new Date().toISOString(), parent: { id: parentId, turn: from }, preset: o.preset ?? p.preset, lastTurn: from, lock: null, costUsd: 0, requests: 0, provider: config.provider, model: config.model };
+  const m: Meta = { ...p, id, name, createdAt: new Date().toISOString(), parent: { id: parentId, turn: from }, preset: o.preset ?? p.preset, weights: o.weights ?? null, lastTurn: from, lock: null, costUsd: 0, requests: 0, provider: config.provider, model: config.model };
   delete m.stoppedReason;
-  writeMeta(m); updateIndex();
+  writeMeta(m); updateIndex(); buildReport(id);
   return m;
 }
 
@@ -208,6 +226,7 @@ export async function step(id: string, o: { turns: number; force?: boolean; shou
     }
   } finally {
     const mm = readMeta(id); mm.stoppedReason = reason; writeMeta(mm); unlock(id);
+    try { buildReport(id); } catch (e) { console.warn('report.md not written:', (e as Error).message); }
   }
   return reason;
 }

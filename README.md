@@ -92,6 +92,37 @@ Each night:
 
 The workflow also runs on a schedule at 08:05 UTC, just after the Gemini free quota resets at midnight Pacific time (about 7pm Melbourne). To turn the schedule off, delete the `schedule:` lines in `.github/workflows/simulate.yml`. Two jobs never write at once (`concurrency`). A run in progress is locked in `meta.json`, and a stale lock can be overridden with `force`.
 
+## Tests with different incentive weights
+
+Press **＋ New test** (on the website or the local viewer).
+
+1. **Start from:** a fresh real-world start, or a **branch** of the run you're viewing at the month shown ("what if, from here, …").
+2. **AI leaders** (fresh starts only): 20 major countries, about 20 Gemini requests per month, or all 197, about 200.
+3. **Base incentive weights:**
+   - **Realistic:** each government as it really behaves.
+   - **Everyone 100%** of one incentive: welfare, approval, regime survival or national power.
+   - **Equal mix.**
+4. **Overrides** (optional): pick a country or a group (all countries, democracies, autocracies, or one government type such as military juntas), set the four sliders, then **Add override**. A country override beats a group, which beats "all countries". Each override is scaled so its four weights total 100%.
+5. **Months to simulate now**, then **Start test**.
+
+Every test is saved as its own run (listed in the **Run** menu) and is never overwritten. You can keep running it later with **Next month**.
+
+### AI summary logs
+
+Each test has a log, `runs/<id>/report.md`, rebuilt after every month. It covers:
+- the setup and incentive weights
+- the world's trajectory
+- scores by government type
+- the biggest country changes, territory and regime changes, and wars
+- AI behaviour statistics (cooperative, aggressive, repressive) and "suspects simulation" remarks
+- a month-by-month account of major events and AI decisions, with the leaders' reasoning
+- a comparison with the parent run, for branches
+
+The log opens with instructions for an AI reader. To use it:
+- **One test:** in the **World** tab, use **Download** or **Copy**, then paste it into ChatGPT, Claude or Gemini and ask for a summary of the major events and key findings.
+- **Two tests:** in the **Compare** tab, the combined log asks the AI to compare them.
+- **From the command line:** `npm run report -- --run <id>` or `npm run report -- --all`.
+
 ## Why did that happen?
 
 In the **Events** tab, click any event to expand it:

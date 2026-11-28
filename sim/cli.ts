@@ -2,7 +2,7 @@
 // npm run sim -- --run <id> --turns 12        (or --turns quota: keep going until the daily quota is used)
 // npm run sim -- --branch <id> --from 24 --preset welfare [--weights file.json] [--turns 6]
 // npm run sim -- --list | --estimate <id>     Flags: --force (ignore lock), --hours 5.5 (stop before a deadline)
-import { branchRun, createRun, estimate, listRuns, step } from './run.ts';
+import { branchRun, createRun, estimate, listRuns, readWeights, step } from './run.ts';
 
 const a = process.argv.slice(2);
 const flag = (k: string) => a.includes('--' + k);
@@ -12,11 +12,11 @@ let id = val('run');
 if (flag('list')) { for (const m of listRuns()) console.log(`${m.id}  months=${m.lastTurn}  ${m.provider}/${m.model}${m.parent ? `  branch of ${m.parent.id}@${m.parent.turn}` : ''}${m.lock ? '  LOCKED' : ''}`); process.exit(0); }
 if (val('estimate')) { console.log(estimate(val('estimate')!)); process.exit(0); }
 if (flag('new')) {
-  const m = createRun({ name: val('name') ?? 'run', seed: val('seed') ? Number(val('seed')) : undefined, countries: val('countries') as 'all' | 'dev' | undefined, preset: val('preset') ?? null, weightsFile: val('weights'), startDate: val('start') });
+  const m = createRun({ name: val('name') ?? 'run', seed: val('seed') ? Number(val('seed')) : undefined, countries: val('countries') as 'all' | 'dev' | undefined, preset: val('preset') ?? null, weights: readWeights(val('weights')), startDate: val('start') });
   console.log('created run', m.id); id = m.id;
 }
 if (val('branch')) {
-  const m = branchRun(val('branch')!, Number(val('from') ?? 0), { name: val('name'), preset: val('preset') ?? null, weightsFile: val('weights') });
+  const m = branchRun(val('branch')!, Number(val('from') ?? 0), { name: val('name'), preset: val('preset') ?? null, weights: readWeights(val('weights')) });
   console.log('created branch', m.id, 'from', m.parent); id = m.id;
 }
 const turnsArg = val('turns');

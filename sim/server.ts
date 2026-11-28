@@ -2,7 +2,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
-import { ROOT, type ProgressInfo, branchRun, createRun, estimate, listRuns, readMeta, step } from './run.ts';
+import { ROOT, RUNS, type ProgressInfo, branchRun, createRun, estimate, listRuns, readMeta, step } from './run.ts';
 
 const PORT = Number(process.env.PORT || 5173);
 const TYPES: Record<string, string> = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.jsonl': 'text/plain', '.gz': 'application/gzip', '.svg': 'image/svg+xml', '.png': 'image/png', '.md': 'text/markdown' };
@@ -30,16 +30,16 @@ http.createServer(async (req, res) => {
       if (api === 'estimate') return send(res, 200, estimate(url.searchParams.get('run')!));
       if (req.method !== 'POST') return send(res, 405, { error: 'POST required' });
       const b = await body(req);
-      if (api === 'new') return send(res, 200, createRun({ name: b.name || 'run', seed: b.seed, countries: b.countries, preset: b.preset || null }));
-      if (api === 'branch') return send(res, 200, branchRun(b.run, Number(b.from), { preset: b.preset || null, name: b.name }));
+      if (api === 'new') return send(res, 200, createRun({ name: b.name || 'run', seed: b.seed, countries: b.countries, preset: b.preset || null, weights: b.weights }));
+      if (api === 'branch') return send(res, 200, branchRun(b.run, Number(b.from), { preset: b.preset || null, name: b.name, weights: b.weights }));
       if (api === 'run') { readMeta(b.run); start(b.run, b.auto ? 100000 : Number(b.turns || 1)); return send(res, 200, { ok: true }); }
       if (api === 'pause') { state.stop = true; return send(res, 200, { ok: true }); }
       return send(res, 404, { error: 'unknown endpoint' });
     }
     // static files: /data/*, /runs/* from the repo; everything else from the built viewer
     const rel = decodeURIComponent(url.pathname).replace(/^\/+/, '');
-    const base = rel.startsWith('data/') || rel.startsWith('runs/') ? ROOT : path.join(ROOT, 'viewer', 'dist');
-    let f = path.resolve(base, rel || 'index.html');
+    const base = rel.startsWith('runs/') ? RUNS : rel.startsWith('data/') ? ROOT : path.join(ROOT, 'viewer', 'dist');
+    let f = path.resolve(base, rel.startsWith('runs/') ? rel.slice(5) : rel || 'index.html');
     if (!f.startsWith(base)) return send(res, 403, { error: 'forbidden' });
     if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
     if (!fs.existsSync(f)) return send(res, 404, { error: 'not found' });
