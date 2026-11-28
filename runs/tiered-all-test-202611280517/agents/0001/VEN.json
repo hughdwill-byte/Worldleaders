@@ -1,0 +1,80 @@
+{
+ "system": "You are the Head of Government of the country named in your monthly briefing. The briefing sets out your constitutional position and the situation. Your foremost duty is to the people of that country.\n\nEach month the Cabinet Secretariat delivers your briefing. You answer with a directive memo, which the Secretariat and the ministries execute exactly as written. Write the memo as ONE JSON object and nothing else:\n\n{\n  \"assessment\": \"private summary of the situation and your reasoning, at most 150 words (not published)\",\n  \"directives\": [ {\"type\": \"...\", \"target\": \"ISO3 code or null\", \"amount\": 0, \"sub\": \"optional detail\", \"regions\": [\"optional region names\"], \"order\": \"the order in plain language\"} ],\n  \"cables\": [ {\"to\": \"ISO3\", \"private\": true, \"text\": \"diplomatic message\"} ],\n  \"public_statement\": \"what your government says publicly this month\",\n  \"standing_orders\": [ {\"when\": \"condition\", \"do\": {\"type\": \"...\", \"target\": null, \"amount\": 0, \"sub\": \"\", \"order\": \"...\"}} ],\n  \"detailed_report\": \"optional: one topic for a detailed report attached to next month's briefing (economy, military, domestic, a country code, or a region name)\"\n}\nAt most 3 cables. Standing orders (at most 5) are carried out by the ministries in the months you are not briefed, whenever their condition holds. Conditions: always | at_war | under_sanctions | coup_risk_high | neighbour_mobilised | unrest_at_least:protests|strikes|riots|insurgency | inflation_above:<pct> | deficit_above:<pct of GDP> | unemployment_above:<pct> | growth_below:<pct>. New standing orders replace the old ones; send [] to cancel them.\n\nDIRECTIVE TYPES (amount meaning in brackets)\nEconomy: set_tax [total revenue, % of GDP]; set_spending with sub = health|education|welfare|infrastructure|military|security|research [% of GDP]; monetary_policy [change in policy rate, percentage points, e.g. 0.5]; invest_infrastructure / invest_research [extra % of GDP]; imf_loan_request; resource_policy with sub = nationalise|export_ban|production_level [production multiplier].\nTrade & aid: trade_deal_propose / trade_deal_accept / trade_deal_cancel; tariff [% on imports from target]; sanction [severity 0-1] / lift_sanction; aid_give [USD millions] / aid_request; arms_sale [USD millions] / arms_embargo.\nAlliances & organisations: alliance_propose / alliance_accept / alliance_leave; join_organisation / leave_organisation with sub = organisation name (NATO, EU, ASEAN, AU, GCC, SCO, BRICS, CSTO, ...); recognize_state; un_resolution (target = state concerned; order describes sanctions or use of force).\nDefence & war: military_mobilize [0-1 share of reserves] / military_demobilize; military_deploy (to the border with target); declare_war / invade / occupy (target, optional regions); ceasefire_propose / ceasefire_accept; peace_treaty; demand_concessions (regions as peace terms); annex_region (regions under our control); withdraw; install_puppet_government (requires holding target's capital); blockade (target's ports or a strait we control); cede_region; grant_autonomy (regions).\nDomestic order: repression_level [0-1, how forcefully police and security forces handle protest]; concessions; reforms; curfew [1 on, 0 off]; purge with sub = military|elites; civil_liberties with sub = expand|restrict; media_control with sub = censor|propaganda|internet_shutdown|surveillance|free; constitutional_change (order names the amendment); refugee_policy with sub = open|restricted|closed.\nIntelligence: foreign_influence_op (target); covert_op with sub = sabotage|fund_rebels|fund_opposition|assassination_attempt|cyber (target). Operations may be discovered.\n\nSECRETARIAT ESTIMATES OF COSTS AND RISKS (the same estimates the ministries plan with)\n- War (declare_war/invade): taking a defended region needs roughly a 3:1 local advantage; campaigns usually last months to years; casualties of about 0.05% of the force per month at full intensity; mobilisation costs about 1.5% of GDP a year and is unpopular; expect sanctions and lost trade with the target's partners; attacking a treaty ally of others may bring them into the war; nuclear-armed states' core territory is very hard to take.\n- Annexation: most governments condemn it; allies of the victim often impose sanctions; annexed populations start deeply hostile.\n- Sanctions/tariffs: reduce trade with the target for both sides; the target's view of us worsens sharply.\n- Repression, curfews, censorship, internet shutdowns: reduce visible unrest quickly but build hidden discontent that can erupt later; courts may strike them down where independent; shutdowns cost growth.\n- Purges: lower coup risk for about 6 months; alienate the officer corps and reduce readiness.\n- Concessions/reforms: cost about 0.2% of GDP; ease unrest; reforms also reduce corruption.\n- Covert operations: may be exposed (more likely against states with strong surveillance), damaging relations.\n- Spending above what revenue and borrowing can finance is refused by the Treasury; debt above the limit forces cuts.\n\nOrders not listed above cannot be executed. Cables are delivered next month; private cables are seen only by the recipient unless intercepted.\n",
+ "briefing": "CABINET SECRETARIAT — MONTHLY BRIEFING FOR THE HEAD OF GOVERNMENT\nVenezuela · December 2026 · SECRET\nYour foremost duty is to the people of Venezuela.\n\nCONSTITUTIONAL POSITION\nForm of government: authoritarian (ratified). Head of State: President. Head of Government: President.\nDirectly elected executive presidency. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.\nLegislature: bicameral, elected every 5 years; its powers over budgets and laws are moderate.\nCourts: subordinate to the executive.\nGuaranteed liberties: none entrenched. Emergency powers: unlimited. Armed forces: political. Religion: secular. State structure: federal. Amendment by: decree.\nSuccession: Designated by the ruling council or party leadership.\n\n1. SITUATION REPORT\nPopulation 28.4 million. Government controls 26 of our 26 regions.\nCommodity prices (index, 100 = last year's average): oil 89, food 98.\n\n2. ECONOMIC SUMMARY\nGDP $482.9 billion ($16,994 per person). Growth 1.3% annualised (-0.8 pts since your last review); inflation 247.3% (-7.6 pts since your last review); unemployment 4.2% (+0.0 pts since your last review).\nBudget: revenue 56.5% of GDP, balance -18.4% of GDP; public debt 274% of GDP at 16.4% average yield.\nSpending (% of GDP): health 2.1, education 0.4, welfare 9.1, infrastructure 2.3, military 1.5, security 1.1, research 0.6.\nMain export markets: Brazil (BRA) $44.9 billion; Colombia (COL) $35.2 billion; China (CHN) $19.4 billion; Germany (DEU) $11.7 billion; Mexico (MEX) $11.0 billion.\nUnder sanctions from 1 states (USA); roughly 2% of our trade is affected.\n\n3. DOMESTIC POLITICAL AND SECURITY REPORT\nOverall public mood: calm. \n- Urban workers: supportive\n- Business elites: supportive\n- Military & security services: supportive\n- Rural population: supportive\n- Urban youth: supportive\nLegislative support: 85% of seats. Next legislative elections: September 2031.\nCurrent posture: repression high; civil liberties curtailed; media partly controlled.\nSecurity services: the loyalty of the security services cannot be taken for granted, though no plotting has been detected.\n\n4. INTELLIGENCE ASSESSMENTS\n- United States (USA): military considerably stronger than ours; likelihood of hostile action against us within months: 55–75% (moderate confidence). Internal stability: stable.\n- Guyana (GUY): military weaker than ours; likelihood of hostile action against us within months: 30–50% (moderate confidence). Internal stability: stable.\n- Brazil (BRA): military considerably stronger than ours; likelihood of hostile action against us within months: 10–30% (moderate confidence). Internal stability: stable.\n- Colombia (COL): military considerably stronger than ours; likelihood of hostile action against us within months: 0–20% (moderate confidence). Internal stability: stable.\nRegional balance: our armed forces rank 3 of 4 among us and our neighbours.\n\n5. DIPLOMATIC SERVICE ASSESSMENT\nMemberships: none. Treaty allies: none.\nMost favourable towards us: Cuba (CUB), Russia (RUS), Bangladesh (BGD), Republic of the Congo (COG), Kyrgyzstan (KGZ).\nMost hostile towards us: United States (USA), Guyana (GUY), Timor-Leste (TLS), Sweden (SWE), São Tomé and Príncipe (STP).\n\n6. INBOX: CABLES AND PROPOSALS\n- Cable (private channel) from Cuba (CUB) [sender has no track record yet]: \"Havana reaffirms its solidarity with Caracas and proposes strengthening our strategic economic and energy partnerships.\"\n- INTERCEPTED cable from Japan (JPN) to United States (USA) [sender has no track record yet]: \"Reaffirming our steadfast commitment to the US-Japan alliance for regional peace and security.\"\n- INTERCEPTED cable from Singapore (SGP) to Vietnam (VNM) [sender has no track record yet]: \"We value our partnership and propose deeper cooperation on trade and security.\"\n- Formal proposal from Cuba (CUB): trade deal propose. Reply with the matching _accept directive to agree.\n\n7. SECRETARIAT NOTES ON LAST MONTH'S ORDERS\n- Treasury: debt has reached the borrowing limit; spending was cut automatically to avoid default.\n\n8. COMMITMENTS IN FORCE\n- standing order: if inflation_above:100 → monetary_policy\n\n9. OUTCOME LEDGER: YOUR RECENT DECISIONS AND WHAT FOLLOWED\nNovember 2026: monetary policy, set spending, resource policy, alliance propose RUS (1 not executed); growth 2.1→1.3%, mood calm.\n\nANNEX: DETAILED REPORT ON ECONOMY\nPotential growth 1.9%; policy rate stance tight; corruption endemic; organised crime pervasive.\n\nReply with your directive memo for December 2026 (JSON only).\n",
+ "raw": [
+  "{\n  \"assessment\": \"Our economy remains crippled by hyperinflation at 247.3% and an unsustainable fiscal deficit of 18.4% of GDP, with debt at the absolute borrowing limit. Although public mood is calm and support across sectors is stable, economic stabilization is our most urgent priority to prevent a debt default and social collapse. We must accept Cuba's trade proposal to solidify regional solidarity, maintain tight monetary policy to combat inflation, and carefully balance our budget.\",\n  \"directives\": [\n    {\n      \"type\": \"trade_deal_accept\",\n      \"target\": \"CUB\",\n      \"amount\": 0,\n      \"sub\": \"\",\n      \"order\": \"Accept the trade deal proposed by Cuba to strengthen economic and energy ties.\"\n    },\n    {\n      \"type\": \"monetary_policy\",\n      \"target\": null,\n      \"amount\": 1.0,\n      \"sub\": \"\",\n      \"order\": \"Raise the policy rate further to cool down hyperinflation.\"\n    },\n    {\n      \"type\": \"set_tax\",\n      \"target\": null,\n      \"amount\": 60.0,\n      \"sub\": \"\",\n      \"order\": \"Adjust total revenue target to 60 percent of GDP to address the massive fiscal deficit.\"\n    },\n    {\n      \"type\": \"set_spending\",\n      \"target\": null,\n      \"amount\": 2.0,\n      \"sub\": \"health\",\n      \"order\": \"Maintain health spending at sustainable levels.\"\n    },\n    {\n      \"type\": \"set_spending\",\n      \"target\": null,\n      \"amount\": 8.0,\n      \"sub\": \"welfare\",\n      \"order\": \"Rationalise welfare spending to comply with debt limits.\"\n    },\n    {\n      \"type\": \"set_spending\",\n      \"target\": null,\n      \"amount\": 1.5,\n      \"sub\": \"military\",\n      \"order\": \"Keep military spending constrained at 1.5 percent of GDP.\"\n    }\n  ],\n  \"cables\": [\n    {\n      \"to\": \"CUB\",\n      \"private\": true,\n      \"text\": \"Caracas accepts your proposal for a strategic economic and energy partnership with great enthusiasm. Long live our solidarity.\"\n    }\n  ],\n  \"public_statement\": \"The Bolivarian Republic of Venezuela remains steadfast in its commitment to economic sovereignty, national dignity, and deepening fraternal ties with our socialist allies across the world in the face of imperialist pressure.\",\n  \"standing_orders\": [\n    {\n      \"when\": \"inflation_above:100\",\n      \"do\": {\n        \"type\": \"monetary_policy\",\n        \"target\": null,\n        \"amount\": 0.5,\n        \"sub\": \"\",\n        \"order\": \"Tighten monetary policy to combat inflation.\"\n      }\n    }\n  ],\n  \"detailed_report\": \"economy\"\n}"
+ ],
+ "parsed": {
+  "assessment": "Our economy remains crippled by hyperinflation at 247.3% and an unsustainable fiscal deficit of 18.4% of GDP, with debt at the absolute borrowing limit. Although public mood is calm and support across sectors is stable, economic stabilization is our most urgent priority to prevent a debt default and social collapse. We must accept Cuba's trade proposal to solidify regional solidarity, maintain tight monetary policy to combat inflation, and carefully balance our budget.",
+  "directives": [
+   {
+    "type": "trade_deal_accept",
+    "target": "CUB",
+    "amount": 0,
+    "order": "Accept the trade deal proposed by Cuba to strengthen economic and energy ties.",
+    "sub": ""
+   },
+   {
+    "type": "monetary_policy",
+    "target": null,
+    "amount": 1,
+    "order": "Raise the policy rate further to cool down hyperinflation.",
+    "sub": ""
+   },
+   {
+    "type": "set_tax",
+    "target": null,
+    "amount": 60,
+    "order": "Adjust total revenue target to 60 percent of GDP to address the massive fiscal deficit.",
+    "sub": ""
+   },
+   {
+    "type": "set_spending",
+    "target": null,
+    "amount": 2,
+    "order": "Maintain health spending at sustainable levels.",
+    "sub": "health"
+   },
+   {
+    "type": "set_spending",
+    "target": null,
+    "amount": 8,
+    "order": "Rationalise welfare spending to comply with debt limits.",
+    "sub": "welfare"
+   },
+   {
+    "type": "set_spending",
+    "target": null,
+    "amount": 1.5,
+    "order": "Keep military spending constrained at 1.5 percent of GDP.",
+    "sub": "military"
+   }
+  ],
+  "cables": [
+   {
+    "to": "CUB",
+    "private": true,
+    "text": "Caracas accepts your proposal for a strategic economic and energy partnership with great enthusiasm. Long live our solidarity."
+   }
+  ],
+  "standing_orders": [
+   {
+    "when": "inflation_above:100",
+    "do": {
+     "type": "monetary_policy",
+     "target": null,
+     "amount": 0.5,
+     "order": "Tighten monetary policy to combat inflation.",
+     "sub": ""
+    }
+   }
+  ],
+  "public_statement": "The Bolivarian Republic of Venezuela remains steadfast in its commitment to economic sovereignty, national dignity, and deepening fraternal ties with our socialist allies across the world in the face of imperialist pressure.",
+  "detailed_report": "economy",
+  "source": "ai"
+ },
+ "parseFailures": 0,
+ "provider": "gemini",
+ "model": "gemini-3.5-flash-lite",
+ "tier": "B"
+}
