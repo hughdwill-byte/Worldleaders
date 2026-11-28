@@ -12,7 +12,9 @@ import { MAX_AGENTS_PER_TURN, QUARTERLY_REVIEW_EVERY } from '../engine/constants
 import { isDemocracy } from '../engine/regime.ts';
 import { monthLabel } from '../engine/util.ts';
 import { buildReport } from './report.ts';
-import { decide, draftConstitution, flavour } from '../agents/index.ts';
+import { decide, draftConstitution, flavour, narrative } from '../agents/index.ts';
+import { autopilot } from '../agents/autopilot.ts';
+import { mockDecide } from '../agents/mock.ts';
 import { ProviderUnavailable, QuotaExhausted, SpendLimit, config, quotaLeft } from '../agents/llm.ts';
 
 export const ROOT = path.resolve(import.meta.dirname, '..');
@@ -23,7 +25,8 @@ export interface Meta {
   provider: string; model: string; countries: 'all' | 'dev';
   parent: { id: string; turn: number } | null; preset: string | null; weights?: WeightSpec | null;
   lastTurn: number; lock: { by: string; since: string } | null; updatedAt?: string;
-  costUsd: number; requests: number; stoppedReason?: string;
+  costUsd: number; requests: number; stoppedReason?: string; parseFailures?: number; secondsPerMonth?: number;
+  cadence?: 'monthly' | 'quarterly';  // quarterly: AI leaders decide every 3rd month; standing orders run in between
 }
 export interface ProgressInfo { runId: string; turn: number; month: string; done: number; total: number; message: string }
 export type OnProgress = (p: ProgressInfo) => void;
@@ -41,7 +44,16 @@ export function saveSnapshot(id: string, w: World) {
   writeAtomic(path.join(dir(id), 'turns', pad(w.turn) + '.json.gz'), zlib.gzipSync(json));
 }
 export function loadSnapshot(id: string, turn: number): World {
-  return JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(dir(id), 'turns', pad(turn) + '.json.gz'))).toString());
+  return migrate(JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(dir(id), 'turns', pad(turn) + '.json.gz'))).toString()));
+}
+/** Fill fields added after a run was created, so old runs keep going. */
+function migrate(w: World): World {
+  w.commitments ??= [];
+  for (const c of Object.values(w.countries)) {
+    c.protestMonths ??= 0; c.unrestRise ??= 0; c.escalation ??= 0; c.coopActs ??= 0; c.hostileActs ??= 0;
+    c.standingOrders ??= []; c.lastReview ??= null; c.lastDefectionTurn ??= null; c.lastCoupTurn ??= null; c.lastCivilWarTurn ??= null;
+  }
+  return w;
 }
 function readEvents(id: string, turn?: number): SimEvent[] {
   const f = path.join(dir(id), 'events.jsonl'); if (!fs.existsSync(f)) return [];
@@ -63,7 +75,7 @@ function norm(k: Partial<Incentives>): Incentives {
   const t = v.welfare + v.approval + v.survival + v.power || 1;
   return { welfare: +(v.welfare / t).toFixed(3), approval: +(v.approval / t).toFixed(3), survival: +(v.survival / t).toFixed(3), power: +(v.power / t).toFixed(3) };
 }
-function applyPreset(w: World, preset: string | null, weights?: WeightSpec) {
+export function applyPreset(w: World, preset: string | null, weights?: WeightSpec) {
   if (preset) { const p = PRESETS[preset]; if (!p) throw new Error(`Unknown preset ${preset}. Use: ${Object.keys(PRESETS).join(', ')}`); for (const c of Object.values(w.countries)) c.incentives = { ...p }; }
   if (!weights) return;
   const rank = (k: string) => k === '*' ? 0 : k === '@democracies' || k === '@autocracies' ? 1 : k.startsWith('@') ? 2 : 3;
@@ -74,14 +86,14 @@ function applyPreset(w: World, preset: string | null, weights?: WeightSpec) {
 }
 export const readWeights = (file?: string): WeightSpec | undefined => file ? JSON.parse(fs.readFileSync(file, 'utf8')) : undefined;
 
-export function createRun(o: { name: string; seed?: number; countries?: 'all' | 'dev'; preset?: string | null; weights?: WeightSpec; startDate?: string }): Meta {
+export function createRun(o: { name: string; seed?: number; countries?: 'all' | 'dev'; preset?: string | null; weights?: WeightSpec; startDate?: string; cadence?: 'monthly' | 'quarterly' }): Meta {
   const id = `${o.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'run'}-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}`;
   fs.mkdirSync(dir(id), { recursive: true });
   const seed = o.seed ?? Math.floor(Math.random() * 1e9);
   const w = initWorld({ seed, startDate: o.startDate });
   applyPreset(w, o.preset ?? null, o.weights);
   initialScores(w, loadStatics());
-  const m: Meta = { id, name: o.name, weights: o.weights ?? null, seed, createdAt: new Date().toISOString(), startDate: w.startDate, provider: config.provider, model: config.model, countries: o.countries ?? (process.env.COUNTRIES === 'dev' ? 'dev' : 'all'), parent: null, preset: o.preset ?? null, lastTurn: 0, lock: null, costUsd: 0, requests: 0 };
+  const m: Meta = { id, name: o.name, cadence: o.cadence ?? 'monthly', weights: o.weights ?? null, seed, createdAt: new Date().toISOString(), startDate: w.startDate, provider: config.provider, model: config.model, countries: o.countries ?? (process.env.COUNTRIES === 'dev' ? 'dev' : 'all'), parent: null, preset: o.preset ?? null, lastTurn: 0, lock: null, costUsd: 0, requests: 0 };
   writeMeta(m); saveSnapshot(id, w); fs.writeFileSync(path.join(dir(id), 'events.jsonl'), '');
   fs.writeFileSync(path.join(dir(id), 'series.json'), JSON.stringify(emptySeries()));
   appendSeries(id, w, []);
@@ -117,33 +129,83 @@ export function listRuns(): Meta[] {
 export function updateIndex() { fs.mkdirSync(RUNS, { recursive: true }); fs.writeFileSync(path.join(RUNS, 'index.json'), JSON.stringify(listRuns().map(m => ({ ...m, lock: m.lock ? { ...m.lock } : null })), null, 1)); }
 
 /** Countries that act this month: anything touched them, plus everyone on the quarterly review. Most urgent first. */
-export function selectActive(w: World, lastEvents: SimEvent[]): string[] {
-  const live = w.order.filter(i => w.countries[i].alive);
+/** How urgent each country's situation is this month (events, cables, wars, sanctions, unrest, coup risk…). */
+function urgencyScores(w: World, lastEvents: SimEvent[]): Record<string, number> {
   const urgency: Record<string, number> = {};
   const bump = (i: string, v: number) => { if (w.countries[i]?.alive) urgency[i] = (urgency[i] ?? 0) + v; };
   for (const e of lastEvents) for (const i of e.countries) bump(i, e.major ? 15 : 3);
-  for (const cb of w.cables) bump(cb.to, 6);
+  for (const cb of w.cables) bump(cb.to, DEV_COUNTRIES.includes(cb.from) ? 12 : 6);   // a cable from a major power awaits a reply
   for (const p of w.pendingProposals) bump(p.to, 8);
   for (const v of w.wars.filter(v => v.active)) for (const i of [...v.attackers, ...v.defenders]) bump(i, 30);
   for (const s of w.sanctions.filter(s => s.since >= w.turn - 1)) bump(s.target, 10);
-  for (const i of live) {
-    const c = w.countries[i];
+  const risks = w.order.filter(i => w.countries[i].alive).map(i => w.countries[i].coupRisk).sort((a, b) => b - a);
+  const p90 = risks[Math.floor(risks.length * 0.1)] ?? 1;
+  for (const i of w.order) {
+    const c = w.countries[i]; if (!c.alive) continue;
     if (c.stage >= 3) bump(i, c.stage * 8);
-    if (c.coupRisk > 0.003) bump(i, 20);
+    if (c.coupRisk >= p90 && c.coupRisk > 0) bump(i, 20);                                // coup hazard in the top decile
     if (c.nextElection != null && c.nextElection - w.turn <= 1) bump(i, 6);
     if (c.provisionalUntil != null) bump(i, 10);
+    if (lastEvents.some(e => e.type === 'disaster' && e.major && e.countries.includes(i))) bump(i, 15);
   }
+  return urgency;
+}
+
+/** Mock runs: countries with something happening, plus everyone on the quarterly review. */
+export function selectActive(w: World, lastEvents: SimEvent[]): string[] {
+  const urgency = urgencyScores(w, lastEvents);
   const all = w.turn % QUARTERLY_REVIEW_EVERY === 0;
-  const act = live.filter(i => all || urgency[i]);
+  const act = w.order.filter(i => w.countries[i].alive && (all || urgency[i]));
   act.sort((a, b) => (urgency[b] ?? 0) - (urgency[a] ?? 0) || w.countries[b].gdp - w.countries[a].gdp);
   return act.slice(0, MAX_AGENTS_PER_TURN);
 }
 
+export type Tier = 'A' | 'B' | 'C' | 'standing' | 'mock';
+/**
+ * Who the AI reviews this month (a fixed budget of LLM_CALLS_PER_MONTH, default 50):
+ *  A = the 20 major countries, every month;  C = rotation so every country is reviewed at least every
+ *  MAX_MONTHS_WITHOUT_REVIEW months (most overdue first);  B = triggered countries ranked by log(pop) × urgency.
+ * Everyone else runs on autopilot (their own standing orders) or, if never reviewed, a rule-based leader.
+ * dev mode: A only (+ rule-based leaders for the rest). Mock runs: rule-based leaders for active countries.
+ */
+export function planMonth(w: World, m: Meta, lastEvents: SimEvent[]): { llm: string[]; tiers: Record<string, Tier>; mock: string[]; standing: string[] } {
+  const live = w.order.filter(i => w.countries[i].alive);
+  const active = new Set(selectActive(w, lastEvents));
+  const tiers: Record<string, Tier> = {};
+  if (config.provider === 'mock') { for (const i of active) tiers[i] = 'mock'; return { llm: [], tiers, mock: [...active], standing: [] }; }
+  const offMonth = m.cadence === 'quarterly' && w.turn % 3 !== 0;
+  const A = offMonth ? [] : DEV_COUNTRIES.filter(i => w.countries[i]?.alive);
+  let llm = [...A];
+  if (m.countries !== 'dev' && !offMonth) {
+    const budget = Number(process.env.LLM_CALLS_PER_MONTH || 50), maxGap = Number(process.env.MAX_MONTHS_WITHOUT_REVIEW || 12);
+    const others = live.filter(i => !A.includes(i));
+    const since = (i: string) => w.turn - (w.countries[i].lastReview ?? -1000 + w.order.indexOf(i)); // never reviewed: in list order
+    const urgency = urgencyScores(w, lastEvents);
+    const room = Math.max(0, budget - A.length);
+    const cMin = Math.min(room, Math.ceil(others.length / maxGap));
+    const rotation = [...others].sort((a, b) => since(b) - since(a));
+    const C = rotation.slice(0, cMin);
+    const B = others.filter(i => !C.includes(i) && urgency[i]).sort((a, b) => urgency[b] * Math.log(w.countries[b].pop + 10) - urgency[a] * Math.log(w.countries[a].pop + 10)).slice(0, room - C.length);
+    const C2 = rotation.filter(i => !C.includes(i) && !B.includes(i)).slice(0, room - C.length - B.length);
+    for (const i of B) tiers[i] = 'B';
+    for (const i of [...C, ...C2]) tiers[i] = 'C';
+    llm = [...A, ...B, ...C, ...C2];
+  }
+  for (const i of A) tiers[i] = 'A';
+  const rest = live.filter(i => !llm.includes(i));
+  const standing = rest.filter(i => w.countries[i].standingOrders?.length);
+  const mock = rest.filter(i => !standing.includes(i) && active.has(i));
+  for (const i of standing) tiers[i] = 'standing';
+  for (const i of mock) tiers[i] = 'mock';
+  return { llm, tiers, mock, standing };
+}
+
 export function estimate(id: string) {
   const m = readMeta(id), w = loadSnapshot(id, m.lastTurn);
-  const active = selectActive(w, readEvents(id, m.lastTurn - 1));
-  const llm = config.provider === 'mock' ? 0 : active.filter(i => m.countries === 'all' || DEV_COUNTRIES.includes(i)).length;
-  return { month: monthLabel(w.startDate, w.turn), active: active.length, requests: Math.ceil(llm * 1.15), tokens: llm * 4000, quotaLeft: config.provider === 'mock' ? Infinity : quotaLeft() };
+  const plan = planMonth(w, m, readEvents(id, m.lastTurn - 1));
+  const llm = plan.llm.length;
+  return { month: monthLabel(w.startDate, w.turn), active: Object.keys(plan.tiers).length, requests: Math.ceil(llm * 1.05) + (llm ? 1 : 0), tokens: llm * 3500,
+    minutes: +(llm / Math.max(1, config.rpm)).toFixed(1), quotaLeft: config.provider === 'mock' ? Infinity : quotaLeft() };
 }
 
 function lock(m: Meta, force: boolean) {
@@ -175,36 +237,49 @@ export async function step(id: string, o: { turns: number; force?: boolean; shou
       const w = loadSnapshot(id, m.lastTurn);
       const month = monthLabel(w.startDate, w.turn);
       const pendFile = path.join(dir(id), 'pending.json');
-      const pend: { turn: number; active: string[]; decisions: Record<string, AgentResponse>; events: SimEvent[] } =
-        fs.existsSync(pendFile) && JSON.parse(fs.readFileSync(pendFile, 'utf8')).turn === w.turn ? JSON.parse(fs.readFileSync(pendFile, 'utf8')) : { turn: w.turn, active: selectActive(w, readEvents(id, w.turn - 1)), decisions: {}, events: [] };
-      const llmFor = (iso: string) => config.provider !== 'mock' && (m.countries === 'all' || DEV_COUNTRIES.includes(iso));
+      type Pend = { turn: number; plan: ReturnType<typeof planMonth>; decisions: Record<string, AgentResponse>; events: SimEvent[] };
+      const saved = fs.existsSync(pendFile) ? JSON.parse(fs.readFileSync(pendFile, 'utf8')) : null;
+      const pend: Pend = saved?.turn === w.turn && saved.plan ? saved : { turn: w.turn, plan: planMonth(w, m, readEvents(id, w.turn - 1)), decisions: {}, events: [] };
       const agentDir = path.join(dir(id), 'agents', pad(w.turn));
       fs.mkdirSync(agentDir, { recursive: true });
+      fs.writeFileSync(path.join(agentDir, '_tiers.json'), JSON.stringify(pend.plan.tiers));
       const mockLog: Record<string, AgentResponse> = {};
+      // autopilot (standing orders) and rule-based leaders: instant
+      for (const iso of pend.plan.standing) if (!pend.decisions[iso]) { const r = autopilot(w, s, iso); if (r) { pend.decisions[iso] = r; mockLog[iso] = r; } }
+      for (const iso of pend.plan.mock) if (!pend.decisions[iso]) { const r = mockDecide(w, s, iso); pend.decisions[iso] = r; mockLog[iso] = r; }
+      // AI leaders: a pool of CONCURRENCY workers, in priority order (tier A first); progress saved after every answer
+      const queue = pend.plan.llm.filter(i => !pend.decisions[i]);
+      const total = pend.plan.llm.length;
       let stopped = false;
-      for (const iso of pend.active) {
-        if (pend.decisions[iso]) continue;
-        if (o.shouldStop?.()) { reason = 'paused'; stopped = true; break; }
-        const done = Object.keys(pend.decisions).length;
-        const prog = (message: string) => o.onProgress?.({ runId: id, turn: w.turn, month, done, total: pend.active.length, message });
-        prog(`${w.countries[iso].name} deciding`);
-        try {
-          const out = await decide(w, s, iso, llmFor(iso), msg => prog(msg), m.costUsd);
-          pend.decisions[iso] = out.resp; pend.events.push(...out.events);
-          if (llmFor(iso)) {
-            fs.writeFileSync(path.join(agentDir, iso + '.json'), JSON.stringify(out.log, null, 1));
-            m.costUsd += out.costUsd; m.requests += (out.log.raw as string[]).length; writeMeta(m);
-            writeAtomic(pendFile, JSON.stringify(pend));
-          } else mockLog[iso] = out.resp;
-        } catch (e) {
-          if (e instanceof QuotaExhausted || e instanceof SpendLimit) { reason = e instanceof SpendLimit ? 'spend_limit' : e instanceof ProviderUnavailable ? 'provider_unavailable' : 'quota'; stopped = true; writeAtomic(pendFile, JSON.stringify(pend)); prog(`stopped: ${(e as Error).message}`); break; }
-          throw e;
+      const t0 = Date.now();
+      const worker = async () => {
+        while (!stopped && queue.length) {
+          if (o.shouldStop?.()) { reason = 'paused'; stopped = true; return; }
+          const iso = queue.shift()!;
+          const prog = (message: string) => o.onProgress?.({ runId: id, turn: w.turn, month, done: pend.plan.llm.filter(i => pend.decisions[i]).length, total, message });
+          prog(`${w.countries[iso].name} deciding`);
+          try {
+            const out = await decide(w, s, iso, true, msg => prog(msg), m.costUsd, pend.plan.tiers[iso] === 'C');
+            pend.decisions[iso] = out.resp; pend.events.push(...out.events);
+            fs.writeFileSync(path.join(agentDir, iso + '.json'), JSON.stringify({ ...out.log, tier: pend.plan.tiers[iso] }, null, 1));
+            m.costUsd += out.costUsd; m.requests += (out.log.raw as string[]).length; m.parseFailures = (m.parseFailures ?? 0) + Number(out.log.parseFailures ?? 0);
+            writeMeta(m); writeAtomic(pendFile, JSON.stringify(pend));
+          } catch (e) {
+            if (e instanceof QuotaExhausted || e instanceof SpendLimit) {
+              if (!stopped) { reason = e instanceof SpendLimit ? 'spend_limit' : e instanceof ProviderUnavailable ? 'provider_unavailable' : 'quota'; prog(`stopped: ${(e as Error).message}`); }
+              stopped = true; return;
+            }
+            throw e;
+          }
         }
-      }
+      };
+      await Promise.all(Array.from({ length: Math.max(1, Number(process.env.CONCURRENCY || 4)) }, worker));
+      writeAtomic(pendFile, JSON.stringify(pend));
+      if (total && !stopped) { m.secondsPerMonth = Math.round((Date.now() - t0) / 1000); writeMeta(m); }
       if (Object.keys(mockLog).length) fs.writeFileSync(path.join(agentDir, '_mock.json'), JSON.stringify(mockLog));
       if (stopped) break;
       // resolve the month
-      o.onProgress?.({ runId: id, turn: w.turn, month, done: pend.active.length, total: pend.active.length, message: 'resolving month' });
+      o.onProgress?.({ runId: id, turn: w.turn, month, done: total, total, message: 'resolving month' });
       const before = structuredClone(w.countries);
       const events = [...pend.events, ...runTurn(w, s, pend.decisions)];
       for (const iso of Object.keys(pend.decisions)) updateMemory(w, iso, pend.decisions[iso], before[iso], month);
@@ -216,6 +291,9 @@ export async function step(id: string, o: { turns: number; force?: boolean; shou
       }
       if (config.provider !== 'mock' && process.env.FLAVOUR !== 'off') {
         try { events.push(...await flavour(w, month, events)); } catch (e) { if (!(e instanceof QuotaExhausted)) console.warn('flavour text skipped:', (e as Error).message); }
+      }
+      if (config.provider !== 'mock' && process.env.NARRATIVE !== 'off') {
+        try { events.push(...await narrative(month, events)); } catch (e) { if (!(e instanceof QuotaExhausted)) console.warn('narrative skipped:', (e as Error).message); }
       }
       saveSnapshot(id, w);
       fs.appendFileSync(path.join(dir(id), 'events.jsonl'), events.map(e => JSON.stringify(e) + '\n').join(''));
@@ -243,7 +321,9 @@ function updateMemory(w: World, iso: string, r: AgentResponse, before: World['co
 }
 
 // ---- series.json: compact per-turn metrics for charts ----
-const CKEYS = ['gdp', 'growth', 'inflation', 'unemployment', 'approval', 'stability', 'unrest', 'welfare', 'survival', 'power', 'weighted', 'military', 'debt', 'pop'] as const;
+const CKEYS = ['gdp', 'growth', 'inflation', 'unemployment', 'approval', 'stability', 'unrest', 'welfare', 'survival', 'power', 'weighted', 'military', 'debt', 'pop', 'escalation', 'liberty', 'coop', 'hostile'] as const;
+/** Liberty index 0-100: press freedom, civil liberties, absence of repression. */
+export const liberty = (c: World['countries'][string]) => +(100 * (0.4 * c.info.pressFreedom + 0.4 * c.civilLiberties + 0.2 * (1 - c.repression))).toFixed(1);
 function emptySeries() { return { months: [] as string[], world: {} as Record<string, number[]>, byGov: {} as Record<string, Record<string, number[]>>, countries: {} as Record<string, Record<string, (number | null)[]>> }; }
 function truncateSeries(s: ReturnType<typeof emptySeries>, n: number) {
   s.months = s.months.slice(0, n);
@@ -267,6 +347,11 @@ function appendSeries(id: string, w: World, events: SimEvent[]) {
   push(s.world as any, 'welfare', +wavg(c => c.scores.welfare).toFixed(2));
   push(s.world as any, 'refugees', live.reduce((a, c) => a + c.refugeesHosted, 0));
   push(s.world as any, 'countries', live.length);
+  push(s.world as any, 'escalation', live.reduce((a, c) => a + (c.escalation ?? 0), 0));
+  push(s.world as any, 'liberty', +wavg(c => liberty(c)).toFixed(2));
+  const co = live.reduce((a, c) => a + (c.coopActs ?? 0), 0), ho = live.reduce((a, c) => a + (c.hostileActs ?? 0), 0);
+  push(s.world as any, 'coopRatio', +(co / Math.max(1, ho)).toFixed(2));
+  push(s.world as any, 'implicitSuspicion', (s.world.implicitSuspicion?.[t - 1] ?? 0) + events.filter(e => e.type === 'implicit_suspicion').length);
   const prevSus = (s.world.suspects?.[t - 1] ?? 0);
   push(s.world as any, 'suspects', prevSus + events.filter(e => e.type === 'suspects_simulation').length);
   const gov: Record<string, typeof live> = {};
@@ -282,6 +367,7 @@ function appendSeries(id: string, w: World, events: SimEvent[]) {
       gdp: Math.round(c.gdp), growth: +c.growth.toFixed(2), inflation: +c.inflation.toFixed(2), unemployment: +c.unemployment.toFixed(2),
       approval: c.scores.approval, stability: +c.stability.toFixed(1), unrest: +c.unrest.toFixed(1), welfare: c.scores.welfare, survival: c.scores.survival,
       power: c.scores.power, weighted: c.scores.weighted, military: +strength(c).toFixed(2), debt: +(c.debt / c.gdp * 100).toFixed(1), pop: Math.round(c.pop),
+      escalation: c.escalation ?? 0, liberty: liberty(c), coop: c.coopActs ?? 0, hostile: c.hostileActs ?? 0,
     } : Object.fromEntries(CKEYS.map(k => [k, null])) as any;
     for (const k of CKEYS) push(o, k, v[k]);
   }

@@ -66,7 +66,13 @@ npm run sim -- --estimate <runId>
    npm run sim -- --new --name "gemini dev" --turns 1
    ```
    Before each run you see something like "This month needs ~45 requests; 830 left today". If the daily quota runs out mid-month, the run saves progress and stops cleanly. The next start resumes exactly where it stopped.
-3. When you're happy with it, set `COUNTRIES=all`.
+3. When you're happy with it, set `COUNTRIES=all`. Every country is then in play within a fixed budget of about 50 AI calls a month (`LLM_CALLS_PER_MONTH`):
+   - The 20 major powers decide every month.
+   - Countries in trouble get a turn: war, riots, top-decile coup risk, new sanctions, a new government, or a cable from a major power.
+   - A rotation makes sure every country gets a full review at least once every 12 months.
+   - In between, countries follow the **standing orders** their own AI leader wrote last time (up to 5 "if X then do Y" rules).
+   - About 4 requests run at once within your rate limit, so a month takes about 3–4 minutes and the free tier manages about 10 months a night.
+   - For long runs, `npm run sim -- --new --name long --cadence quarterly` lets AI leaders decide every 3 months while the world still steps monthly.
 
 Every prompt and response is saved in `runs/<id>/agents/<month>/<ISO3>.json`. Prompts are plain-text templates in `prompts/`, so you can read and edit them. The same model is used for every country, and it is recorded in `meta.json`. Other providers are `anthropic`, `groq`, `openrouter` and `ollama`, plus any OpenAI-compatible endpoint via `BASE_URL`. For paid providers, set `PRICE_IN_PER_M` / `PRICE_OUT_PER_M` and a `MAX_SPEND_USD` hard stop.
 
@@ -76,7 +82,7 @@ Extras that use the same provider:
   npm run constitutions -- --only dev
   ```
 - **Headlines:** one request per month writes newspaper headlines and protest slogans for the month's major events. They appear in the World tab and the event log. Set `FLAVOUR=off` to save quota.
-- **If the model is overloaded** (HTTP 503), the run stops cleanly and saves progress. Run the same command again later, or set `MODEL` to another model, such as `gemini-3-flash-preview` (tiny daily quota) or `gemini-3.8-flash` when it isn't overloaded.
+- **If the model is overloaded** (HTTP 503), the run stops cleanly and saves progress. Run the same command again later. Don't switch leaders to `gemini-3.8-flash` or `gemini-3-flash-preview` on the free tier: they allow only about 20 requests a day. Keep one leader model per run so results stay comparable; you can put headlines, summaries and constitution drafting on a second model with `SECONDARY_PROVIDER` / `SECONDARY_MODEL`.
 
 ## How to start an overnight run from your phone
 
@@ -122,6 +128,25 @@ The log opens with instructions for an AI reader. To use it:
 - **One test:** in the **World** tab, use **Download** or **Copy**, then paste it into ChatGPT, Claude or Gemini and ask for a summary of the major events and key findings.
 - **Two tests:** in the **Compare** tab, the combined log asks the AI to compare them.
 - **From the command line:** `npm run report -- --run <id>` or `npm run report -- --all`.
+
+## Realism checks and analysis tools
+
+How the realism works:
+- **Rare events use published base rates and risk factors**, with sources noted in `engine/constants.ts`. Each one shows its drivers in the event's "why".
+  - Civil-war onset follows Fearon & Laitin with PITF factors: about 1.9 per 100 country-years.
+  - Coups follow Powell & Thyne: about half of attempts succeed, and most happen in Africa, the Americas and the Middle East.
+  - Protest campaigns follow Chenoweth: participation against the 3.5% "tipping" share, defections and momentum.
+  - Civil wars last years: about an 8-year mean.
+- **Benchmarks:** check the engine against history with `npm run stylised` (10 seeds × 120 months with rule-based leaders). Each test's **World** tab and AI summary log show its own rates next to the historical bands.
+
+Analysis tools:
+- **CSV export:** `npm run export -- --run <id>` writes `country_month.csv`, `decisions.csv` (with CAMEO-style codes: cooperate, consult, aid, demand, threaten, coerce, assault), `events.csv` and `cables.csv`. The World tab has **Download CSV**.
+- **New metrics** in charts, logs and CSV:
+  - **Escalation index** (Rivera-style weights): also a map layer.
+  - **Liberty index:** also a map layer.
+  - **Cooperation ratio.**
+- **Nation-sensitivity test:** the AI summary log reports whether AI leaders behave differently by country and regime type, or the same everywhere (a known weakness of LLM agents).
+- **Experiments:** `npm run experiment -- --conditions experiments/example.json --seeds 5 --months 24` repeats each condition over the same seeds and reports means with 95% confidence intervals and the difference from a rule-based control. Conditions can use rule-based (`mock`) or `ai` leaders.
 
 ## Why did that happen?
 

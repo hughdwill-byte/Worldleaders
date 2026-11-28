@@ -80,4 +80,25 @@ console.log('✓ 24 mock months with all countries: invariants hold; border chan
   assert.equal(w.countries.YEM.constitution.status, 'provisional');
   console.log(`✓ regime collapse → new government (${w.countries.YEM.govType}), provisional constitution v${w.countries.YEM.constitution.version}`);
 }
+// 5. AI review planner: within budget, every country reviewed within MAX_MONTHS_WITHOUT_REVIEW, deterministic
+{
+  const { planMonth } = await import('../sim/run.ts');
+  const { config } = await import('../agents/llm.ts');
+  const prov = process.env.PROVIDER; process.env.PROVIDER = 'gemini';
+  const w = initWorld({ seed: 9, startDate: '2026-11' });
+  const meta: any = { countries: 'all', cadence: 'monthly' };
+  const budget = 50; process.env.LLM_CALLS_PER_MONTH = String(budget);
+  const lastSeen: Record<string, number> = {}; let maxGap = 0;
+  for (let t = 0; t < 30; t++) {
+    const p1 = planMonth(w, meta, []), p2 = planMonth(w, meta, []);
+    assert.deepEqual(p1, p2, 'planner not deterministic');
+    assert.ok(p1.llm.length <= budget, `planner over budget: ${p1.llm.length}`);
+    for (const i of p1.llm) { w.countries[i].lastReview = t; lastSeen[i] = t; }
+    w.turn = t + 1;
+  }
+  for (const i of w.order) maxGap = Math.max(maxGap, 30 - (lastSeen[i] ?? -1));
+  assert.ok(maxGap <= 13, `a country went ${maxGap} months without an AI review`);
+  process.env.PROVIDER = prov; void config;
+  console.log(`✓ AI review planner: ≤${budget} calls/month, every country reviewed within ${maxGap - 1} months, deterministic`);
+}
 console.log(`all checks passed in ${((Date.now() - t0) / 1000).toFixed(1)}s`);

@@ -78,6 +78,16 @@ export interface Country {
   scores: { welfare: number; approval: number; survival: number; power: number; weighted: number };
   coupRisk: number;
   policyRate: number;
+  lastCoupTurn: number | null;        // month index of the last successful coup (negative = before the start)
+  lastCivilWarTurn: number | null;    // last month a civil war was active (for the prior-war effect)
+  lastDefectionTurn: number | null;
+  protestMonths: number;              // consecutive months of protests/strikes/riots (campaign length)
+  unrestRise: number;                 // consecutive months of rising unrest (momentum)
+  escalation: number;                 // this month's escalation index (Rivera-style weights)
+  coopActs: number; hostileActs: number;
+  standingOrders: StandingOrder[];    // conditional rules from the leader's last AI review, run on autopilot in between
+  lastReview: number | null;          // last month an AI leader reviewed this country
+  reviewStats?: { growth: number; inflation: number; unemployment: number; approval: number; unrest: number }; // values at that review (briefings show changes since)
   baseTaxRate: number;               // tax rate at start/independence (tax drag is measured against it)
   sanctionExposure: number;          // share of trade under sanctions (0..1), recomputed monthly                // central bank stance, pts above neutral
   shocks: { growth: number; months: number; why: string }[];   // temporary growth shocks (disasters, crises)
@@ -124,7 +134,8 @@ export interface World {
   cables: Cable[];                           // to be delivered next turn
   pendingProposals: { from: string; to: string; type: string; amount: number; turn: number; regions?: string[] }[];
   global: { oilPrice: number; scarcity: number; pandemic: number; foodPrice: number };
-  recognitions: Record<string, string[]>;    // new state -> recognisers
+  recognitions: Record<string, string[]>;
+  commitments: { from: string; to: string; kind: string; turn: number; broken: number | null }[]; // treaties = promises; broken by leaving/cancelling/attacking    // new state -> recognisers
   nextFactionId: number; nextLeaderId: number;
 }
 
@@ -133,7 +144,8 @@ export interface SimEvent {
 }
 
 export interface Directive { type: string; target?: string | null; amount?: number; order?: string; regions?: string[]; sub?: string }
-export interface AgentResponse { assessment: string; directives: Directive[]; cables: { to: string; private: boolean; text: string }[]; public_statement: string; detailed_report?: string; source?: 'ai' | 'mock' }
+export interface AgentResponse { assessment: string; directives: Directive[]; cables: { to: string; private: boolean; text: string }[]; public_statement: string; detailed_report?: string; source?: 'ai' | 'mock' | 'standing'; standing_orders?: StandingOrder[]; nuclearThreat?: boolean }
+export interface StandingOrder { when: string; do: Directive }
 
 // static region info from data/regions.json
 export interface RegionStatic {

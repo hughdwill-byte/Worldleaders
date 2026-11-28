@@ -54,3 +54,32 @@ Decisions taken without asking (the simpler option was chosen each time). Code c
 - **Per-region refugee destinations.** Refugees go to neighbouring countries only.
 - **Map labels** are HTML markers for country names only (no glyph server). Region names are in tooltips.
 - **Provider overload** (HTTP 503 after retries) stops the run cleanly as `provider_unavailable`. Rerun later, or set `MODEL` to another model. In November 2026 the standard Gemini Flash models were often overloaded on the free tier. `gemini-3-flash-preview` answered but has a tiny free daily quota (about 16 requests). The default is therefore `gemini-3.5-flash-lite`, which answered reliably. Quota is counted per model.
+
+## Realism, speed and analysis upgrade (from the upgrade plan)
+
+### Hazards
+- **Annual rates become monthly** with `1-(1-p)^(1/12)`.
+- **Odds ratios from different studies are combined as if they were independent**, on the logit scale. They probably aren't fully independent; backtesting would be the way to check.
+- **Civil-war onset:** the base rate (0.004/yr for a reference country) was **calibrated** with `npm run stylised`, so the world mean is about 1.9–2.2 onsets per 100 country-years. It wasn't taken directly from Fearon & Laitin's 1.92, because our odds ratios multiply up from a reference country.
+- **Poverty is counted half for each of two measures:** income (Fearon & Laitin) and infant mortality (PITF) both measure poverty, so each enters at half its log-odds to avoid double counting.
+- **Regime and region odds ratios are approximations:**
+  - The PITF regime odds ratios other than "factional partial democracy ≈30" are my approximations.
+  - The coup regime and region odds ratios were chosen so attempts concentrate as in Powell & Thyne. They are not published coefficients.
+- **Present unrest and hidden discontent** enter the civil-war hazard as engine-internal factors (OR 1.6 per 20 unrest points; 1.3 per 25 suppressed points). These are not from a study.
+- **Protest campaigns:**
+  - A "campaign" starts after 3 months of protests, strikes or riots. Success is a monthly hazard set so that about 34% (nonviolent) or 26% (violent) of campaigns lasting 24 months would succeed.
+  - A campaign now needs 3 months at strikes level or higher. The monthly rate is calibrated to the simulated campaign length (about 6 months) and anchored at typical participation (1.3%). Measured success is about 18%, below the historical 34%, partly because repression in autocracies ends many campaigns.
+  - In democracies a "win" means sweeping concessions; the leader can't be removed. In autocracies it topples the regime.
+- **Civil-war endings:** civil wars no longer end by exhaustion collapse. They end through a negotiated-settlement hazard (mean about 8 years), defeat or victory.
+
+### Not implemented
+- **V2 backtest from 2019.** A real backtest needs a second hand-built 2019 world: who governed (e.g. Afghanistan's Republic, Assad's Syria), which wars and occupations were live, 2019 sanctions, and 2019 economic data. That's a separate data project, and pretending to backtest from 2026 data would be misleading.
+- **"AI vs history" chart toggle.** It depends on the backtest.
+- **Gemini Batch API and context caching (paid only).** The system prompt is now identical for every country, so caching works if you move to a paid tier.
+
+### Agents
+- **Same instructions for every country:** the system prompt is byte-identical. The country, its constitution and its "foremost duty" line are in the briefing.
+- **Briefing size:** about 1.6–1.7k tokens for full briefings and about 0.9k for compact (rotation) ones. Leaders answer with a ≤150-word assessment and ≤3 cables.
+- **Standing orders** use a fixed vocabulary of conditions (see `prompts/system.txt`) and pass through the same validation as normal orders.
+- **Sender track records:** "honoured X of Y commitments" counts treaties (trade deals, alliances, ceasefires, peace treaties) as promises. Leaving an alliance, cancelling a deal or attacking the partner breaks them. Threats in cables aren't tracked.
+- **Implicit suspicion:** frame words such as "scenario" or "hypothetical" in the private assessment are logged as `implicit_suspicion`. Explicit statements remain `suspects_simulation`.

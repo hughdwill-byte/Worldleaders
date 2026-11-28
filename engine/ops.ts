@@ -192,7 +192,7 @@ export function createCountry(x: Ctx, parent: string, regions: number[], f: Fact
   const c: Country = structuredClone(p);
   Object.assign(c, {
     iso3: iso, name, alive: true, puppetOf: null, capital: biggest, core: [...regions], pop, gdp, debt: gdp * 0.2, personnel: Math.round(pop * 0.004),
-    milStock: f.strength * 2e9, mobilized: 0.3, baseTaxRate: p.taxRate, sanctionExposure: 0, nuclear: false, orgs: [], tariffs: {}, aidOut: {}, rejections: [], policyNotes: [],
+    milStock: f.strength * 2e9, mobilized: 0.3, lastCoupTurn: null, lastCivilWarTurn: x.w.turn, lastDefectionTurn: null, protestMonths: 0, unrestRise: 0, escalation: 0, coopActs: 0, hostileActs: 0, standingOrders: [], lastReview: null, baseTaxRate: p.taxRate, sanctionExposure: 0, nuclear: false, orgs: [], tariffs: {}, aidOut: {}, rejections: [], policyNotes: [],
     refugeesHosted: 0, refugeesOut: 0, leaderHistory: [], govHistory: [], provisionalUntil: null, coupRisk: 0, shocks: [], rally: 20,
     estimated: ['derived from parent country at independence'],
   });

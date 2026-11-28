@@ -57,8 +57,13 @@ jobs:
           PROVIDER: ${{ inputs.provider || vars.PROVIDER || 'gemini' }}
           MODEL: ${{ inputs.model || vars.MODEL }}
           API_KEY: ${{ secrets.API_KEY }}
-          RPM: ${{ vars.RPM || '10' }}
-          RPD: ${{ vars.RPD || '250' }}
+          RPM: ${{ vars.RPM || '15' }}          # Gemini Flash-Lite free tier (late 2026); set repo variables to override
+          RPD: ${{ vars.RPD || '500' }}
+          CONCURRENCY: ${{ vars.CONCURRENCY || '4' }}
+          LLM_CALLS_PER_MONTH: ${{ vars.LLM_CALLS_PER_MONTH || '50' }}
+          SECONDARY_PROVIDER: ${{ vars.SECONDARY_PROVIDER }}
+          SECONDARY_MODEL: ${{ vars.SECONDARY_MODEL }}
+          SECONDARY_API_KEY: ${{ secrets.SECONDARY_API_KEY }}
           MAX_AGENTS_PER_TURN: ${{ vars.MAX_AGENTS_PER_TURN || '999' }}
           MAX_SPEND_USD: ${{ vars.MAX_SPEND_USD || '0' }}
           PRICE_IN_PER_M: ${{ vars.PRICE_IN_PER_M || '0' }}

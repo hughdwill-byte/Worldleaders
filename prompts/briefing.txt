@@ -1,5 +1,9 @@
 CABINET SECRETARIAT — MONTHLY BRIEFING FOR THE HEAD OF GOVERNMENT
 {{country}} · {{month}} · SECRET
+Your foremost duty is to the people of {{country}}.
+
+CONSTITUTIONAL POSITION
+{{constitution}}
 
 1. SITUATION REPORT
 {{situation}}
@@ -22,7 +26,10 @@ CABINET SECRETARIAT — MONTHLY BRIEFING FOR THE HEAD OF GOVERNMENT
 7. SECRETARIAT NOTES ON LAST MONTH'S ORDERS
 {{notes}}
 
-8. RECORD OF YOUR RECENT DECISIONS
+8. COMMITMENTS IN FORCE
+{{commitments}}
+
+9. OUTCOME LEDGER: YOUR RECENT DECISIONS AND WHAT FOLLOWED
 {{memory}}
 {{annex}}
 Reply with your directive memo for {{month}} (JSON only).

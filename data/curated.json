@@ -53,6 +53,11 @@
   ],
   "_defence_note": "Bilateral treaties with a mutual-defence clause. USA-TWN is informal (Taiwan Relations Act) and modelled as an attitude bonus only.",
 
+  "recent_coups": {"_note": "Year of the most recent successful coup (Powell & Thyne dataset style, updated from news through mid-2026). Used for the coup-trap effect.",
+    "SDN": 2021, "MLI": 2021, "GIN": 2021, "BFA": 2022, "NER": 2023, "GAB": 2023, "TCD": 2021, "MMR": 2021, "MDG": 2025, "GNB": 2025, "ZWE": 2017, "EGY": 2013, "THA": 2014, "FJI": 2006, "MRT": 2008, "HND": 2009, "CAF": 2013, "BOL": 2019},
+  "recent_civil_war": ["SYR","YEM","LBY","SDN","SSD","MMR","AFG","IRQ","ETH","MLI","BFA","NER","NGA","SOM","COD","CAF","MOZ","UKR","CMR","COL","TCD","HTI","PAK","TUR","PHL"],
+  "_recent_civil_war_note": "Countries with an armed internal conflict (UCDP-style, 25+ battle deaths/year) at some point in 2016-2026. Used for the Fearon & Laitin prior-war effect.",
+
   "nuclear": ["USA","RUS","CHN","FRA","GBR","IND","PAK","PRK","ISR"],
   "unsc_p5": ["USA","RUS","CHN","FRA","GBR"],
 

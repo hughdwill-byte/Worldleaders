@@ -62,6 +62,8 @@ const LAYERS: Record<string, Layer> = {
   approval: { label: 'Government approval', kind: 'seq', value: (_w, _r, c) => c?.scores.approval ?? null, range: [0, 100] },
   unrest: { label: 'Unrest (regional)', kind: 'seq', value: (w, r) => w.regions[r].unrest, range: [0, 100] },
   welfare: { label: 'Welfare score', kind: 'seq', value: (_w, _r, c) => c?.scores.welfare ?? null, range: [20, 90] },
+  escalation: { label: 'Escalation index (this month)', kind: 'seq', value: (_w, _r, c) => c ? (c.escalation ?? 0) : null, range: [0, 20] },
+  liberty: { label: 'Liberty index', kind: 'seq', value: (_w, _r, c) => c ? 100 * (0.4 * c.info.pressFreedom + 0.4 * c.civilLiberties + 0.2 * (1 - c.repression)) : null, range: [0, 100] },
   military: { label: 'Military power', kind: 'seq', value: (_w, _r, c) => c?.scores.power ?? null, range: [0, 60] },
   war: { label: 'At war', kind: 'cat', value: (w, _r, c) => c ? (atWarSet(w).has(c.iso3) ? 'at war' : 'at peace') : null, cats: { 'at war': '#f85149', 'at peace': '#30363d' } },
   regime: { label: 'Regime type', kind: 'cat', value: (_w, _r, c) => c?.govType ?? null, cats: GOV_COLORS },
@@ -260,11 +262,15 @@ async function renderCountry() {
   const stat = (k: string, label: string, v: string) => `<div class="stat" data-metric="${k}"><small>${label}</small><b>${v}</b>${spark(ser[k] ?? [], S.turn)}</div>`;
   const regions = w.regions.filter(r => r.owner === iso).length, held = w.regions.filter(r => r.controller === iso).length;
   const log = await agentLog(S.turn, iso);
+  const tiers = await getJSON(`./runs/${S.run.id}/agents/${String(S.turn).padStart(4, '0')}/_tiers.json`).catch(() => ({}));
+  const TIER: Record<string, [string, string]> = { A: ['AI — major power (every month)', '#58a6ff'], B: ['AI — triggered by events', '#f0883e'], C: ['AI — rotation review', '#3fb950'], standing: ['Standing orders from its AI leader', '#bc8cff'], mock: ['Rule-based leader', '#8b949e'] };
+  const tier = TIER[tiers[iso] ?? ''] ?? ['Continuing current policies', '#8b949e'];
   const p = log?.parsed;
   const k = c.constitution;
   const cablesIn = w.cables.filter(x => x.to === iso), cablesOut = w.cables.filter(x => x.from === iso);
   el.innerHTML = `
     <h2>${esc(c.name)} <span class="muted">${iso}</span>${c.alive ? '' : ' <span class="bad">(no longer exists)</span>'}</h2>
+    <div class="tierTag" style="--c:${tier[1]}">This month: ${esc(tier[0])}</div>
     <div class="muted">${esc(c.govType.replace(/_/g, ' '))}${c.puppetOf ? ` · puppet of ${esc(c.puppetOf)}` : ''} · ${STAGES[c.stage]} · leader since ${esc(monthLabel(w.startDate, c.leader.since))} (${esc(c.leader.origin)})</div>
     <h3>Key stats</h3>
     <div class="grid">
@@ -273,7 +279,7 @@ async function renderCountry() {
       ${stat('debt', 'Debt / GDP', fmt(c.debt / c.gdp * 100, 0) + '%')}${stat('approval', 'Approval', fmt(c.scores.approval, 0))}
       ${stat('stability', 'Stability', fmt(c.stability, 0))}${stat('unrest', 'Unrest', fmt(c.unrest, 0))}
       ${stat('welfare', 'Welfare score', fmt(c.scores.welfare, 0))}${stat('power', 'Power score', fmt(c.scores.power, 0))}
-      ${stat('survival', 'Survival score', fmt(c.scores.survival, 0))}${stat('military', 'Military strength', fmt(ser.military?.[S.turn] ?? 0))}
+      ${stat('survival', 'Survival score', fmt(c.scores.survival, 0))}${stat('escalation', 'Escalation (month)', fmt(c.escalation ?? 0, 0))}${stat('liberty', 'Liberty index', fmt(100 * (0.4 * c.info.pressFreedom + 0.4 * c.civilLiberties + 0.2 * (1 - c.repression)), 0))}${stat('military', 'Military strength', fmt(ser.military?.[S.turn] ?? 0))}
     </div>
     <div id="cchart" style="margin-top:8px"></div>
     <div class="muted" style="font-size:12px">Population ${(c.pop / 1e6).toFixed(1)}M · ${held}/${regions} regions held · refugees hosted ${(c.refugeesHosted / 1e3).toFixed(0)}k · press freedom ${fmt(c.info.pressFreedom * 100, 0)}</div>
@@ -391,7 +397,7 @@ function renderEvents() {
 // ---------- AI summary logs (runs/<id>/report.md) ----------
 function reportBar(kind: 'single' | 'pair') {
   return `<div class="repBar"><span>📄 ${kind === 'single' ? 'AI summary log for this test' : 'Combined log for the two tests below'}</span>
-    <button data-rep="${kind}" data-act="dl">Download</button><button data-rep="${kind}" data-act="copy">Copy</button>
+    <button data-rep="${kind}" data-act="dl">Download</button><button data-rep="${kind}" data-act="copy">Copy</button>${kind === 'single' ? '<button data-csv="1">Download CSV</button>' : ''}
     <span class="muted">Paste it into ChatGPT, Claude or Gemini and ask for a summary of the major events and key findings.</span></div>`;
 }
 async function reportText(kind: 'single' | 'pair'): Promise<[string, string]> {
@@ -401,6 +407,20 @@ async function reportText(kind: 'single' | 'pair'): Promise<[string, string]> {
   const [ta, tb] = await Promise.all([get(a), get(b)]);
   return [`# Comparison of two tests\n\n> Instructions for an AI reader: below are the logs of two tests of the same AI world-governance experiment, usually with different incentive weights. Compare them: what differed in outcomes (wars, stability, welfare, regime changes, territory), how the AI leaders behaved differently, and what that suggests about how incentives shape AI governance. Note when the tests share history (a branch inherits its parent's earlier months).\n\n---\n\n${ta}\n\n---\n\n${tb}`, `compare-${a}-vs-${b}.md`];
 }
+// CSV (tidy, one row per observation): country_month, events, decisions — built from the loaded run
+function downloadCsv() {
+  const q = (v: unknown) => { const s = v == null ? '' : String(v); return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+  const csv = (rows: Record<string, unknown>[]) => '\uFEFF' + [Object.keys(rows[0] ?? {}).join(','), ...rows.map(r => Object.values(r).map(q).join(','))].join('\r\n');
+  const id = S.run.id, sr = S.series, cm: Record<string, unknown>[] = [];
+  for (const [iso, o] of Object.entries<any>(sr.countries)) sr.months.forEach((mo: string, t: number) => { if (o.gdp?.[t] != null) cm.push({ run: id, month_index: t, month: mo, iso3: iso, ...Object.fromEntries(Object.keys(o).map(k => [k, o[k][t]])) }); });
+  const ev = S.events.map(e => ({ run: id, month_index: e.turn, month: sr.months[e.turn], type: e.type, major: !!e.major, countries: e.countries.join(' '), text: e.text, why: (e.data as any)?.why ?? '', caused_by_order: (e.data as any)?.by?.order ?? '' }));
+  const dec = S.events.filter(e => e.type.startsWith('decision')).map(e => { const b = (e.data as any).by; return { run: id, month_index: e.turn, month: sr.months[e.turn], iso3: b.iso, decided_by: b.standing ? 'standing_order' : 'ai', type: b.type, cameo: b.cameo ?? '', target: b.target ?? '', executed: e.type === 'decision', order: b.order }; });
+  for (const [name, rows] of [['country_month', cm], ['events', ev], ['decisions', dec]] as const) {
+    if (!rows.length) continue;
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv(rows as any)], { type: 'text/csv' })); a.download = `${id}-${name}.csv`; a.click(); URL.revokeObjectURL(a.href);
+  }
+}
+document.addEventListener('click', ev => { if ((ev.target as HTMLElement).closest('[data-csv]')) downloadCsv(); });
 document.addEventListener('click', async ev => {
   const b = (ev.target as HTMLElement).closest<HTMLElement>('[data-rep]'); if (!b) return;
   try {
@@ -421,10 +441,19 @@ function renderWorld() {
     ${card('Refugees hosted', `${((W.refugees[t] ?? 0) / 1e6).toFixed(1)}M`)}${card('States', String(W.countries[t] ?? 0))}
     ${card('"Suspects simulation" events', String(W.suspects[t] ?? 0))}${card('Run', `${esc(S.run.provider)}/${esc(S.run.model)}`)}</div>
     ${(() => { const h = S.events.filter(e => e.type === 'headline' && e.turn === t - 1); return h.length ? `<h3>Headlines (${esc(monthLabel(S.run.startDate, t - 1))})</h3>${h.map(e => `<div class="quote">${esc(e.text)}</div>`).join('')}` : ''; })()}
+    <div id="bench"></div>
+    <h3>Escalation (world, Rivera-style index)</h3><div id="wc0"></div>
     <h3>Global GDP</h3><div id="wc1"></div><h3>Wars</h3><div id="wc2"></div>
     <h3>Score by government type</h3><select id="gm">${['welfare', 'approval', 'survival', 'power'].map(k => `<option>${k}</option>`).join('')}</select><div id="wc3"></div>`;
   const labels = sr.months.slice(0, S.run.lastTurn + 1);
   lineChart($('#wc1'), labels, [{ label: 'GDP', data: W.gdp, color: '#58a6ff' }]);
+  if (W.escalation) lineChart($('#wc0'), labels, [{ label: 'escalation', data: W.escalation, color: '#f85149' }]); else $('#wc0').innerHTML = '<p class="muted">Recorded for months run after this feature was added.</p>';
+  getJSON(`./runs/${S.run.id}/benchmarks.json?v=${Date.now()}`).then((b: any) => {
+    const fv = (l: string, v: number) => Number.isFinite(v) ? (/per 100/.test(l) ? v.toFixed(2) : Math.round(v * 100) + '%') : 'no events';
+    $('#bench').innerHTML = `<h3>Benchmarks: this test vs history</h3><table><tr><th>Measure</th><th>This test</th><th>History</th></tr>${b.bands.map(([l, v, lo, hi, src]: any) => { const ok = Number.isFinite(v) && v >= lo && v <= hi; return `<tr title="${esc(src)}"><td>${esc(l)}</td><td class="${Number.isFinite(v) ? (ok ? 'good' : 'warn') : 'muted'}">${fv(l, v)}</td><td>${/per 100/.test(l) ? `${lo}–${hi}` : `${lo * 100}–${hi * 100}%`}</td></tr>`; }).join('')}
+      <tr><td>Coup attempts per year worldwide</td><td>${b.coupAttemptsPerYear}</td><td>~3–8</td></tr></table>
+      <div class="muted" style="font-size:11.5px">${b.countryYears} country-years simulated${b.countryYears < 200 ? ' — too few for firm conclusions' : ''}.${b.nation ? ` AI nation-sensitivity: ${esc(b.nation.verdict)} (divergence ${b.nation.mean.toFixed(2)}).` : ''}</div>`;
+  }).catch(() => { $('#bench').innerHTML = ''; });
   lineChart($('#wc2'), labels, [{ label: 'interstate', data: W.wars, color: '#f85149' }, { label: 'civil', data: W.civilWars, color: '#d29922' }]);
   const gm = () => lineChart($('#wc3'), labels, Object.entries(sr.byGov).map(([g, o]: [string, any]) => ({ label: g.replace(/_/g, ' '), data: o[($('#gm') as HTMLSelectElement).value], color: GOV_COLORS[g] ?? '#888' })));
   $('#gm').oninput = gm; gm();
@@ -540,7 +569,7 @@ function openNewTest(branch = false) {
     <div class="ntGrid">
       <label>Name <input id="ntName" value="${esc(branch ? `${S.run?.name ?? 'test'} what-if` : 'test ' + new Date().toISOString().slice(5, 10))}" /></label>
       <label>Start from <select id="ntStart"><option value="fresh">Fresh world (real-world start)</option>${S.run ? `<option value="branch" ${branch ? 'selected' : ''}>Branch: "${esc(S.run.name)}" at ${esc(monthLabel(S.run.startDate, S.turn))}</option>` : ''}</select></label>
-      <label id="ntCountriesL">AI leaders <select id="ntCountries"><option value="dev">20 major countries (others rule-based) — ~20 requests/month</option><option value="all">All 197 countries — ~200 requests/month</option></select></label>
+      <label id="ntCountriesL">AI leaders <select id="ntCountries"><option value="dev">20 major countries (others rule-based) — ~20 requests/month</option><option value="all">All 197 countries, tiered — ~50 AI calls/month (major powers + crises + rotation)</option></select></label>
       <label>Base incentive weights <select id="ntPreset"><option value="">${branch ? 'Keep the weights of the run' : 'Realistic: each government as it really behaves'}</option><option value="welfare">Everyone 100% population welfare</option><option value="approval">Everyone 100% approval</option><option value="survival">Everyone 100% regime survival</option><option value="power">Everyone 100% national power</option><option value="equal">Everyone equal mix (25% each)</option></select></label>
     </div>
     <h4>Override weights for a country or group <span class="muted">(optional; specific beats general)</span></h4>

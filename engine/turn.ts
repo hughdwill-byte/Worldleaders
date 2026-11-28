@@ -3,7 +3,8 @@
 // All formulas are deliberately simple; constants live in constants.ts.
 import type { AgentResponse, Country, SimEvent, War, World } from './types.ts';
 import { type Statics, strength, structuralAttitude } from './world.ts';
-import { ATT, BLOCS, COUP_BASE, DEFECTION_BASE, ECON, EVENTS, INDEPENDENCE_HOLD_MONTHS, INFO, INSURGENCY_SPAWN, LADDER_THRESH, RATIFY_STABILITY, REGIME_CAN_FALL, RIOT_DAMAGE, SEPARATIST_SPAWN, STRIKE_GDP_HIT, WAR } from './constants.ts';
+import { ATT, BLOCS, DEFECTION_BASE, ECON, EVENTS, HAZ, INDEPENDENCE_HOLD_MONTHS, INFO, LADDER_THRESH, RATIFY_STABILITY, REGIME_CAN_FALL, RIOT_DAMAGE, STRIKE_GDP_HIT, WAR } from './constants.ts';
+import { civilWarHazard, coupHazard, hazard, protestSuccessHazard } from './hazards.ts';
 import { type Ctx, alive, createCountry, endWar, log, nameOf, regimeChange, regionsOf, relocateCapital, setController, shift, spawnFaction } from './ops.ts';
 import { applyDecisions, borrowLimit, debtRatio, totalSpending } from './directives.ts';
 import { isDemocracy } from './regime.ts';
@@ -12,7 +13,8 @@ import { Rng, clamp, km, sigmoid } from './util.ts';
 
 export function runTurn(w: World, s: Statics, decisions: Record<string, AgentResponse>): SimEvent[] {
   const x: Ctx = { w, s, rng: new Rng(w.seed * 7919 + w.turn * 104729 + 17), ev: [] };
-  for (const c of Object.values(w.countries)) { c.rejections = []; c.policyNotes = []; }
+  for (const c of Object.values(w.countries)) { c.rejections = []; c.policyNotes = []; c.escalation = 0; c.coopActs = 0; c.hostileActs = 0; }
+  w.commitments ??= [];
   w.cables = [];
   w.pendingProposals = w.pendingProposals.filter(p => p.turn >= w.turn - 2);
   applyDecisions(x, decisions);
@@ -218,6 +220,20 @@ function wars(x: Ctx) {
     }
     if (!war.active) continue;
     const exA = war.exhaustion[war.attackers[0]] ?? 0, exD = war.exhaustion[war.defenders[0]] ?? 0;
+    if (war.civil) {
+      // civil wars are sticky (F&L): ended mainly by a slow negotiated-settlement hazard, victory, or defeat
+      if (rng.chance(HAZ.CIVIL_WAR_END_MONTHLY)) {
+        endWar(x, war, 'negotiated settlement');
+        for (const m of war.attackers.filter(a => a.startsWith('rebel:'))) {
+          const f = w.factions[m.slice(6)]; if (!f) continue;
+          f.active = false;
+          for (const i of [...f.regions]) { setController(x, i, f.country); if (f.group) w.regions[i].autonomy = true; }
+        }
+        log(x, 'peace_settlement', war.defenders, `${war.name} ends in a negotiated settlement.`, true,
+          { why: `Civil wars end slowly: monthly settlement hazard ${(HAZ.CIVIL_WAR_END_MONTHLY * 100).toFixed(1)}% (mean duration ≈8 years; Fearon & Laitin, UCDP).` });
+      }
+      continue;
+    }
     if ((exA > 95 || exD > 95) && rng.chance(0.25)) endWar(x, war, 'collapse from exhaustion');
     else if (!war.civil && exA > WAR.exhaustionCeasefire && exD > WAR.exhaustionCeasefire && rng.chance(0.05)) endWar(x, war, 'mutual exhaustion ceasefire');
   }
@@ -288,6 +304,7 @@ function blocsAndUnrest(x: Ctx, c: Country) {
   }
   // national unrest: share & influence weighted
   const wsum = c.blocs.reduce((a, b) => a + b.share * 0.7 + b.influence * 0.3, 0) || 1;
+  const prevUnrest = c.unrest;
   c.unrest = clamp(c.blocs.reduce((a, b) => a + b.unrest * (b.share * 0.7 + b.influence * 0.3), 0) / wsum + c.terror * 10);
   const hasRebels = Object.values(w.factions).some(f => f.active && f.country === iso);
   const holdsLand = Object.values(w.factions).some(f => f.active && f.country === iso && f.regions.length);
@@ -296,6 +313,27 @@ function blocsAndUnrest(x: Ctx, c: Country) {
   if (holdsLand) stage = 6;
   if (stage !== c.stage && stage >= 2) log(x, 'unrest_' + ['calm', 'discontent', 'protests', 'strikes', 'riots', 'insurgency', 'civil_war'][stage], [iso], `${c.name}: ${['calm', 'discontent', 'protests', 'strikes', 'riots', 'armed insurgency', 'civil war'][stage]}${stage > c.stage ? ' spreads' : ' subsides'}.${b0Grievance(c)}`, stage >= 5);
   c.stage = stage;
+  // protest campaigns (Chenoweth): success depends on participation vs the 3.5% tipping share, defections and momentum
+  c.unrestRise = c.unrest > prevUnrest + 0.5 ? c.unrestRise + 1 : 0;
+  // a campaign = sustained mass mobilisation (strikes or riots), not every protest wave (Chenoweth counts maximalist campaigns)
+  c.protestMonths = stage >= 3 && stage <= 4 ? c.protestMonths + 1 : 0;
+  if (c.protestMonths === 3) log(x, 'protest_campaign', [iso], `A sustained protest campaign takes hold in ${c.name}.`);
+  if (c.protestMonths >= 2) {
+    const ph = protestSuccessHazard(c, stage >= 4, c.lastDefectionTurn != null && w.turn - c.lastDefectionTurn < 6, c.unrestRise >= 3);
+    if (rng.chance(ph.p)) {
+      const why = `Campaign success hazard ${(ph.p * 100).toFixed(1)}%/month after ${c.protestMonths} months (${stage >= 4 ? 'violent' : 'nonviolent'} campaigns succeed ~${Math.round((stage >= 4 ? HAZ.PROTEST_SUCCESS_VIOLENT : HAZ.PROTEST_SUCCESS_NONVIOLENT) * 100)}% of the time since 2010, Chenoweth). Drivers: ${ph.drivers}.`;
+      c.protestMonths = 0;
+      if (dem) {
+        // the leader can't be removed: the movement wins major concessions instead
+        for (const b of c.blocs) { b.realApproval = clamp(b.realApproval + (b.unrest > 30 ? 12 : 3)); b.unrest *= 0.4; }
+        c.legitimacy = clamp(c.legitimacy - 8); c.legislatureSupport = clamp(c.legislatureSupport - 0.15, 0.05, 0.95); c.civilLiberties = clamp(c.civilLiberties + 0.05, 0, 1);
+        log(x, 'protest_victory', [iso], `Mass protests in ${c.name} force the government into sweeping concessions; it loses its grip on the legislature.`, true, { why });
+      } else if (REGIME_CAN_FALL) {
+        log(x, 'revolution', [iso], `A mass protest movement topples the regime in ${c.name}.`, true, { why });
+        regimeChange(x, iso, { winner: 'democratic', violent: stage >= 4, how: 'a mass protest movement' });
+      }
+    }
+  }
   // region unrest & riot damage
   for (const id of regionsOf(w, iso, 'owner')) {
     const r = w.regions[id]; if (r.controller !== iso) continue;
@@ -320,21 +358,26 @@ function factions(x: Ctx) {
   for (const iso of alive(w)) {
     const c = w.countries[iso];
     const existing = Object.values(w.factions).filter(f => f.active && f.country === iso);
-    if (c.stage >= 4 && !existing.some(f => f.ideology !== 'separatist') && rng.chance(INSURGENCY_SPAWN * (c.unrest - 55) / 45)) {
+    const inCivilWar = w.wars.some(v => v.active && v.civil && v.defenders.includes(iso));
+    if (inCivilWar) c.lastCivilWarTurn = w.turn;
+    const cw = !inCivilWar && !existing.some(f => f.ideology !== 'separatist') ? civilWarHazard(w, s, c, c.lastCivilWarTurn != null && w.turn - c.lastCivilWarTurn < 120) : null;
+    if (cw && rng.chance(cw.p)) {
       const worst = [...c.blocs].sort((a, b) => a.approval * (1 - a.influence) - b.approval * (1 - b.influence))[0];
       const ideology = worst.kind === 'religious' ? 'religious' : worst.kind === 'military' ? 'military' : worst.kind === 'minority' ? 'ethnic' : worst.kind === 'youth' && c.literacy > 80 ? 'democratic' : 'revolutionary';
-      const f = spawnFaction(x, iso, ideology, null, `${c.name} ${{ religious: 'Islamic/religious front', military: 'officers’ movement', ethnic: 'ethnic liberation army', democratic: 'democratic resistance', revolutionary: 'revolutionary front' }[ideology]}`, 0.08 * c.unrest / 100);
-      log(x, 'insurgency', [iso], `Armed insurgency breaks out in ${c.name}: ${f.name} (${ideology}).`, true);
+      const f = spawnFaction(x, iso, ideology, null, `${c.name} ${{ religious: 'Islamic/religious front', military: 'officers’ movement', ethnic: 'ethnic liberation army', democratic: 'democratic resistance', revolutionary: 'revolutionary front' }[ideology]}`, 0.15); // onset = a challenger able to hold territory (F&L: 1,000+ deaths)
+      log(x, 'insurgency', [iso], `Armed insurgency breaks out in ${c.name}: ${f.name} (${ideology}).`, true,
+        { why: `Civil-war onset hazard ${(cw.annual * 100).toFixed(1)}%/year (world average ≈1.9%, Fearon & Laitin). Drivers: ${cw.drivers}.` });
     }
     for (const id of regionsOf(w, iso, 'owner')) {
       const st = s.regions[id], r = w.regions[id];
       if (!st.group || st.separatism < 0.3 || r.unrest < 60 || r.controller !== iso) continue;
       if (existing.some(f => f.group === st.group) || Object.values(w.factions).some(f => f.active && f.group === st.group && f.country === iso)) continue;
-      if (rng.chance(SEPARATIST_SPAWN * st.separatism)) {
+      const sh = hazard(HAZ.SEPARATIST_ONSET_ANNUAL * st.separatism, [['regional unrest', HAZ.OR_UNREST_PER_20, Math.max(0, (r.unrest - 40) / 20)], ['no autonomy', 2, r.autonomy ? 0 : 1]], 0.3);
+      if (rng.chance(sh.p)) {
         const f = spawnFaction(x, iso, 'separatist', st.group, `${st.group} separatist movement`, 0.05);
         const kin = alive(w).find(o => o !== iso && (s.countryData[o]?.borders ?? []).includes(iso) && w.attitudes[o][iso] < -30);
         if (kin) f.backers.push(kin);
-        log(x, 'separatism', [iso], `${f.name} takes up arms in ${c.name} (${st.name}).`, true);
+        log(x, 'separatism', [iso], `${f.name} takes up arms in ${c.name} (${st.name}).`, true, { why: `Separatist onset hazard ${(sh.annual * 100).toFixed(1)}%/year for ${st.group} (separatism ${st.separatism}). Drivers: ${sh.drivers}.` });
       }
     }
   }
@@ -386,17 +429,24 @@ function coupsAndInstitutions(x: Ctx, c: Country) {
   const iso = c.iso3, dem = isDemocracy(c.govType);
   const mil = c.blocs.find(b => b.kind === 'military');
   const milA = mil?.realApproval ?? 50;
-  const purgeShield = c.purgedAt != null && w.turn - c.purgedAt < 6 ? 0.4 : 1;
-  const provisional = c.provisionalUntil != null ? 2 : 1;
-  c.coupRisk = COUP_BASE * clamp((45 - milA) / 45, 0, 1) * (1 - c.stability / 100) * (dem ? 0.15 : 1) * (c.govType === 'military_junta' ? 1.5 : 1) * purgeShield * provisional * (c.stage >= 4 ? 2 : 1);
-  if (rng.chance(c.coupRisk)) {
-    if (rng.chance(0.55)) { log(x, 'coup', [iso], `Military coup in ${c.name}. The Head of Government has been removed.`, true); regimeChange(x, iso, { winner: 'military', violent: rng.chance(0.4), how: 'a military coup' }); return; }
-    log(x, 'coup_failed', [iso], `A coup attempt in ${c.name} fails; plotters arrested.`, true);
-    c.purgedAt = w.turn; if (mil) mil.realApproval -= 10; c.legitimacy -= 5;
+  const ch = coupHazard(w, x.s, c);
+  c.coupRisk = ch.p;
+  if (rng.chance(ch.p)) {
+    const why = `Coup attempt hazard ${(ch.annual * 100).toFixed(1)}%/year (Powell & Thyne calibration). Drivers: ${ch.drivers}. Success chance ${(ch.success * 100).toFixed(0)}% (base 49.7%; adjustments: ${ch.successWhy}).`;
+    if (rng.chance(ch.success)) {
+      log(x, 'coup', [iso], `Military coup in ${c.name}. The Head of Government has been removed.`, true, { why });
+      c.lastCoupTurn = w.turn;
+      regimeChange(x, iso, { winner: 'military', violent: rng.chance(0.4), how: 'a military coup' }); return;
+    }
+    log(x, 'coup_failed', [iso], `A coup attempt in ${c.name} fails; plotters arrested and purged.`, true, { why });
+    // failed coups trigger purges: repression up, military capacity down
+    c.purgedAt = w.turn; c.repression = clamp(c.repression + 0.15, 0, 1); c.readiness = clamp(c.readiness - 0.1, 0.2, 1); c.milStock *= 0.97;
+    if (mil) mil.realApproval -= 10; c.legitimacy -= 5;
   }
   // security forces may refuse to repress when the military bloc is alienated
   if (c.stage >= 4 && c.repression > 0.5 && milA < 35 && rng.chance(DEFECTION_BASE * (35 - milA) / 35)) {
     log(x, 'defection', [iso], `Security forces in ${c.name} refuse orders to fire on protesters; units defect.`, true);
+    c.lastDefectionTurn = w.turn;
     c.repression *= 0.5;
     const f = Object.values(w.factions).find(f => f.active && f.country === iso && f.ideology !== 'separatist') ?? spawnFaction(x, iso, 'democratic', null, `${c.name} national salvation front`, 0.1);
     f.strength += strength(c) * 0.1; c.readiness *= 0.8;

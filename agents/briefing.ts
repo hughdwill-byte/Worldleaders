@@ -10,6 +10,7 @@ import { enemies, regionsOf, warsOf } from '../engine/ops.ts';
 import { avgApproval } from '../engine/turn.ts';
 import { isDemocracy } from '../engine/regime.ts';
 import { INFO, LADDER } from '../engine/constants.ts';
+import { reliability } from '../engine/directives.ts';
 import { Rng, clamp, hash, monthLabel } from '../engine/util.ts';
 
 const PROMPTS = path.resolve(import.meta.dirname, '..', 'prompts');
@@ -31,11 +32,13 @@ export function describeConstitution(c: Country) {
   ].join('\n');
 }
 
-export function systemPrompt(c: Country) {
-  return fill(tpl('system.txt'), { country: c.name, constitution: describeConstitution(c) });
-}
+/** Identical for every country (cacheable prefix); the country and its constitution are in the briefing. */
+export function systemPrompt(_c?: Country) { return tpl('system.txt'); }
 
-export function briefing(w: World, s: Statics, iso: string, annexTopic?: string): string {
+const delta = (now: number, then: number | undefined, unit = '', d = 1) => then == null || !Number.isFinite(then) ? '' : ` (${now - then >= 0 ? '+' : ''}${(now - then).toFixed(d)}${unit} since your last review)`;
+
+/** compact = shorter briefing for quiet countries on the review rotation. */
+export function briefing(w: World, s: Statics, iso: string, annexTopic?: string, compact = false): string {
   const c = w.countries[iso], rng = new Rng(hash(`${w.seed}:brief:${w.turn}:${iso}`));
   const dem = isDemocracy(c.govType), k = c.incentives;
   // officials under-report bad news where the press is unfree and courts are weak
@@ -56,7 +59,7 @@ export function briefing(w: World, s: Statics, iso: string, annexTopic?: string)
   const sanc = w.sanctions.filter(q => q.target === iso);
   const top = Object.entries(w.trade[iso] ?? {}).sort((a, b) => b[1] - a[1]).slice(0, 5);
   const economy = [
-    `GDP ${usd(c.gdp)} (${'$' + Math.round(c.gdp / c.pop).toLocaleString('en-US')} per person). Growth ${pct(c.growth)} annualised; inflation ${pct(c.inflation)}; unemployment ${pct(rep(c.unemployment) + c.unemployment * yesMan * 0.3)}.`,
+    `GDP ${usd(c.gdp)} (${'$' + Math.round(c.gdp / c.pop).toLocaleString('en-US')} per person). Growth ${pct(c.growth)} annualised${delta(c.growth, c.reviewStats?.growth, ' pts')}; inflation ${pct(c.inflation)}${delta(c.inflation, c.reviewStats?.inflation, ' pts')}; unemployment ${pct(rep(c.unemployment) + c.unemployment * yesMan * 0.3)}${delta(c.unemployment, c.reviewStats?.unemployment, ' pts')}.`,
     `Budget: revenue ${pct(c.taxRate)} of GDP, balance ${pct(c.budgetBalance)} of GDP; public debt ${pct(c.debt / c.gdp * 100, 0)} of GDP at ${pct(c.interestRate * 100)} average yield.${c.austerityUntil && c.austerityUntil > w.turn ? ' An IMF programme with spending limits is in force.' : ''}`,
     `Spending (% of GDP): ${Object.entries(c.spending).map(([a, v]) => `${a} ${v.toFixed(1)}`).join(', ')}.`,
     `Main export markets: ${top.map(([b, v]) => `${nm(w, b)} ${usd(v)}`).join('; ') || 'n/a'}.`,
@@ -70,7 +73,7 @@ export function briefing(w: World, s: Statics, iso: string, annexTopic?: string)
   });
   const shownStage = Math.max(0, Math.round(c.stage - yesMan * 2 * (c.stage < 6 ? 1 : 0)));
   const domestic = [
-    `Overall public mood: ${LADDER[shownStage].replace('_', ' ')}. ${dem || k.approval > 0.2 ? `Approval of the government: ${clamp(avgApproval(c, false) + yesMan * 15).toFixed(0)}%.` : ''}`,
+    `Overall public mood: ${LADDER[shownStage].replace('_', ' ')}. ${dem || k.approval > 0.2 ? `Approval of the government: ${clamp(avgApproval(c, false) + yesMan * 15).toFixed(0)}%${delta(avgApproval(c, false), c.reviewStats?.approval, ' pts', 0)}.` : ''}`,
     ...blocs,
     c.nextElection != null ? `Legislative support: ${pct(c.legislatureSupport * 100, 0)} of seats. Next legislative elections: ${monthLabel(w.startDate, c.nextElection)}.` : `The legislature ${c.constitution.legislature.type === 'none' ? 'is suspended' : 'is compliant'}.`,
     `Current posture: repression ${c.repression > 0.6 ? 'high' : c.repression > 0.3 ? 'moderate' : 'low'}; civil liberties ${c.civilLiberties > 0.6 ? 'broad' : c.civilLiberties > 0.3 ? 'limited' : 'curtailed'}; media ${c.info.pressFreedom > 0.6 ? 'free and critical' : c.info.pressFreedom > 0.3 ? 'partly controlled' : 'state-directed'}${c.curfew ? '; curfew in force' : ''}${c.info.internetShutdown ? '; internet shut down' : ''}.`,
@@ -85,9 +88,12 @@ export function briefing(w: World, s: Statics, iso: string, annexTopic?: string)
   const intel = watch.map(o => {
     const t = w.countries[o];
     const ratio = strength(t) / Math.max(1e-6, strength(c)) * (1 + rng.normal() * 0.3 * (1.2 - skill)) * (1 - yesMan * 0.3);
-    const hostile = (w.attitudes[o][iso] ?? 0) < -40 || t.mobilized > 0.3;
-    const wrong = rng.chance(0.25 * (1.2 - skill));
-    const intent = (hostile !== wrong) ? 'hostile intentions toward us are assessed as likely' : 'no indication of imminent hostile action';
+    // true likelihood of hostile action, then a noisy estimate with a range that widens with weaker intelligence services
+    const att = w.attitudes[o][iso] ?? 0;
+    const truth = clamp(0.1 + (att < 0 ? -att / 130 : 0) + (t.mobilized > 0.3 ? 0.25 : 0) + (enemies(w, iso).includes(o) ? 0.4 : 0), 0.02, 0.97);
+    const noise = rng.normal() * 0.25 * (1.2 - skill), est = clamp(truth + noise, 0.02, 0.98), half = 0.05 + 0.15 * (1.2 - skill);
+    const lo = Math.round(clamp(est - half, 0.01, 0.99) * 20) * 5, hi = Math.round(clamp(est + half, 0.01, 0.99) * 20) * 5;
+    const intent = `likelihood of hostile action against us within months: ${lo}–${hi}%`;
     const conf = skill > 0.8 ? 'moderate confidence' : 'low confidence';
     return `- ${nm(w, o)}: military ${ratio > 1.5 ? 'considerably stronger than ours' : ratio > 0.8 ? 'comparable to ours' : 'weaker than ours'}${t.mobilized > 0.2 ? ', partially mobilised' : ''}; ${intent} (${conf}). Internal stability: ${t.stage >= 4 ? 'fragile' : t.stage >= 2 ? 'strained' : 'stable'}.`;
   });
@@ -106,21 +112,30 @@ export function briefing(w: World, s: Statics, iso: string, annexTopic?: string)
     `Most hostile towards us: ${att.slice(-5).reverse().map(([o]) => nm(w, o)).join(', ')}.`,
   ].join('\n');
 
-  const cables = w.cables.filter(cb => cb.to === iso || (cb.intercepted ?? []).includes(iso) || (!cb.private && cb.from !== iso && (w.attitudes[iso][cb.from] ?? 0) < -40));
+  const cables = [...w.cables.filter(cb => cb.to === iso), ...w.cables.filter(cb => cb.to !== iso && !cb.private && cb.from !== iso && (w.attitudes[iso][cb.from] ?? 0) < -40), ...w.cables.filter(cb => cb.to !== iso && (cb.intercepted ?? []).includes(iso)).slice(0, 2)];
   const proposals = w.pendingProposals.filter(p => p.to === iso && p.turn >= w.turn - 1);
   const statements = Object.values(w.countries).filter(o => o.alive && o.iso3 !== iso && o.leader.lastStatement && (enemies(w, iso).includes(o.iso3) || allies.includes(o.iso3))).slice(0, 4);
   const inbox = [
-    ...cables.slice(0, 8).map(cb => `- ${cb.to === iso ? 'Cable' : cb.private ? 'INTERCEPTED cable' : 'Public message'} from ${nm(w, cb.from)}${cb.to !== iso ? ` to ${nm(w, cb.to)}` : ''}: "${cb.text.slice(0, 500)}"`),
+    ...cables.slice(0, compact ? 3 : 8).map(cb => `- ${cb.to === iso ? `Cable (${cb.private ? 'private channel' : 'public'})` : cb.private ? 'INTERCEPTED cable' : 'Public message'} from ${nm(w, cb.from)}${cb.to !== iso ? ` to ${nm(w, cb.to)}` : ''} [sender has ${reliability(w, cb.from)}]: "${cb.text.slice(0, 500)}"`),
     ...proposals.map(p => `- Formal proposal from ${nm(w, p.from)}: ${p.type.replace(/_/g, ' ')}${p.regions?.length ? ` (${p.regions.join(', ')})` : ''}. Reply with the matching _accept directive to agree.`),
-    ...statements.map(o => `- Public statement by the government of ${nm(w, o.iso3)}: "${o.leader.lastStatement!.slice(0, 250)}"`),
+    ...(compact ? [] : statements).map(o => `- Public statement by the government of ${nm(w, o.iso3)}: "${o.leader.lastStatement!.slice(0, 250)}"`),
   ].join('\n') || 'No new correspondence.';
 
   annexTopic ??= c.leader.reportTopic;
-  const annex = annexTopic ? `\nANNEX: DETAILED REPORT ON ${annexTopic.toUpperCase()}\n${detailedReport(w, s, iso, annexTopic)}\n` : '';
+  const annex = annexTopic && !compact ? `\nANNEX: DETAILED REPORT ON ${annexTopic.toUpperCase()}\n${detailedReport(w, s, iso, annexTopic)}\n` : '';
+  // commitments in force (treaties are promises; record of any broken) — kept separate from the outcome ledger
+  const mine = w.commitments.filter(x => x.from === iso);
+  const commitments = [
+    ...mine.filter(x => x.broken == null).slice(-6).map(x => `- ${x.kind.replace('_', ' ')} with ${nm(w, x.to)} since ${monthLabel(w.startDate, x.turn)}`),
+    ...mine.filter(x => x.broken != null).slice(-3).map(x => `- BROKEN: ${x.kind.replace('_', ' ')} with ${nm(w, x.to)} (${monthLabel(w.startDate, x.broken!)})`),
+    ...w.sanctions.filter(q => q.by === iso && !q.un).slice(0, 4).map(q => `- sanctions in force against ${nm(w, q.target)}`),
+    ...(c.standingOrders ?? []).map(o => `- standing order: if ${o.when} → ${o.do.type}${o.do.target ? ' ' + o.do.target : ''}`),
+  ].join('\n') || 'None.';
   return fill(tpl('briefing.txt'), {
-    country: c.name, month, situation, economy, domestic, intel: intel.join('\n') || 'No significant foreign threats identified.', diplomacy, inbox,
+    country: c.name, month, constitution: compact ? `${c.constitution.govType.replace(/_/g, ' ')}; ${c.constitution.howPowerHeld}` : describeConstitution(c),
+    situation, economy, domestic, intel: (compact ? intel.slice(0, 2) : intel).join('\n') || 'No significant foreign threats identified.', diplomacy: compact ? diplomacy.split('\n')[0] : diplomacy, inbox,
     notes: c.rejections.length ? c.rejections.map(r => '- ' + r).join('\n') : 'All orders were executed.',
-    memory: c.leader.memory || 'This is your first briefing in office.', annex,
+    commitments, memory: c.leader.memory ? c.leader.memory.split('\n').slice(-6).join('\n') : 'This is your first briefing in office.', annex,
   });
 }
 

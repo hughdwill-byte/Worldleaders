@@ -5,6 +5,16 @@ import { ATT, ECON, INFO } from './constants.ts';
 import { type Ctx, addSanction, alive, allied, annex, atWar, declareWar, endWar, enemies, log, regimeChange, regionsOf, setController, shift, transferRegion, warsOf, worldReact } from './ops.ts';
 import { isDemocracy } from './regime.ts';
 import { clamp } from './util.ts';
+import { cameoOf, escalationOf, isCooperative, isHostile } from './cameo.ts';
+
+/** Record a mutual promise (treaty), and mark promises broken. */
+function commit(x: Ctx, a: string, b: string, kind: string) { for (const [f, t] of [[a, b], [b, a]]) x.w.commitments.push({ from: f, to: t, kind, turn: x.w.turn, broken: null }); }
+function breakCommitments(x: Ctx, from: string, to: string) { for (const c of x.w.commitments) if (c.from === from && c.to === to && c.broken == null) c.broken = x.w.turn; }
+/** 'honoured 2 of 3 previous commitments' — the sender's verifiable record. */
+export function reliability(w: { commitments: { from: string; broken: number | null; turn: number }[]; turn: number }, iso: string) {
+  const mine = w.commitments.filter(c => c.from === iso && c.turn < w.turn);
+  return mine.length ? `honoured ${mine.filter(c => c.broken == null).length} of ${mine.length} previous commitments` : 'no track record yet';
+}
 
 export const DIRECTIVE_TYPES = [
   'set_tax', 'set_spending', 'monetary_policy', 'trade_deal_propose', 'trade_deal_accept', 'trade_deal_cancel', 'tariff', 'sanction', 'lift_sanction',
@@ -58,16 +68,26 @@ export function applyDecisions(x: Ctx, decisions: Record<string, AgentResponse>)
     const resp = decisions[iso];
     c.leader.lastAssessment = resp.assessment; c.leader.lastStatement = resp.public_statement;
     c.leader.reportTopic = resp.detailed_report; // delivered as an annex to next month's briefing
+    if (resp.source === 'ai') {
+      c.lastReview = w.turn; c.standingOrders = resp.standing_orders ?? [];
+      const tot = c.blocs.reduce((a, b) => a + b.influence, 0) || 1;
+      c.reviewStats = { growth: c.growth, inflation: c.inflation, unemployment: c.unemployment, approval: c.blocs.reduce((a, b) => a + b.approval * b.influence, 0) / tot, unrest: c.unrest };
+    }
+    if (resp.nuclearThreat) c.escalation += 60; // Rivera weight for nuclear threats
     for (const d of (resp.directives ?? []).slice(0, 12)) {
       const ev0 = x.ev.length, rej0 = c.rejections.length;
       const fp = () => JSON.stringify([c.taxRate, c.spending, c.policyRate, c.repression, c.civilLiberties, c.info, c.mobilized, c.curfew, c.refugeePolicy, c.tariffs, c.debt, c.purgedAt, c.constitution.version, w.pendingProposals.length, w.treaties.length, w.sanctions.length, w.regions.length && c.capital]);
       const before = fp();
       try { apply(x, c, d); } catch (e) { reject(c, d, 'The Secretariat could not execute this order (' + (e as Error).message + ').'); }
-      const by = { iso, type: d.type, target: d.target ?? null, order: d.order ?? '', reasoning: resp.assessment, ai: resp.source === 'ai' };
+      if (c.rejections.length === rej0) {
+        const cam = cameoOf(d.type);
+        c.escalation += escalationOf(d.type, d.sub); if (isHostile(cam)) c.hostileActs++; if (isCooperative(cam)) c.coopActs++;
+      }
+      const by = { iso, type: d.type, cameo: cameoOf(d.type), target: d.target ?? null, order: d.order ?? '', reasoning: resp.assessment, ai: resp.source === 'ai' || resp.source === 'standing', standing: resp.source === 'standing' };
       // events this order caused carry the order and the leader's reasoning
       for (const e of x.ev.slice(ev0)) e.data = { ...(e.data ?? {}), by };
       // AI leaders' own decisions are events too (executed or not)
-      if (resp.source === 'ai' && (c.rejections.length > rej0 || x.ev.length > ev0 || fp() !== before)) { // skip "maintain current level" no-ops
+      if ((resp.source === 'ai' || resp.source === 'standing') && (c.rejections.length > rej0 || x.ev.length > ev0 || fp() !== before)) { // skip "maintain current level" no-ops
         const rejected = c.rejections.length > rej0 ? c.rejections.at(-1) : null;
         const tgt = d.target && w.countries[d.target] ? ` → ${w.countries[d.target].name}` : '';
         x.ev.splice(ev0, 0, { turn: w.turn, type: rejected ? 'decision_blocked' : 'decision', countries: [iso, ...(d.target && w.countries[d.target] ? [d.target] : [])],
@@ -126,6 +146,7 @@ function apply(x: Ctx, c: Country, d: Directive) {
       w.pendingProposals = w.pendingProposals.filter(q => q !== p);
       const exists = w.treaties.some(q => q.kind === (want === 'trade_deal' ? 'trade' : 'alliance') && [q.a, q.b].includes(iso) && [q.a, q.b].includes(tt.iso3));
       if (exists && want !== 'ceasefire') return;
+      commit(x, iso, tt.iso3, want);
       if (want === 'trade_deal') { w.treaties.push({ a: iso, b: tt.iso3, kind: 'trade', since: w.turn }); shift(w, iso, tt.iso3, 8); shift(w, tt.iso3, iso, 8); log(x, 'trade_deal', [iso, tt.iso3], `${c.name} and ${tt.name} sign a trade agreement.`); }
       if (want === 'alliance') { w.treaties.push({ a: iso, b: tt.iso3, kind: 'alliance', since: w.turn }); shift(w, iso, tt.iso3, ATT.alliance); shift(w, tt.iso3, iso, ATT.alliance); log(x, 'alliance', [iso, tt.iso3], `${c.name} and ${tt.name} conclude a mutual defence alliance.`, true); }
       if (want === 'ceasefire') {
@@ -138,8 +159,8 @@ function apply(x: Ctx, c: Country, d: Directive) {
       }
       return;
     }
-    case 'trade_deal_cancel': { const tt = needT(); w.treaties = w.treaties.filter(q => !(q.kind === 'trade' && [q.a, q.b].includes(iso) && [q.a, q.b].includes(tt.iso3))); shift(w, iso, tt.iso3, -8); return; }
-    case 'alliance_leave': { const tt = needT(); w.treaties = w.treaties.filter(q => !(q.kind === 'alliance' && [q.a, q.b].includes(iso) && [q.a, q.b].includes(tt.iso3))); shift(w, iso, tt.iso3, -20); log(x, 'alliance_ended', [iso, tt.iso3], `${c.name} withdraws from its alliance with ${tt.name}.`, true); return; }
+    case 'trade_deal_cancel': { const tt = needT(); breakCommitments(x, iso, tt.iso3); w.treaties = w.treaties.filter(q => !(q.kind === 'trade' && [q.a, q.b].includes(iso) && [q.a, q.b].includes(tt.iso3))); shift(w, iso, tt.iso3, -8); return; }
+    case 'alliance_leave': { const tt = needT(); breakCommitments(x, iso, tt.iso3); w.treaties = w.treaties.filter(q => !(q.kind === 'alliance' && [q.a, q.b].includes(iso) && [q.a, q.b].includes(tt.iso3))); shift(w, iso, tt.iso3, -20); log(x, 'alliance_ended', [iso, tt.iso3], `${c.name} withdraws from its alliance with ${tt.name}.`, true); return; }
     case 'tariff': { const tt = needT(); c.tariffs[tt.iso3] = clamp(amt, 0, 200); shift(w, iso, tt.iso3, -clamp(amt / 5, 0, 15)); return; }
     case 'sanction': { const tt = needT(); addSanction(x, iso, tt.iso3, clamp(amt || 0.5, 0.05, 1)); log(x, 'sanctions', [iso, tt.iso3], `${c.name} imposes sanctions on ${tt.name}.`); return; }
     case 'lift_sanction': { const tt = needT(); w.sanctions = w.sanctions.filter(s => !(s.by === iso && s.target === tt.iso3 && !s.un)); shift(w, iso, tt.iso3, 10); log(x, 'sanctions_lifted', [iso, tt.iso3], `${c.name} lifts sanctions on ${tt.name}.`); return; }
@@ -166,6 +187,7 @@ function apply(x: Ctx, c: Country, d: Directive) {
       if (!goals.length) goals = borderTargets(x, iso, tt.iso3).slice(0, 6);
       if (!goals.length && !tt.core.some(i => x.s.regions[i].coastal)) return reject(c, d, `The General Staff reports no feasible axis of advance into ${tt.name}.`);
       if (!goals.length) goals = tt.core.filter(i => x.s.regions[i].coastal && w.regions[i].controller === tt.iso3).slice(0, 2); // amphibious
+      breakCommitments(x, iso, tt.iso3); // attacking a treaty partner breaks every promise to it
       const war = warsOf(w, iso).find(v => v.attackers.includes(tt.iso3) || v.defenders.includes(tt.iso3));
       if (war) war.goals = [...new Set([...war.goals, ...goals])];
       else declareWar(x, iso, tt.iso3, goals, d.order?.slice(0, 160));

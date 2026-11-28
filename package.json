@@ -10,7 +10,10 @@
     "test": "tsx test/selfcheck.ts",
     "typecheck": "tsc --noEmit",
     "constitutions": "tsx scripts/enrich-constitutions.ts",
-    "report": "tsx sim/report.ts"
+    "report": "tsx sim/report.ts",
+    "stylised": "tsx test/stylised.ts",
+    "export": "tsx sim/export.ts",
+    "experiment": "tsx sim/experiment.ts"
   },
   "devDependencies": {
     "@types/node": "^26.6.11",

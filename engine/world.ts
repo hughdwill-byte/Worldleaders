@@ -61,7 +61,7 @@ export function initWorld(opts: { seed: number; startDate?: string }): World {
   const w: World = {
     turn: 0, startDate, seed: opts.seed, countries: {}, order: [], regions: [], factions: {}, wars: [], sanctions: [], treaties: [],
     blocs: structuredClone(R.blocs), attitudes: {}, trade: structuredClone(s.baseTrade), cables: [], pendingProposals: [],
-    global: { oilPrice: 1, scarcity: 0, pandemic: 0, foodPrice: 1 }, recognitions: {}, nextFactionId: 1, nextLeaderId: 1,
+    global: { oilPrice: 1, scarcity: 0, pandemic: 0, foodPrice: 1 }, recognitions: {}, commitments: [], nextFactionId: 1, nextLeaderId: 1,
   };
   w.regions = s.regions.map(r => ({ owner: r.country, controller: r.country, pop: r.pop, gdp: 0, unrest: 0, damage: 0, occupiedSince: null, autonomy: r.autonomy }));
 
@@ -103,7 +103,9 @@ export function initWorld(opts: { seed: number; startDate?: string }): World {
       refugeesHosted: d.refugeesHosted, refugeesOut: d.refugeesOrigin, refugeePolicy: 'restricted',
       orgs: Object.entries(R.blocs).filter(([, b]: [string, any]) => b.members.includes(iso)).map(([k]) => k),
       tariffs: {}, aidOut: {}, rejections: [], policyNotes: [],
-      scores: { welfare: 50, approval: 50, survival: 50, power: 0, weighted: 0 }, coupRisk: 0, policyRate: 0, baseTaxRate: taxRate, sanctionExposure: 0, shocks: [], rally: 0, purgedAt: null, pendingDraft: null,
+      scores: { welfare: 50, approval: 50, survival: 50, power: 0, weighted: 0 }, coupRisk: 0, policyRate: 0, protestMonths: 0, unrestRise: 0, escalation: 0, coopActs: 0, hostileActs: 0, lastDefectionTurn: null, standingOrders: [], lastReview: null,
+      lastCoupTurn: d.lastCoupYear != null ? (d.lastCoupYear - Number(startDate.slice(0, 4))) * 12 + 6 - Number(startDate.slice(5, 7)) : null,
+      lastCivilWarTurn: d.recentCivilWar ? -12 : null, baseTaxRate: taxRate, sanctionExposure: 0, shocks: [], rally: 0, purgedAt: null, pendingDraft: null,
       resourcePolicy: { nationalised: false, exportBan: false, production: 1 }, estimated: d.estimated,
     };
     w.countries[iso] = c; w.order.push(iso);

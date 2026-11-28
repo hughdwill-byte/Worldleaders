@@ -49,7 +49,7 @@ const WDI: Record<string, string> = {
   urban: 'SP.URB.TOTL.IN.ZS', literacy: 'SE.ADT.LITR.ZS', lifeExp: 'SP.DYN.LE00.IN', popGrowth: 'SP.POP.GROW', age014: 'SP.POP.0014.TO.ZS', age65: 'SP.POP.65UP.TO.ZS',
   oilRents: 'NY.GDP.PETR.RT.ZS', gasRents: 'NY.GDP.NGAS.RT.ZS', coalRents: 'NY.GDP.COAL.RT.ZS', mineralRents: 'NY.GDP.MINR.RT.ZS', energyImports: 'EG.IMP.CONS.ZS',
   arable: 'AG.LND.ARBL.ZS', waterStress: 'ER.H2O.FWST.ZS', refugeesHosted: 'SM.POP.REFG', refugeesOrigin: 'SM.POP.REFG.OR', internet: 'IT.NET.USER.ZS',
-  homicide: 'VC.IHR.PSRC.P5', taxRev: 'GC.TAX.TOTL.GD.ZS', healthExp: 'SH.XPD.CHEX.GD.ZS', eduExp: 'SE.XPD.TOTL.GD.ZS',
+  homicide: 'VC.IHR.PSRC.P5', infantMort: 'SP.DYN.IMRT.IN', taxRev: 'GC.TAX.TOTL.GD.ZS', healthExp: 'SH.XPD.CHEX.GD.ZS', eduExp: 'SE.XPD.TOTL.GD.ZS',
 };
 const missingSources: string[] = [];
 
@@ -306,6 +306,10 @@ for (const { iso3, name } of countryList) {
     terror: cur.terror_presence.high.includes(iso3) ? 0.7 : cur.terror_presence.medium.includes(iso3) ? 0.35 : 0.05,
     crime: cur.organised_crime.high.includes(iso3) ? 0.7 : cur.organised_crime.medium.includes(iso3) ? 0.4 : clamp((ex('homicide') ?? 3) / 30, 0.03, 0.6),
     nuclear: cur.nuclear.includes(iso3), p5: cur.unsc_p5.includes(iso3),
+    infantMort: round(m('infantMort')),
+    // world region for coup/instability priors: Middle East = Western Asia + Northern Africa (as in Powell & Thyne)
+    region: ['Western Asia'].includes(ml?.subregion) || ['Northern Africa'].includes(ml?.subregion) ? 'Middle East' : ml?.region === 'Antarctic' || !ml ? 'Asia' : ml.region,
+    lastCoupYear: cur.recent_coups[iso3] ?? null, recentCivilWar: cur.recent_civil_war.includes(iso3),
     landlocked: !!ml?.landlocked, borders: (ml?.borders ?? []).map((b: string) => b === 'UNK' ? 'XKX' : b).filter((b: string) => ISO.has(b)),
     latlng: ml?.latlng ?? [0, 0], federal: cur.federal.includes(iso3), bicameral: cur.bicameral.includes(iso3),
     electionYears: cur.election_years[iso3] ?? (cur.four_year_terms.includes(iso3) ? 4 : 5),

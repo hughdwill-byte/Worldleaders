@@ -18,10 +18,33 @@
   "updatedAt": "2026-11-28T04:39:39.592Z"
  },
  {
-  "id": "mock-baseline-202611261244",
+  "id": "tiered-all-test-202611280517",
+  "name": "tiered all test",
+  "cadence": "monthly",
+  "weights": null,
+  "seed": 77,
+  "createdAt": "2026-11-28T05:17:03.598Z",
+  "startDate": "2026-11",
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "countries": "all",
+  "parent": null,
+  "preset": null,
+  "lastTurn": 1,
+  "lock": null,
+  "costUsd": 0,
+  "requests": 50,
+  "parseFailures": 0,
+  "updatedAt": "2026-11-28T05:20:09.218Z",
+  "stoppedReason": "done"
+ },
+ {
+  "id": "mock-baseline-202611280523",
   "name": "mock baseline",
+  "cadence": "monthly",
+  "weights": null,
   "seed": 1,
-  "createdAt": "2026-11-26T12:44:11.349Z",
+  "createdAt": "2026-11-28T05:23:15.657Z",
   "startDate": "2026-11",
   "provider": "mock",
   "model": "mock",
@@ -32,26 +55,30 @@
   "lock": null,
   "costUsd": 0,
   "requests": 0,
+  "updatedAt": "2026-11-28T05:23:23.389Z",
   "stoppedReason": "done"
  },
  {
-  "id": "mock-welfare-branch-202611261244",
+  "id": "mock-welfare-branch-202611280523",
   "name": "mock welfare branch",
+  "cadence": "monthly",
+  "weights": null,
   "seed": 1,
-  "createdAt": "2026-11-26T12:44:17.668Z",
+  "createdAt": "2026-11-28T05:23:23.890Z",
   "startDate": "2026-11",
   "provider": "mock",
   "model": "mock",
   "countries": "all",
   "parent": {
-   "id": "mock-baseline-202611261244",
+   "id": "mock-baseline-202611280523",
    "turn": 12
   },
   "preset": "welfare",
-  "lastTurn": 27,
+  "lastTurn": 24,
   "lock": null,
   "costUsd": 0,
-  "requests": 683,
-  "stoppedReason": "quota"
+  "requests": 0,
+  "updatedAt": "2026-11-28T05:23:27.772Z",
+  "stoppedReason": "done"
  }
 ]

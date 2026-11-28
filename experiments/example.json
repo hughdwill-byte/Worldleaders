@@ -1,0 +1,9 @@
+{
+  "_about": "Conditions for `npm run experiment -- --conditions experiments/example.json --seeds 5 --months 24`. leaders: mock (free, instant) or ai (uses your provider/quota; slow). A rule-based control with realistic weights is always added.",
+  "conditions": [
+    { "name": "realistic", "leaders": "mock" },
+    { "name": "everyone welfare", "leaders": "mock", "preset": "welfare" },
+    { "name": "everyone power", "leaders": "mock", "preset": "power" },
+    { "name": "autocracies welfare", "leaders": "mock", "weights": { "@autocracies": { "welfare": 1 } } }
+  ]
+}

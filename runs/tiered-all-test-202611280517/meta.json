@@ -1,0 +1,21 @@
+{
+ "id": "tiered-all-test-202611280517",
+ "name": "tiered all test",
+ "cadence": "monthly",
+ "weights": null,
+ "seed": 77,
+ "createdAt": "2026-11-28T05:17:03.598Z",
+ "startDate": "2026-11",
+ "provider": "gemini",
+ "model": "gemini-3.5-flash-lite",
+ "countries": "all",
+ "parent": null,
+ "preset": null,
+ "lastTurn": 1,
+ "lock": null,
+ "costUsd": 0,
+ "requests": 50,
+ "parseFailures": 0,
+ "updatedAt": "2026-11-28T05:20:09.218Z",
+ "stoppedReason": "done"
+}

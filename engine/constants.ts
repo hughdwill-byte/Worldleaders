@@ -42,10 +42,7 @@ export const LADDER = ['calm', 'discontent', 'protests', 'strikes', 'riots', 'in
 export const LADDER_THRESH = [0, 20, 35, 50, 62, 74];   // unrest needed for stage 0..5
 export const STRIKE_GDP_HIT = 1.5;                      // annual growth pts lost during strikes
 export const RIOT_DAMAGE = 0.003;                       // region damage per month of riots
-export const INSURGENCY_SPAWN = 0.08;                   // monthly chance a faction forms at stage>=4 (scaled)
-export const SEPARATIST_SPAWN = 0.03;
 export const DEFECTION_BASE = 0.15;                     // chance per crackdown that forces refuse when military approval low
-export const COUP_BASE = 0.012;                         // monthly coup chance at worst conditions
 export const INDEPENDENCE_HOLD_MONTHS = 6;              // separatists must hold all their regions this long
 
 // ---- War ----
@@ -94,3 +91,58 @@ export const EVENTS = {
 export const ATT = {
   revert: 0.01, aid: 6, sanction: -15, war: -60, annexWorld: -12, annexBlocExtra: -15, cableTone: 3, alliance: 15, sharedBlocDrift: 0.05,
 };
+
+// ---- Empirical hazards (engine/hazards.ts). Annual base rates; converted to monthly with 1-(1-p)^(1/12). ----
+// Odds ratios (OR) combine on the logit scale: logit(p) = logit(base) + Σ ln(OR_i)·x_i  (assumes independence; see NOTES.md)
+export const HAZ = {
+  // Fearon & Laitin 2003 (APSR 97:1): 1.92 civil-war onsets per 100 country-years 1945-99. Base below is for a reference
+  // country (GDP pc $10k 2024 USD, no recent war, autocracy, 25th-percentile infant mortality); calibrated with
+  // `npm run stylised` so the simulated world mean lands near 1.9 onsets per 100 country-years.
+  CIVIL_WAR_ONSET_ANNUAL: 0.004,
+  CIVIL_WAR_OR_PRIOR_WAR: 1.7,                 // F&L: onset odds ~70% higher after a recent war
+  CIVIL_WAR_OR_PER_1000USD_1985_LESS: 1.45,    // F&L: $1,000 (1985 USD) lower GDP pc -> ~45% higher annual odds
+  USD_1985_TO_2024: 2.9,                       // CPI-U ratio 2024/1985 ≈ 2.9 ($1,000 1985 ≈ $2,900 today)
+  CIVIL_WAR_INCOME_REF_USD: 10000,
+  CIVIL_WAR_MAX_ANNUAL: 0.20,                  // F&L: even the riskiest country-years rarely exceed ~0.2/yr
+  // Goldstone et al. 2010 (AJPS 54:1, PITF): partial democracy with factionalism OR ≈30 vs full autocracy;
+  // infant mortality 75th vs 25th percentile OR ≈7; 4+ neighbours in armed conflict sharply raise risk.
+  INSTAB_OR_REGIME: { liberal_democracy: 0.3, electoral_democracy: 2, hybrid_regime: 4, authoritarian: 1, absolute_monarchy: 0.7, one_party_state: 0.7, theocracy: 1, military_junta: 1.5, revolutionary_state: 2 } as Record<string, number>,
+  INSTAB_OR_FACTIONAL_PARTIAL_DEM: 30,         // applied (instead of the regime OR) to electoral/hybrid regimes with factional unrest (unrest>50)
+  INSTAB_OR_INFANT_MORT_P75_VS_P25: 7,
+  INSTAB_NEIGHBOURS_IN_CONFLICT_THRESHOLD: 4,
+  INSTAB_OR_BAD_NEIGHBOURHOOD: 3,
+  OR_UNREST_PER_20: 1.6,                       // engine-endogenous: present unrest above 40 (simplification, not from a study)
+  OR_SUPPRESSED_PER_25: 1.3,                   // engine-endogenous: hidden (suppressed) discontent, lagged one month
+  SEPARATIST_ONSET_ANNUAL: 0.01,               // per aggrieved minority group with separatism 1.0 (scaled by separatism)
+  // Civil wars are sticky: F&L report ~2.3 onsets vs ~1.7-1.85 terminations per year, so conflicts accumulate.
+  // Mean duration of civil wars ≈ 7-10 years (F&L median ~6y; UCDP mean higher) -> negotiated end hazard ≈ 1/(12*8)/month.
+  CIVIL_WAR_END_MONTHLY: 1 / 96,
+  // Powell & Thyne 2011 (JPR 48:2): 457 attempts 1950-2010, 227 succeeded (49.7%). Recent decades: ~3-8 attempts/yr worldwide.
+  COUP_ATTEMPT_ANNUAL: 0.006,                  // reference country (authoritarian, Asia, military approval 50, no recent coup)
+  COUP_SUCCESS_BASE: 0.497,
+  COUP_OR_REGIME: { liberal_democracy: 0.05, electoral_democracy: 0.4, hybrid_regime: 1.5, authoritarian: 1, absolute_monarchy: 0.4, one_party_state: 0.3, theocracy: 0.5, military_junta: 3, revolutionary_state: 1.5 } as Record<string, number>,
+  // regional priors chosen so attempts concentrate as in Powell & Thyne (Africa 36.5%, Americas 31.9%, Middle East 15.8%, Asia 13.1%, Europe 2.6%)
+  COUP_OR_REGION: { Africa: 3, Americas: 1.5, 'Middle East': 1.8, Asia: 1, Europe: 0.15, Oceania: 0.6 } as Record<string, number>,
+  COUP_OR_TRAP_5Y: 4,                          // "coup trap": a coup in the past 5 years
+  COUP_OR_MIL_APPROVAL_PER_20_BELOW_50: 2.2,
+  COUP_OR_GDP_SHOCK: 2,                        // growth < -2%
+  COUP_OR_PROVISIONAL: 2,
+  COUP_OR_COUP_PROOFED: 0.4,                   // purge within 6 months
+  COUP_SUCCESS_OR_LOW_MIL_LOYALTY: 1.6,        // military approval < 40
+  COUP_SUCCESS_OR_ELITE_DEFECTION: 1.3,        // business approval < 30
+  COUP_SUCCESS_OR_COUP_PROOFED: 0.5,
+  // Chenoweth & Stephan 2011; Chenoweth 2020 (J. of Democracy 31:3): nonviolent campaigns succeeded 53% (1900-2006) but only
+  // 34% in 2010-2019; violent campaigns 26%. "3.5% rule" is a rule of thumb (avg peak participation since 2010 ≈ 1.3%).
+  PROTEST_SUCCESS_NONVIOLENT: 0.34,
+  PROTEST_SUCCESS_VIOLENT: 0.26,
+  PROTEST_CAMPAIGN_MONTHS: 6,                  // calibrated (npm run stylised): typical length of a simulated campaign, used to turn campaign success into a monthly hazard
+  PROTEST_TYPICAL_SHARE: 0.013,                // Chenoweth: average peak participation since 2010 ≈1.3% (the base rate applies here)
+  PROTEST_TIPPING_SHARE: 0.035,
+  PROTEST_MAX_PARTICIPATION: 0.05,             // participation share at unrest 100
+  PROTEST_OR_AT_TIPPING: 4,                    // odds multiplier per +1 x (participation/tipping - 1)
+  PROTEST_OR_DEFECTION: 3,                     // security-force defection (Chenoweth & Belgioioso: momentum + defection predict collapse)
+  PROTEST_OR_MOMENTUM: 1.5,                    // unrest rising for 3+ months
+};
+
+// ---- Escalation index (Rivera et al., FAccT 2024 style weights) and CAMEO-like decision codes ----
+export const ESCALATION_WEIGHTS = { deescalate: -2, posture: 1, nonviolent_coercion: 3, violent: 10, nuclear: 60 };

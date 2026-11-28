@@ -8,6 +8,8 @@ import type { Country, SimEvent, World } from '../engine/types.ts';
 import { monthLabel } from '../engine/util.ts';
 import { isDemocracy } from '../engine/regime.ts';
 import { PRESETS, RUNS, type Meta, listRuns, readMeta } from './run.ts';
+import { bands, measure, nationSensitivity } from './benchmarks.ts';
+import { loadStatics } from '../engine/world.ts';
 
 const pad = (t: number) => String(t).padStart(4, '0');
 const snap = (id: string, t: number): World => JSON.parse(zlib.gunzipSync(fs.readFileSync(path.join(RUNS, id, 'turns', pad(t) + '.json.gz'))).toString());
@@ -116,6 +118,40 @@ export function buildReport(id: string): string {
     L.push('');
   }
 
+  // realism benchmarks (V1): this test's event rates vs historical bands
+  const st = loadStatics();
+  const cy = Array.from({ length: n - 1 - startTurn }, (_, i) => series.world.countries[startTurn + 1 + i] ?? 0).reduce((a: number, b: number) => a + b, 0) / 12;
+  if (cy > 0) {
+    const rates = measure(mine, cy, i => st.countryData[i]?.region ?? '?');
+    L.push('## Realism benchmarks (this test vs history)', '', `${cy.toFixed(0)} country-years simulated. Short tests have few events, so treat these as indicative.`, '', '| Measure | This test | Historical band | Source |', '|---|---|---|---|');
+    for (const [lbl, v, lo, hi, src] of bands(rates)) L.push(`| ${lbl} | ${Number.isFinite(v) ? (/per 100/.test(lbl) ? v.toFixed(2) : (v * 100).toFixed(0) + '%') : 'no events'} | ${lo < 1 && hi <= 1 ? `${lo * 100}–${hi * 100}%` : `${lo}–${hi}`} | ${src} |`);
+    L.push(`| Coup attempts per year worldwide | ${(rates.coupAttempts / (cy / 197)).toFixed(1)} | ~3–8 recently | Powell & Thyne |`, '');
+    fs.writeFileSync(path.join(RUNS, id, 'benchmarks.json'), JSON.stringify({ countryYears: +cy.toFixed(1), bands: bands(rates), coupAttemptsPerYear: +(rates.coupAttempts / (cy / 197)).toFixed(2), nation: nationSensitivity(mine, i => w1.countries[i]?.govType ?? '?') }));
+  }
+  // escalation & cooperation (U1, Rivera-style weights: de-escalation −2, posture 1, non-violent coercion 3, violent 10, nuclear 60)
+  if (W.escalation) {
+    const esc = (i: string) => (C[i]?.escalation ?? []).slice(startTurn + 1).reduce((a: number, b: number | null) => a + (b ?? 0), 0);
+    const tops = Object.keys(C).map(i => [i, esc(i)] as [string, number]).filter(x => x[1] !== 0).sort((a, b) => b[1] - a[1]);
+    const ws = (W.escalation as number[]).slice(startTurn + 1);
+    L.push('## Escalation and cooperation', '',
+      `- World escalation index by month (sum of all countries; Rivera et al. weights): ${ws.map((v, i) => `${series.months[startTurn + 1 + i]?.slice(0, 3)} ${v}`).join(', ') || 'n/a'}`,
+      `- Most escalatory: ${tops.slice(0, 8).map(([i, v]) => `${name(i)} ${v}`).join(', ') || 'none'}; most de-escalatory: ${tops.filter(x => x[1] < 0).slice(-5).reverse().map(([i, v]) => `${name(i)} ${v}`).join(', ') || 'none'}`,
+      `- Cooperative ÷ hostile acts (world, last month): ${W.coopRatio?.[n - 1] ?? '–'}; liberty index (population-weighted, 0–100): ${f1(W.liberty?.[base0])} → ${f1(W.liberty?.[n - 1])}`, '');
+  }
+  // V3 nation-sensitivity of AI leaders
+  const ns = nationSensitivity(mine, i => w1.countries[i]?.govType ?? '?');
+  if (ns) L.push('## Do AI leaders act differently by country? (nation-sensitivity test)', '',
+    `- ${ns.countries} AI-led countries compared by the mix of their decisions (CAMEO-style codes). Mean Jensen-Shannon divergence ${ns.mean.toFixed(3)} (0 = identical, 1 = completely different).`,
+    `- Same regime type: ${f1(ns.within, 3)}; different regime types: ${f1(ns.between, 3)} (ratio ${f1(ns.ratio, 2)}).`,
+    `- Verdict: ${ns.verdict}.`, '');
+  // AI coverage (tiers)
+  const tierFiles = fs.existsSync(path.join(RUNS, id, 'agents')) ? fs.readdirSync(path.join(RUNS, id, 'agents')).map(d => path.join(RUNS, id, 'agents', d, '_tiers.json')).filter(f => fs.existsSync(f)) : [];
+  if (tierFiles.length) {
+    const tot: Record<string, number> = {};
+    for (const f of tierFiles) for (const t of Object.values<string>(JSON.parse(fs.readFileSync(f, 'utf8')))) tot[t] = (tot[t] ?? 0) + 1;
+    L.push('## Who decided', '', `Per month on average: ${Object.entries(tot).map(([t, v]) => `${({ A: 'AI tier A (major powers)', B: 'AI tier B (triggered by crisis)', C: 'AI tier C (rotation review)', standing: 'standing orders written by their AI leader', mock: 'rule-based leaders' } as Record<string, string>)[t] ?? t}: ${(v / tierFiles.length).toFixed(1)}`).join('; ')}.${m.parseFailures ? ` Unreadable AI replies needing a re-ask: ${m.parseFailures}.` : ''}`, '');
+  }
+
   // month by month
   L.push('## Month by month', '', 'Major events, AI decisions with consequences, and headlines. "Reasoning" is the leader\'s private assessment that month.', '');
   for (let t = startTurn; t < m.lastTurn; t++) {
@@ -123,8 +159,10 @@ export function buildReport(id: string): string {
     const major = ev.filter(e => e.major && !e.type.startsWith('decision'));
     const keyDec = ev.filter(e => e.type.startsWith('decision') && (AGGRESSIVE.test((e.data as any)?.by?.type ?? '') || /declare_war|annex|puppet|alliance|ceasefire|peace|constitutional/.test((e.data as any)?.by?.type ?? '')));
     const heads = ev.filter(e => e.type === 'headline');
+    const narr = ev.filter(e => e.type === 'narrative');
     if (!major.length && !keyDec.length && !heads.length) { L.push(`### ${label(t)}`, '- Quiet month (no major events).', ''); continue; }
     L.push(`### ${label(t)}`);
+    for (const e of narr) L.push(`- Summary: ${e.text}`);
     for (const e of major) {
       const d = e.data as any;
       L.push(`- **${e.text}**${d?.by ? ` — caused by ${name(d.by.iso)}'s order "${(d.by.order || d.by.type).slice(0, 160)}"${d.by.ai ? `; reasoning: "${String(d.by.reasoning).slice(0, 300)}"` : ''}` : d?.why ? ` — why: ${String(d.why).slice(0, 300)}` : ''}`);

@@ -1,6 +1,6 @@
 # Data quality report
 
-Generated 2026-11-26 by `npm run data`. 197 countries, 4575 regions (0 point-only).
+Generated 2026-11-28 by `npm run data`. 197 countries, 4575 regions (0 point-only).
 
 ## Sources
 
@@ -14,7 +14,7 @@ Generated 2026-11-26 by `npm run data`. 197 countries, 4575 regions (0 point-onl
 - International IDEA Media Integrity index (0-100) -> press freedom: `https://raw.githubusercontent.com/open-numbers/ddf--gapminder--fasttrack/HEAD/countries_etc_datapoints/ddf--datapoints--mediaint_idea--by--country--time.csv`
 - International IDEA Freedom of Expression index (0-100) -> inverse of censorship: `https://raw.githubusercontent.com/open-numbers/ddf--gapminder--fasttrack/HEAD/countries_etc_datapoints/ddf--datapoints--fexpression_idea--by--country--time.csv`
 - IMF WEO general government gross debt (% of GDP): `https://raw.githubusercontent.com/open-numbers/ddf--imf--weo/HEAD/ddf--datapoints--ggxwdg_ngdp--by--country--year.csv`
-- World Bank WDI indicators (API, or bulk CSV fallback): SP.POP.TOTL, NY.GDP.MKTP.CD, NY.GDP.PCAP.CD, NY.GDP.MKTP.KD.ZG, FP.CPI.TOTL.ZG, SL.UEM.TOTL.ZS, GC.DOD.TOTL.GD.ZS, NE.TRD.GNFS.ZS, MS.MIL.XPND.GD.ZS, MS.MIL.TOTL.P1, SP.URB.TOTL.IN.ZS, SE.ADT.LITR.ZS, SP.DYN.LE00.IN, SP.POP.GROW, SP.POP.0014.TO.ZS, SP.POP.65UP.TO.ZS, NY.GDP.PETR.RT.ZS, NY.GDP.NGAS.RT.ZS, NY.GDP.COAL.RT.ZS, NY.GDP.MINR.RT.ZS, EG.IMP.CONS.ZS, AG.LND.ARBL.ZS, ER.H2O.FWST.ZS, SM.POP.REFG, SM.POP.REFG.OR, IT.NET.USER.ZS, VC.IHR.PSRC.P5, GC.TAX.TOTL.GD.ZS, SH.XPD.CHEX.GD.ZS, SE.XPD.TOTL.GD.ZS
+- World Bank WDI indicators (API, or bulk CSV fallback): SP.POP.TOTL, NY.GDP.MKTP.CD, NY.GDP.PCAP.CD, NY.GDP.MKTP.KD.ZG, FP.CPI.TOTL.ZG, SL.UEM.TOTL.ZS, GC.DOD.TOTL.GD.ZS, NE.TRD.GNFS.ZS, MS.MIL.XPND.GD.ZS, MS.MIL.TOTL.P1, SP.URB.TOTL.IN.ZS, SE.ADT.LITR.ZS, SP.DYN.LE00.IN, SP.POP.GROW, SP.POP.0014.TO.ZS, SP.POP.65UP.TO.ZS, NY.GDP.PETR.RT.ZS, NY.GDP.NGAS.RT.ZS, NY.GDP.COAL.RT.ZS, NY.GDP.MINR.RT.ZS, EG.IMP.CONS.ZS, AG.LND.ARBL.ZS, ER.H2O.FWST.ZS, SM.POP.REFG, SM.POP.REFG.OR, IT.NET.USER.ZS, VC.IHR.PSRC.P5, SP.DYN.IMRT.IN, GC.TAX.TOTL.GD.ZS, SH.XPD.CHEX.GD.ZS, SE.XPD.TOTL.GD.ZS
 - Hand-curated: `data/curated.json` (blocs, treaties, disputes, conflicts, sanctions, government systems, minorities, oil/mineral regions, chokepoints)
 
 ## Missing sources
@@ -51,6 +51,7 @@ Generated 2026-11-26 by `npm run data`. 197 countries, 4575 regions (0 point-onl
 | taxRev | 148 | 49 | DZA ATG BEN BOL BRN TCD COM CUB DJI DMA ERI GMB GRD GIN GUY HTI IDN IRN JPN PRK KWT LBR LBY LIE MRT … |
 | healthExp | 192 | 5 | PRK LIE VAT XKX TWN |
 | eduExp | 181 | 16 | EGY GNQ ERI GNB IRQ PRK LBY LIE MNE MKD SDN SYR YEM VAT XKX TWN |
+| infantMort | 194 | 3 | LIE VAT TWN |
 
 ## Always estimated (no open source reachable / by design)
 

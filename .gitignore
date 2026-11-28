@@ -5,3 +5,4 @@ viewer/dist/
 runs/.quota.json
 runs/**/pending.json.tmp
 *.tmp
+runs/*/csv/
