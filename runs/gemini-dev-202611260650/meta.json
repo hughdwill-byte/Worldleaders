@@ -9,10 +9,10 @@
  "countries": "dev",
  "parent": null,
  "preset": null,
- "lastTurn": 5,
+ "lastTurn": 8,
  "lock": null,
  "costUsd": 0,
- "requests": 113,
+ "requests": 173,
  "stoppedReason": "done",
- "updatedAt": "2026-11-28T04:30:38.749Z"
+ "updatedAt": "2026-11-28T04:39:39.592Z"
 }
