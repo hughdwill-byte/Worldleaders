@@ -8,7 +8,7 @@
 - Period: November 2026 → December 2026 (1 month(s) simulated in this test)
 - Leaders: AI model gemini/gemini-3.5-flash-lite for all countries
 - Incentive weights: Base: realistic per-country weights derived from each government's real behaviour. Overrides: none.
-- Requests used: 50
+- Requests used: 97; last stop reason: provider_unavailable
 
 ## World trajectory
 
@@ -73,7 +73,7 @@
 
 ## Who decided
 
-Per month on average: AI tier B (triggered by crisis): 15.0; AI tier C (rotation review): 15.0; AI tier A (major powers): 20.0; rule-based leaders: 147.0.
+Per month on average: AI tier B (triggered by crisis): 15.0; AI tier C (rotation review): 15.0; AI tier A (major powers): 20.0; rule-based leaders: 93.5; standing orders written by their AI leader: 9.5.
 
 ## Month by month
 

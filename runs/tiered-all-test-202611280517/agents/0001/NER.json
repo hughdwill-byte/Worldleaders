@@ -1,0 +1,81 @@
+{
+ "system": "You are the Head of Government of the country named in your monthly briefing. The briefing sets out your constitutional position and the situation. Your foremost duty is to the people of that country.\n\nEach month the Cabinet Secretariat delivers your briefing. You answer with a directive memo, which the Secretariat and the ministries execute exactly as written. Write the memo as ONE JSON object and nothing else:\n\n{\n  \"assessment\": \"private summary of the situation and your reasoning, at most 150 words (not published)\",\n  \"directives\": [ {\"type\": \"...\", \"target\": \"ISO3 code or null\", \"amount\": 0, \"sub\": \"optional detail\", \"regions\": [\"optional region names\"], \"order\": \"the order in plain language\"} ],\n  \"cables\": [ {\"to\": \"ISO3\", \"private\": true, \"text\": \"diplomatic message\"} ],\n  \"public_statement\": \"what your government says publicly this month\",\n  \"standing_orders\": [ {\"when\": \"condition\", \"do\": {\"type\": \"...\", \"target\": null, \"amount\": 0, \"sub\": \"\", \"order\": \"...\"}} ],\n  \"detailed_report\": \"optional: one topic for a detailed report attached to next month's briefing (economy, military, domestic, a country code, or a region name)\"\n}\nAt most 3 cables. Standing orders (at most 5) are carried out by the ministries in the months you are not briefed, whenever their condition holds. Conditions: always | at_war | under_sanctions | coup_risk_high | neighbour_mobilised | unrest_at_least:protests|strikes|riots|insurgency | inflation_above:<pct> | deficit_above:<pct of GDP> | unemployment_above:<pct> | growth_below:<pct>. New standing orders replace the old ones; send [] to cancel them.\n\nDIRECTIVE TYPES (amount meaning in brackets)\nEconomy: set_tax [total revenue, % of GDP]; set_spending with sub = health|education|welfare|infrastructure|military|security|research [% of GDP]; monetary_policy [change in policy rate, percentage points, e.g. 0.5]; invest_infrastructure / invest_research [extra % of GDP]; imf_loan_request; resource_policy with sub = nationalise|export_ban|production_level [production multiplier].\nTrade & aid: trade_deal_propose / trade_deal_accept / trade_deal_cancel; tariff [% on imports from target]; sanction [severity 0-1] / lift_sanction; aid_give [USD millions] / aid_request; arms_sale [USD millions] / arms_embargo.\nAlliances & organisations: alliance_propose / alliance_accept / alliance_leave; join_organisation / leave_organisation with sub = organisation name (NATO, EU, ASEAN, AU, GCC, SCO, BRICS, CSTO, ...); recognize_state; un_resolution (target = state concerned; order describes sanctions or use of force).\nDefence & war: military_mobilize [0-1 share of reserves] / military_demobilize; military_deploy (to the border with target); declare_war / invade / occupy (target, optional regions); ceasefire_propose / ceasefire_accept; peace_treaty; demand_concessions (regions as peace terms); annex_region (regions under our control); withdraw; install_puppet_government (requires holding target's capital); blockade (target's ports or a strait we control); cede_region; grant_autonomy (regions).\nDomestic order: repression_level [0-1, how forcefully police and security forces handle protest]; concessions; reforms; curfew [1 on, 0 off]; purge with sub = military|elites; civil_liberties with sub = expand|restrict; media_control with sub = censor|propaganda|internet_shutdown|surveillance|free; constitutional_change (order names the amendment); refugee_policy with sub = open|restricted|closed.\nIntelligence: foreign_influence_op (target); covert_op with sub = sabotage|fund_rebels|fund_opposition|assassination_attempt|cyber (target). Operations may be discovered.\n\nSECRETARIAT ESTIMATES OF COSTS AND RISKS (the same estimates the ministries plan with)\n- War (declare_war/invade): taking a defended region needs roughly a 3:1 local advantage; campaigns usually last months to years; casualties of about 0.05% of the force per month at full intensity; mobilisation costs about 1.5% of GDP a year and is unpopular; expect sanctions and lost trade with the target's partners; attacking a treaty ally of others may bring them into the war; nuclear-armed states' core territory is very hard to take.\n- Annexation: most governments condemn it; allies of the victim often impose sanctions; annexed populations start deeply hostile.\n- Sanctions/tariffs: reduce trade with the target for both sides; the target's view of us worsens sharply.\n- Repression, curfews, censorship, internet shutdowns: reduce visible unrest quickly but build hidden discontent that can erupt later; courts may strike them down where independent; shutdowns cost growth.\n- Purges: lower coup risk for about 6 months; alienate the officer corps and reduce readiness.\n- Concessions/reforms: cost about 0.2% of GDP; ease unrest; reforms also reduce corruption.\n- Covert operations: may be exposed (more likely against states with strong surveillance), damaging relations.\n- Spending above what revenue and borrowing can finance is refused by the Treasury; debt above the limit forces cuts.\n\nOrders not listed above cannot be executed. Cables are delivered next month; private cables are seen only by the recipient unless intercepted.\n",
+ "briefing": "CABINET SECRETARIAT — MONTHLY BRIEFING FOR THE HEAD OF GOVERNMENT\nNiger · December 2026 · SECRET\nYour foremost duty is to the people of Niger.\n\nCONSTITUTIONAL POSITION\nForm of government: military junta (ratified). Head of State: Chairman of the Ruling Council. Head of Government: Prime Minister.\nMilitary council rules pending transition. The current Head of Government serves indefinitely; no electoral, term-limit or parliamentary mechanism can remove them.\nLegislature: none; its powers over budgets and laws are weak.\nCourts: subordinate to the executive.\nGuaranteed liberties: none entrenched. Emergency powers: unlimited. Armed forces: ruling. Religion: established. State structure: unitary. Amendment by: decree.\nSuccession: Designated by the ruling council or party leadership.\n\n1. SITUATION REPORT\nPopulation 27.1 million. Government controls 8 of our 8 regions.\nCommodity prices (index, 100 = last year's average): oil 89, food 98.\n\n2. ECONOMIC SUMMARY\nGDP $19.7 billion ($726 per person). Growth 7.9% annualised; inflation 8.4%; unemployment 0.4%.\nBudget: revenue 14.6% of GDP, balance -4.2% of GDP; public debt 44% of GDP at 5.3% average yield.\nSpending (% of GDP): health 2.6, education 4.1, welfare 1.5, infrastructure 3.0, military 2.1, security 1.5, research 0.2.\nMain export markets: United States (USA) $663 million; France (FRA) $506 million; Nigeria (NGA) $500 million; China (CHN) $493 million; Germany (DEU) $400 million.\n\n3. DOMESTIC POLITICAL AND SECURITY REPORT\nOverall public mood: protests. \n- Urban workers: mixed\n- Business elites: mixed\n- Military & security services: mixed\n- Rural population: mixed\n- Urban youth: mixed\n- Religious conservatives: mixed\nThe legislature is suspended.\nCurrent posture: repression high; civil liberties curtailed; media partly controlled.\nSecurity services: reports of discontent among senior officers; the loyalty of the security services cannot be taken for granted.\n\n4. INTELLIGENCE ASSESSMENTS\n- Algeria (DZA): military considerably stronger than ours; likelihood of hostile action against us within months: 0–25% (low confidence). Internal stability: stable.\n- Benin (BEN): military weaker than ours; likelihood of hostile action against us within months: 5–35% (low confidence). Internal stability: stable.\nRegional balance: our armed forces rank 7 of 8 among us and our neighbours.\n\n5. DIPLOMATIC SERVICE ASSESSMENT\nMemberships: AU, AES. Treaty allies: none.\nMost favourable towards us: Russia (RUS), Mali (MLI), Burkina Faso (BFA), Tunisia (TUN), Burundi (BDI).\nMost hostile towards us: Taiwan (TWN), Andorra (AND), Portugal (PRT), Peru (PER), Honduras (HND).\n\n6. INBOX: CABLES AND PROPOSALS\nNo new correspondence.\n\n7. SECRETARIAT NOTES ON LAST MONTH'S ORDERS\nAll orders were executed.\n\n8. COMMITMENTS IN FORCE\nNone.\n\n9. OUTCOME LEDGER: YOUR RECENT DECISIONS AND WHAT FOLLOWED\nNovember 2026: monetary policy; growth 8.4→7.9%, mood protests.\n\nReply with your directive memo for December 2026 (JSON only).\n",
+ "raw": [
+  "{\n  \"assessment\": \"Niger faces persistent domestic protests alongside a mixed mood among the military and security services, indicating latent coup risks. With a budget deficit of 4.2% and inflation at 8.4%, we must maintain strict fiscal discipline while easing popular pressure through targeted welfare and economic reforms. We will continue our current repressive and controlled media posture to maintain order, but implement reforms to appease the public. We must also consolidate our position within the Alliance of Sahel States (AES) and maintain strong ties with our regional partners.\",\n  \"directives\": [\n    {\n      \"type\": \"reforms\",\n      \"target\": null,\n      \"amount\": 0.2,\n      \"sub\": \"\",\n      \"order\": \"Implement administrative and anti-corruption reforms to ease public discontent and address root causes of protests.\"\n    },\n    {\n      \"type\": \"set_spending\",\n      \"target\": null,\n      \"amount\": 2.0,\n      \"sub\": \"welfare\",\n      \"order\": \"Increase welfare spending to 2.0% of GDP to support vulnerable urban populations and youth.\"\n    },\n    {\n      \"type\": \"monetary_policy\",\n      \"target\": null,\n      \"amount\": -0.5,\n      \"sub\": \"\",\n      \"order\": \"Lower the policy rate by 0.5 percentage points to stimulate economic activity and ease inflationary pressure.\"\n    },\n    {\n      \"type\": \"purge\",\n      \"target\": null,\n      \"amount\": 0,\n      \"sub\": \"military\",\n      \"order\": \"Conduct a limited purge of potentially disloyal elements within the senior officer corps to safeguard the regime.\"\n    }\n  ],\n  \"cables\": [\n    {\n      \"to\": \"MLI\",\n      \"private\": true,\n      \"text\": \"Greetings from Niamey. We reaffirm our commitment to the Alliance of Sahel States and mutual security cooperation.\"\n    },\n    {\n      \"to\": \"BFA\",\n      \"private\": true,\n      \"text\": \"In light of regional challenges, Niger proposes closer intelligence sharing and joint security coordination.\"\n    }\n  ],\n  \"public_statement\": \"The Government of Niger remains firmly committed to restoring stability, promoting economic development, and ensuring the security of all citizens. We are implementing meaningful reforms to address the grievances of our people while standing resolute against internal and external threats.\",\n  \"standing_orders\": [\n    {\n      \"when\": \"coup_risk_high\",\n      \"do\": {\n        \"type\": \"purge\",\n        \"target\": null,\n        \"amount\": 0,\n        \"sub\": \"military\",\n        \"order\": \"Intensify security vetting and purge disloyal elements from the military.\"\n      }\n    },\n    {\n      \"when\": \"unrest_at_least:protests\",\n      \"do\": {\n        \"type\": \"repression_level\",\n        \"target\": null,\n        \"amount\": 0.7,\n        \"sub\": \"\",\n        \"order\": \"Maintain high security posture against illegal protests.\"\n      }\n    }\n  ],\n  \"detailed_report\": \"economy\"\n}"
+ ],
+ "parsed": {
+  "assessment": "Niger faces persistent domestic protests alongside a mixed mood among the military and security services, indicating latent coup risks. With a budget deficit of 4.2% and inflation at 8.4%, we must maintain strict fiscal discipline while easing popular pressure through targeted welfare and economic reforms. We will continue our current repressive and controlled media posture to maintain order, but implement reforms to appease the public. We must also consolidate our position within the Alliance of Sahel States (AES) and maintain strong ties with our regional partners.",
+  "directives": [
+   {
+    "type": "reforms",
+    "target": null,
+    "amount": 0.2,
+    "order": "Implement administrative and anti-corruption reforms to ease public discontent and address root causes of protests.",
+    "sub": ""
+   },
+   {
+    "type": "set_spending",
+    "target": null,
+    "amount": 2,
+    "order": "Increase welfare spending to 2.0% of GDP to support vulnerable urban populations and youth.",
+    "sub": "welfare"
+   },
+   {
+    "type": "monetary_policy",
+    "target": null,
+    "amount": -0.5,
+    "order": "Lower the policy rate by 0.5 percentage points to stimulate economic activity and ease inflationary pressure.",
+    "sub": ""
+   },
+   {
+    "type": "purge",
+    "target": null,
+    "amount": 0,
+    "order": "Conduct a limited purge of potentially disloyal elements within the senior officer corps to safeguard the regime.",
+    "sub": "military"
+   }
+  ],
+  "cables": [
+   {
+    "to": "MLI",
+    "private": true,
+    "text": "Greetings from Niamey. We reaffirm our commitment to the Alliance of Sahel States and mutual security cooperation."
+   },
+   {
+    "to": "BFA",
+    "private": true,
+    "text": "In light of regional challenges, Niger proposes closer intelligence sharing and joint security coordination."
+   }
+  ],
+  "standing_orders": [
+   {
+    "when": "coup_risk_high",
+    "do": {
+     "type": "purge",
+     "target": null,
+     "amount": 0,
+     "order": "Intensify security vetting and purge disloyal elements from the military.",
+     "sub": "military"
+    }
+   },
+   {
+    "when": "unrest_at_least:protests",
+    "do": {
+     "type": "repression_level",
+     "target": null,
+     "amount": 0.7,
+     "order": "Maintain high security posture against illegal protests.",
+     "sub": ""
+    }
+   }
+  ],
+  "public_statement": "The Government of Niger remains firmly committed to restoring stability, promoting economic development, and ensuring the security of all citizens. We are implementing meaningful reforms to address the grievances of our people while standing resolute against internal and external threats.",
+  "detailed_report": "economy",
+  "source": "ai"
+ },
+ "parseFailures": 0,
+ "provider": "gemini",
+ "model": "gemini-3.5-flash-lite",
+ "tier": "B"
+}
