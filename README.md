@@ -4,6 +4,8 @@
 
 The full design is in [SPEC.md](SPEC.md). Model simplifications and known limits are in [NOTES.md](NOTES.md). Data coverage (real vs estimated) is in [data/quality-report.md](data/quality-report.md).
 
+**Live viewer:** https://hughdwill-byte.github.io/Worldleaders/
+
 ## Setup (Windows, macOS or Linux)
 
 1. Install **Node.js 22 LTS or newer** from nodejs.org. You don't need Python, WSL or Docker.
